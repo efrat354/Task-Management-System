@@ -1,18 +1,19 @@
 ﻿namespace DO;
 
 public record Task
-{
-    string Description;
-    string Alias;
-    bool Milestone;
-    DateTime CreatedAt;
-    DateTime Start;
-    DateTime ScheduledDate;
-    DateTime ForcastDate;
-    DateTime Deadline;
-    DateTime Complete;
-    string Deliverables;
-    string Remarks;
-    int EngineerId;
-    EngineerExperience ComplexityLevel;
-}
+(
+    string? Description=null,
+    string? Alias=null,
+    bool Milestone=false,
+    DateTime CreatedAt=new DateTime() ,
+    DateTime? Start=null,
+    DateTime? ScheduledDate = null,
+    DateTime? ForcastDate = null,
+    DateTime? Deadline = null,
+    DateTime? Complete = null  ,
+    string? Deliverables=null,
+    string? Remarks = null,
+    int? EngineerId = null
+    //EngineerExperience ComplexityLevel
+
+);
