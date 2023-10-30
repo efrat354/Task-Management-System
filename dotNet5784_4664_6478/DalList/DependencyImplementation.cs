@@ -22,7 +22,7 @@ public class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        throw new NotImplementedException();
+       return DataSource.Dependencys.Find(x => x.GetId() == id);
     }
 
     public List<Dependency> ReadAll()
