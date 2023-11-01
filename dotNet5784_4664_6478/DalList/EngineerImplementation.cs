@@ -8,10 +8,11 @@ public class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
-        int id = DataSource.Config.NextDependencyId;
-        Dependency copy = item with { Id = id };
-        DataSource.Dependencys.Add(copy);
-        return id;
+        //for entities with normal id (not auto id)
+        if (Read(item.Id) is not null)
+            throw new Exception($"Engineer with ID={item.Id} already exists");
+        DataSource.Engineers.Add(item);
+        return item.Id;
     }
 
     public void Delete(int id)
@@ -21,16 +22,29 @@ public class EngineerImplementation : IEngineer
 
     public Engineer? Read(int id)
     {
-        throw new NotImplementedException();
+        if (DataSource.Engineers.Exists(x => x!.Id == id))//
+        {
+            return DataSource.Engineers.Find(x => x!.Id == id);
+        }
+        return null;
     }
 
     public List<Engineer> ReadAll()
     {
-        throw new NotImplementedException();
+        return new List<Engineer>(DataSource.Engineers!);
     }
 
     public void Update(Engineer item)
     {
-        throw new NotImplementedException();
+        Engineer? reference = Read(item.Id);
+        if (reference != null)
+        {
+            DataSource.Engineers.Remove(reference);
+            DataSource.Engineers.Add(item);
+        }
+        else
+        {
+            throw new Exception("The item to update does not exist in the system");
+        }
     }
 }

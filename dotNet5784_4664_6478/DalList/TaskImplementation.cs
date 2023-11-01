@@ -21,16 +21,29 @@ public class TaskImplementation : ITask
 
     public Task? Read(int id)
     {
-        throw new NotImplementedException();
+        if (DataSource.Tasks.Exists(x => x!.Id == id))
+        {
+            return DataSource.Tasks.Find(x => x!.Id == id);
+        }
+        return null;
     }
 
     public List<Task> ReadAll()
     {
-        throw new NotImplementedException();
+        return new List<Task>(DataSource.Tasks!);
     }
 
     public void Update(Task item)
     {
-        throw new NotImplementedException();
+        Task? reference = Read(item.Id);
+        if (reference != null)
+        {
+            DataSource.Tasks.Remove(reference);
+            DataSource.Tasks.Add(item);
+        }
+        else
+        {
+            throw new Exception("The item to update does not exist in the system");
+        }
     }
 }

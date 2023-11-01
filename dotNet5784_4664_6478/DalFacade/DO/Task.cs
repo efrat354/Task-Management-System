@@ -2,6 +2,7 @@
 
 public record Task
 (
+    int Id,
     string? Description=null,
     string? Alias=null,
     bool Milestone=false,
@@ -13,7 +14,6 @@ public record Task
     DateTime? Complete = null  ,
     string? Deliverables=null,
     string? Remarks = null,
-    int? EngineerId = null
-    //EngineerExperience ComplexityLevel
-
+    int? EngineerId = null,
+    EngineerExperience ComplexityLevel=0
 );
