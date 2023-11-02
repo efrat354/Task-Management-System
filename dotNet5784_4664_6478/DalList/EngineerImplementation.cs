@@ -17,7 +17,17 @@ public class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Engineer? reference = Read(id);
+        if (reference==null)
+        {
+            throw new Exception("Cannot be deleted, engineer does not exist");
+        }
+        else
+        {
+            Engineer engineer = new Engineer(id , reference.Name,reference.Email, reference.Level,reference.Cost,false);
+            Update(reference);
+        }
+        
     }
 
     public Engineer? Read(int id)
