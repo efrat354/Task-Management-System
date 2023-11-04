@@ -17,7 +17,15 @@ public class DependencyImplementation : IDependency
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Dependency? reference = Read(id);
+        if (reference != null)
+        {
+            DataSource.Dependencies.Remove(reference);
+        }
+        else
+        {
+            throw new Exception("The dependency to delete does not exist in the system");
+        }
     }
 
     //Recieves an ID and check if it exists in the list 

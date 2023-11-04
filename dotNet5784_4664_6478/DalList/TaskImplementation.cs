@@ -16,7 +16,30 @@ public class TaskImplementation : ITask
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Task? reference = Read(id);
+        if (reference != null)
+        {
+            foreach (Dependency? depend in DataSource.Dependencies)
+            {
+                if (depend?.DependentTask == id)
+                {
+                    throw new Exception("This task cannot be deleted because other tasks depend on it");
+                }
+            }
+            foreach (Dependency? depend in DataSource.Dependencies)
+            {
+                if (depend?.DependsOnTask == id)
+                {
+                    //איך להשתשמש בפעולה delete של dependency
+                    DataSource.Dependencies.Remove(depend);
+                }
+            }
+            DataSource.Tasks.Remove(reference);
+        }
+        else
+        {
+            throw new Exception("The item to delete does not exist in the system");
+        }
     }
 
     public Task? Read(int id)
