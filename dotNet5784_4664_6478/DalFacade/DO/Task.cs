@@ -16,4 +16,7 @@ public record Task
     string? Remarks = null,
     int? EngineerId = null,
     EngineerExperience ComplexityLevel=0
-);
+)
+{
+    public Task() : this(0) { }
+}

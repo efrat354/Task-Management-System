@@ -7,4 +7,5 @@ public static class Initialization
     private static IDependency? s_dalDependency;
     private static ITask? s_dalTask;
     private static readonly Random s_rand = new();
+
 }

@@ -13,8 +13,6 @@ internal static class DataSource
         internal static int NextTaskId { get => nextTaskId++; }
     }
        
-
-        //איך יודעים שזה הפניה ו nullable
     internal static List<DO.Dependency?> Dependencies { get; } = new();
     internal static List<DO.Task?> Tasks { get; } = new();
     internal static List<DO.Engineer?> Engineers { get; } = new();
