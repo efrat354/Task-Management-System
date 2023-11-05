@@ -24,7 +24,7 @@ public class EngineerImplementation : IEngineer
         }
         else
         {
-            Engineer engineer = new Engineer(id , reference.Name,reference.Email, reference.Level,reference.Cost,false);
+           Engineer engineer = reference with { status=false};
             Update(engineer);
         }
         
