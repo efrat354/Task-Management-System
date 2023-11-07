@@ -13,7 +13,7 @@ namespace DalTest
         {
          try{
                 Initialization.Do(s_dalEngineer, s_dalDependency, s_dalTask);
-
+                Console.WriteLine("gydsgfty");
             }
           catch(Exception e){
                 Console.WriteLine(e.Message);
