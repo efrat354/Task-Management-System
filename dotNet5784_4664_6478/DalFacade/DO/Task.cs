@@ -2,7 +2,7 @@
 
 public record Task
 (
-    int Id,
+    int Id=0,
     string? Description=null,
     string? Alias=null,
     bool Milestone=false,
