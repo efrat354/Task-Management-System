@@ -8,11 +8,10 @@ public record Task
     bool Milestone=false,
     DateTime CreatedAt=new DateTime() ,
     DateTime? Start=null,
-    DateTime? ScheduledDate = null,
     DateTime? ForcastDate = null,
     DateTime? Deadline = null,
     DateTime? Complete = null  ,
-    string? Deliverables=null,
+    string? Product=null,
     string? Remarks = null,
     int? EngineerId = null,
     EngineerExperience ComplexityLevel=0

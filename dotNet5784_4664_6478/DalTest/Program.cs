@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Globalization;
+using System.Numerics;
 using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Xml.Linq;
@@ -43,7 +44,7 @@ namespace DalTest
                         s_dalEngineer?.Read(_id);
                         break;
                     case 3:
-                        s_dalEngineer?.ReadAll();
+                        Console.WriteLine(s_dalEngineer?.ReadAll());
                         break;
                     case 4:
                         Console.WriteLine("Enter engineer's details: ID, name, email,level (0-JR,1-rookie,2-expert)");
@@ -67,9 +68,17 @@ namespace DalTest
         }
         private static void task()
         {
-
+    //        bool Milestone = false,
+    //DateTime CreatedAt = new DateTime() ,
+    //DateTime? Start = null,
+    //DateTime? ForcastDate = null,
+    //DateTime? Deadline = null,
+    //DateTime? Complete = null  ,
+    //string? Product = null,
+    //string? Remarks = null,
+    //int? EngineerId = null,
+    //EngineerExperience ComplexityLevel = 0
             int choice = 0;
-    
             string _description, _alias;
             DO.Task task;
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
@@ -126,6 +135,7 @@ namespace DalTest
             }
                    
         }
+
         static void Main(string[] args)
         {
             try {

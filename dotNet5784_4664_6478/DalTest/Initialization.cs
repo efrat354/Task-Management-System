@@ -32,7 +32,6 @@ public static class Initialization
               "ArielaLevin@gmail.com", "DinaKlein@gmail.com", "ShiraIsraelof@gmail.com"
         };
 
-        //int moneEmail = 0;
         foreach (string _name in engineerNames)
         {
             do
@@ -43,11 +42,10 @@ public static class Initialization
             {
                 _email = email;
             }
-            // _email = engineerEmails[moneEmail++];
-            _level = (EngineerExperience)s_rand.Next(0, 3); ;
+            _level = (EngineerExperience)s_rand.Next(0, 3);
             _cost = s_rand.Next(0, 10000);
             newEng = new(_id, _name, _email, _level, _cost);
-            s_dalEngineer!.Create(newEng);
+            s_dalEngineer?.Create(newEng);
         }
     }
     private static void createDependency()
@@ -55,46 +53,49 @@ public static class Initialization
         Dependency dependency;
         for (int i = 1; i < 5; i++)
         {
-            dependency = new Dependency(0, i, i + 1);//הת.ז ראשון ולכן נשלח לו ערך ברירת מחדל ואז בcreate  זה ישנה את זה
+            dependency = new Dependency(0, i, i + 1);
             s_dalDependency?.Create(dependency);
         }
     }
     private static void createTask()
     {
-        //int Id = 0,
-        //string? Description = null, V
-        //string? Alias = null,V
-        //bool Milestone = false,
-        //DateTime CreatedAt = new DateTime() ,V
-        //DateTime? Start = null,
-        //DateTime? ScheduledDate = null,
-        //DateTime? ForcastDate = null,
-        //DateTime? Deadline = null,
-        //DateTime? Complete = null,
-        //string? Deliverables = null,
-        //string? Remarks = null,
-        //int? EngineerId = null,
-        //EngineerExperience ComplexityLevel = 0
-        string? _alias, _deliverables, _remarks;
-        int range, _engineerId;
-        DateTime _createdAt,_start, _scheduledDate, _forcastDate, _deadline, _complete;
+        string? _alias, _product, _remarks;
+        int _engineerId, count=0;
+        DateTime _createdAt, _start, _forcastDate, _deadline, _complete;
         Task task;
-        EngineerExperience _complexityLevel = 0;
+        EngineerExperience _complexityLevel = new EngineerExperience();
+
 
         string[] taskDescription =
         {
-              "wash the dishes", "sweep the floor", "wash the floor", "clean the room",
+             "wash the dishes", "sweep the floor", "wash the floor", "clean the room",
                "arrange the books"
+        };
+
+        string[] taskProduct =
+        {
+            "clean dishes", "floor without dirt","clean floor","tidy room","books' pile"
+        };
+
+        string[] taskRemark =
+        {
+            "The task was difficult","the task was easy","There were black marks on the floor","the task took long time","the task was very easy"
         };
 
         foreach (string _description in taskDescription)
         {
             _alias = (s_rand.Next(0, 10000) % 2) == 0 ? _description + "ALIAS" : null;
             _createdAt = DateTime.Now;
-            _start = _createdAt.AddDays(4);
-            range = (DateTime.Today - _start).Days;
-            DateTime _bdt = _start.AddDays(s_rand.Next(range));
-            task = new Task(0, _description, _alias,false, _createdAt, _start, _scheduledDate, _forcastDate, _deadline, _complete, _deliverables, _remarks, _engineerId, _complexityLevel);
+            _start = _createdAt.AddDays(s_rand.Next(1,10));
+            _forcastDate = _start.AddDays(7);
+            _deadline= _start.AddDays(s_rand.Next(1, 4));
+            _complete = _start.AddDays(s_rand.Next(1, 12));
+            _product = taskProduct[count++];
+            _remarks= taskRemark[count++];
+            var engineerList =s_dalEngineer?.ReadAll();
+            _engineerId = (engineerList?? throw new Exception("There are not exist engineers"))[count++].Id;
+            _complexityLevel = (EngineerExperience)s_rand.Next(0, 3);
+            task = new Task(0, _description, _alias,false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, _complexityLevel);
             s_dalTask?.Create(task);
         }
     }
@@ -108,5 +109,4 @@ public static class Initialization
         createDependency();
         createEngineer();
     }
-
 }
