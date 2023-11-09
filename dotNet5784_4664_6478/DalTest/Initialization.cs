@@ -8,7 +8,9 @@ public static class Initialization
     private static ITask? s_dalTask;
     private static readonly Random s_rand = new();
     private static void createEngineer()
-    { }
+    {
+
+    }
     private static void createDependency()
     { }
     private static void createTask()
