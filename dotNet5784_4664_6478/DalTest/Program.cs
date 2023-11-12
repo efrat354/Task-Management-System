@@ -125,7 +125,8 @@ namespace DalTest
                     Console.WriteLine("Enter task's details:description and alias");
                     _description = (Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     _alias = (Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                    task = new DO.Task();
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _createdAt = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's details:description and alias");
                     _start = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's details:description and alias");
