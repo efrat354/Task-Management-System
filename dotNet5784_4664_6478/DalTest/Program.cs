@@ -29,6 +29,7 @@ namespace DalTest
             string _name, _email;
             double _cost;
             Engineer? engineer;
+
             Console.WriteLine("Enter 1 to add a new engineer, 2 to display the engineer by ID, 3 to display all the engineers in the company, 4 to update engineer's details and 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             //Engineer submenu
@@ -62,7 +63,6 @@ namespace DalTest
                     }
                     else
                     Console.WriteLine( "not exist");
-
                     break;
                 case 3://read all
                     var engineersList = s_dalEngineer?.ReadAll();
@@ -143,7 +143,10 @@ namespace DalTest
                     s_dalTask?.Create(task);
                     Console.WriteLine("Created successfully");
                     break;
+                case 2://read
                    case 2://read
+   
+                case 2:
                     Console.WriteLine("Enter an ID");
                     _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     task = s_dalTask!.Read(_id);
@@ -208,9 +211,10 @@ namespace DalTest
         private static void dependency()
         {
             //Declaration of variables
-            int choice = 0;
-            int _id, _dependentTask, _dependsOnTask;
+            Dependency ?dependency;
             Dependency? dependency;
+            int _id, _dependentTask, _dependsOnTask;
+            Dependency dependency;
             Console.WriteLine("Enter 1 to add a new dependency, 2 to display a dependency by ID, 3 to display all the dependency , 4 to update dependency's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             //Dependency submenu
@@ -281,8 +285,49 @@ namespace DalTest
                 //The main menu
                 while (choice != 0)
                 {
-                    try
+                        switch (choice)
+                        {
+                            case 1://engineer
+                                try
+                                {
+                                    engineer();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            case 2://task
+                                try
+                                {
+                                    task();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            case 3://dependency
+                                try
+                                {
+                                    dependency();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            default:
+                                throw new Exception("your choice is invalid");
+                        }
+                        Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
+                        choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
+                    }
+                    catch(Exception e)
                     {
+                        Console.WriteLine( e.Message);
+                        Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
+                        choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
                         switch (choice)
                         {
                             case 1://engineer
@@ -320,10 +365,43 @@ namespace DalTest
                         }
                          Console.WriteLine("Enter your choice");
                          choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
-                    }
-                    catch(Exception e)
-                    {
-                        Console.WriteLine(  e.Message);
+                            case 1://engineer
+                                try
+                                {
+                                    engineer();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            case 2:
+                                try
+                                {
+                                    task();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            case 3:
+                                try
+                                {
+                                    dependency();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            default:
+                                throw new Exception("your choice is invalid");
+
+
+                        }
+                         Console.WriteLine("Enter your choice");
+                         choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
                     }
                 }
             }
