@@ -92,6 +92,8 @@ namespace DalTest
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             Console.WriteLine("Enter 1 to add a new task, 2 to display the task by ID, 3 to display all the tasks , 4 to update task's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
+            DateTime _createdAt, _start, _forcastDate, _deadline, _complete;
+            string _product, _remarks;
             switch (choice)
             {
                 case 0:
@@ -113,24 +115,52 @@ namespace DalTest
 
                     _description = (Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     _alias = (Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                    task=new DO.Task();
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _createdAt = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                     _start = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _forcastDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _deadline = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _complete = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _product = Console.ReadLine();
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _remarks=Console.ReadLine();
+                    task = new DO.Task(0,_description, _alias, false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks);
                     s_dalTask?.Create(task);
                     break;
                 case 2:
                     int _id;
-                    Console.WriteLine( "Enter task's id");
+                    Console.WriteLine("Enter task's id");
                     _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     s_dalEngineer?.Read(_id);
                     break;
                 case 3:
                     s_dalEngineer?.ReadAll();
                     break;
-                case 4:
+                case 4://update
                     Console.WriteLine("Enter task's details:description and alias");
                     _description = (Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     _alias = (Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                    task = new DO.Task();
-                    s_dalTask?.Update(task);
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _createdAt = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _start = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _forcastDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _deadline = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _complete = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _product = Console.ReadLine();
+                    Console.WriteLine("Enter task's details:description and alias");
+                    _remarks = Console.ReadLine();
+                    task = new DO.Task(0, _description, _alias, false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks);
+                     s_dalTask?.Update(task);
                     break;
                 case 5:
                     Console.WriteLine("Enter task's id");
@@ -154,37 +184,64 @@ namespace DalTest
                 case 0:
                     break;
             }
-                   
+
         }
 
         static void Main(string[] args)
         {
-            try {
+            try
+            {
                 int choice = 0;
                 Initialization.Do(s_dalEngineer, s_dalDependency, s_dalTask);
                 Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
                 choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
                 //the main menu
-                switch (choice)
+                while (choice != 0)
                 {
-                    case 0:
-                        break;
-                    case 1://engineer
-                        engineer();
-                        break;
-                    case 2:
-                        task();
-                        break;
-                    case 3:
-                        dependecy();
-                        break;
-                    default:
-                        throw new Exception("your choice is invaild");
-                      
+
+                    switch (choice)
+                    {
+
+                        case 1://engineer
+                           try { 
+                             engineer();
+                           }
+                           catch (Exception e)
+                           {
+                                Console.WriteLine(e.Message);
+                           }
+                            break;
+                        case 2:
+                            try
+                            {
+
+                              task();
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                            break;
+                        case 3:
+                            try
+                            { 
+                             dependecy();
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                            break;
+                        default:
+                            throw new Exception("your choice is invaild");
+
+                    }
+                    choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
 
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
         }
