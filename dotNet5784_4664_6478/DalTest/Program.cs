@@ -28,9 +28,8 @@ namespace DalTest
             int _id, _level;
             string _name, _email;
             double _cost;
-            Engineer engineer;
-
             Engineer? engineer;
+
             Console.WriteLine("Enter 1 to add a new engineer, 2 to display the engineer by ID, 3 to display all the engineers in the company, 4 to update engineer's details and 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             //Engineer submenu
@@ -64,10 +63,7 @@ namespace DalTest
                     }
                     else
                     Console.WriteLine( "not exist");
-
                     break;
-                case 3://read all
-                    Console.WriteLine(s_dalEngineer?.ReadAll());
                 case 3:
                     var engineersList = s_dalEngineer?.ReadAll();
                     Console.WriteLine( "Engineers details");
@@ -107,7 +103,6 @@ namespace DalTest
         private static void task()
         {
             //Declaration of variables
-            int choice = 0, _engineerId, _complexityLevel;
             int choice = 0, _engineerId, _complexityLevel,_id;
             string _description, _alias, _product, _remarks;
             DateTime _createdAt, _start, _forcastDate, _deadline, _complete;
@@ -149,9 +144,6 @@ namespace DalTest
                     Console.WriteLine("Created successfully");
                     break;
                 case 2://read
-                    int _id;
-                    Console.WriteLine("Enter task's id");
-                case 2:
                     Console.WriteLine("Enter an ID");
                     _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     task = s_dalTask!.Read(_id);
@@ -163,8 +155,6 @@ namespace DalTest
                         Console.WriteLine("not exist");
                     break;
                 case 3://read all
-                    s_dalEngineer?.ReadAll();
-                case 3:
                     var taskList = s_dalTask?.ReadAll();
                     Console.WriteLine("Engineers details");
                     foreach (DO.Task tk in taskList!)
@@ -215,15 +205,13 @@ namespace DalTest
         }
 
         //Function that manage all the functions of dependency
-        private static void dependecy()
+        private static void dependency()
         {
             //Declaration of variables
             int choice = 0;
             int _id, _dependentTask, _dependsOnTask;
-            Dependency dependency;
+            Dependency ?dependency;
 
-            int _id,_dependentTask, _dependsOnTask;
-            Dependency? dependency;
             Console.WriteLine("Enter 1 to add a new dependency, 2 to display a dependency by ID, 3 to display all the dependency , 4 to update dependency's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             //Dependency submenu
@@ -321,7 +309,7 @@ namespace DalTest
                         case 3://dependency
                             try
                             { 
-                             dependecy();
+                             dependency();
                             }
                             catch (Exception e)
                             {
