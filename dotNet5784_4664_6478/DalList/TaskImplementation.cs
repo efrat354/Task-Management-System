@@ -4,14 +4,24 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
+
 public class TaskImplementation : ITask
 {
+    //
     public int Create(Task item)
     {
+        EngineerImplementation e=new EngineerImplementation();
+        Engineer? eng;
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
-        DataSource.Tasks.Add(copy);
-        return id;
+        eng= e.Read(id);
+        if (eng != null)
+        {
+            DataSource.Tasks.Add(copy);
+            return id;
+        }
+        else
+            throw new Exception("Tae engineer is not active");
     }
 
     public void Delete(int id)

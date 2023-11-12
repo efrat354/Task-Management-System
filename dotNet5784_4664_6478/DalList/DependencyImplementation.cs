@@ -1,20 +1,19 @@
-﻿
-namespace Dal;
+﻿namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-
+//Implementation of the dependency interface
 public class DependencyImplementation : IDependency
-{
-    public int Create(Dependency item)//Add a new item to the dependency's list
+{//Gets a dependency ,Create a copy of a dependency and add it to the dependencies list
+    public int Create(Dependency item)
     {
-        int id = DataSource.Config.NextDependencyId;//Give the next continuous number as an id to the item.
-        Dependency copy = item with { Id = id };//create a new item
-        DataSource.Dependencies.Add(copy);//Add the new item to the list
+        int id = DataSource.Config.NextDependencyId;
+        Dependency copy = item with { Id = id };
+        DataSource.Dependencies.Add(copy);
         return id;
     }
-
+    //Gets ID and deleting the dependency with the Received ID from the list
     public void Delete(int id)
     {
         Dependency? reference = Read(id);
@@ -28,7 +27,7 @@ public class DependencyImplementation : IDependency
         }
     }
 
-    //Recieves an ID and check if it exists in the list 
+    //Gets ID and check if it exists in the list 
     public Dependency? Read(int id)
     {
         if (DataSource.Dependencies.Exists(x => x!.Id == id))//
@@ -37,19 +36,12 @@ public class DependencyImplementation : IDependency
         }
         return null;
     }
-
+    //Return the dependencies list
     public List<Dependency> ReadAll()
     {
-        //List<Dependency> newList = new List<Dependency>(DataSource.Dependencies.Count);
-
-        //DataSource.Dependencies.ForEach((item) =>
-        //{
-        //    newList.Add(item!);
-        //});
-        //return newList;
         return new List<Dependency>(DataSource.Dependencies!);
     }
-
+    //Gets a dependency and update the dependency with the same ID from the dependencies list 
     public void Update(Dependency item)
     {
         Dependency? reference = Read(item.Id);
