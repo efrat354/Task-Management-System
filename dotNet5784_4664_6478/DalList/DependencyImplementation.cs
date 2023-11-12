@@ -40,13 +40,6 @@ public class DependencyImplementation : IDependency
 
     public List<Dependency> ReadAll()
     {
-        //List<Dependency> newList = new List<Dependency>(DataSource.Dependencies.Count);
-
-        //DataSource.Dependencies.ForEach((item) =>
-        //{
-        //    newList.Add(item!);
-        //});
-        //return newList;
         return new List<Dependency>(DataSource.Dependencies!);
     }
 

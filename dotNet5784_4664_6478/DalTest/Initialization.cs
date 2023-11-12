@@ -17,7 +17,7 @@ public static class Initialization
         double _cost = 0;
         string _email=" ";
         int _id;
-        EngineerExperience _level = new EngineerExperience();//לבדוק שבאמת אפשר להגדיר את העצם פעם אחת
+        EngineerExperience _level = new EngineerExperience();
         Engineer newEng; 
 
         string[] engineerNames =

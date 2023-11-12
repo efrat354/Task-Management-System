@@ -1,19 +1,31 @@
-﻿
-namespace Dal;
+﻿namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
 
+/// <summary>
+/// The implementation of the task's CRUD functions 
+/// </summary>
 public class TaskImplementation : ITask
 {
+    //Create a new task and add it to the tasks' list 
     public int Create(Task item)
     {
+        EngineerImplementation e = new EngineerImplementation();
+        Engineer? eng;
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
-        DataSource.Tasks.Add(copy);
-        return id;
+        eng = e.Read(id);
+        if (eng != null)
+        {
+            DataSource.Tasks.Add(copy);
+            return id;
+        }
+        else
+            throw new Exception("Tae engineer is not active");
     }
 
+    //Delete an task by its id only if there is not task that depends on it
     public void Delete(int id)
     {
         Task? reference = Read(id);
@@ -30,7 +42,6 @@ public class TaskImplementation : ITask
             {
                 if (depend?.DependsOnTask == id)
                 {
-                    //איך להשתשמש בפעולה delete של dependency
                     DataSource.Dependencies.Remove(depend);
                 }
             }
@@ -42,6 +53,7 @@ public class TaskImplementation : ITask
         }
     }
 
+    //Read the task's details by its id-find it in the tasks' list and return a reference
     public Task? Read(int id)
     {
         if (DataSource.Tasks.Exists(x => x!.Id == id))
@@ -51,11 +63,13 @@ public class TaskImplementation : ITask
         return null;
     }
 
+    //Read all the tasks' list-return a new list that include all the details
     public List<Task> ReadAll()
     {
         return new List<Task>(DataSource.Tasks!);
     }
 
+    //Update the task's details by its id
     public void Update(Task item)
     {
         Task? reference = Read(item.Id);
