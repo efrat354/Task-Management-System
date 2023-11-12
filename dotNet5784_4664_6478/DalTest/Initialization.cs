@@ -90,13 +90,14 @@ public static class Initialization
             _forcastDate = _start.AddDays(7);
             _deadline= _start.AddDays(s_rand.Next(1, 4));
             _complete = _start.AddDays(s_rand.Next(1, 12));
-            _product = taskProduct[count++];
-            _remarks= taskRemark[count++];
+            _product = taskProduct[count];
+            _remarks= taskRemark[count];
             var engineerList =s_dalEngineer?.ReadAll();
-            _engineerId = (engineerList?? throw new Exception("There are not exist engineers"))[count++].Id;
+            _engineerId = (engineerList?? throw new Exception("There are not exist engineers"))[count].Id;
             _complexityLevel = (EngineerExperience)s_rand.Next(0, 3);
             task = new Task(0, _description, _alias,false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, _complexityLevel);
             s_dalTask?.Create(task);
+            count++;
         }
     }
 
@@ -105,8 +106,8 @@ public static class Initialization
         s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
         s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        createEngineer();
         createTask();
         createDependency();
-        createEngineer();
     }
 }

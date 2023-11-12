@@ -20,8 +20,7 @@ namespace DalTest
             int _id, _level;
             string _name, _email;
             double _cost;
-            Engineer engineer;
-            choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
+            Engineer? engineer;
             Console.WriteLine("Enter 1 to add a new engineer, 2 to display the engineer by ID, 3 to display all the engineers in the company, 4 to update engineer's details and 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             switch (choice)
@@ -46,10 +45,22 @@ namespace DalTest
                 case 2:
                     Console.WriteLine("Enter an ID");
                     _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
-                    s_dalEngineer?.Read(_id);
+                    engineer= s_dalEngineer?.Read(_id);
+                    if(engineer != null)
+                    {
+                        Console.WriteLine( engineer);
+                    }
+                    else
+                    Console.WriteLine( "not exist");
+
                     break;
                 case 3:
-                    Console.WriteLine(s_dalEngineer?.ReadAll());
+                    var engineersList = s_dalEngineer?.ReadAll();
+                    Console.WriteLine( "Engineers details");
+                    foreach (Engineer eng in engineersList!)
+                    {
+                        Console.WriteLine(eng);
+                    }
                     break;
                 case 4:
                     Console.WriteLine("Enter engineer's details:");
@@ -77,10 +88,10 @@ namespace DalTest
         }
         private static void task()
         {
-            int choice = 0, _engineerId, _complexityLevel;
+            int choice = 0, _engineerId, _complexityLevel,_id;
             string _description, _alias, _product, _remarks;
             DateTime _createdAt, _start, _forcastDate, _deadline, _complete;
-            DO.Task task;
+            DO.Task? task;
 
             Console.WriteLine("Enter 1 to add a new task, 2 to display the task by ID, 3 to display all the tasks , 4 to update task's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
@@ -109,25 +120,37 @@ namespace DalTest
                     Console.WriteLine("Enter task's remarks:");
                     _remarks = Console.ReadLine()!;
                     Console.WriteLine("Enter engineer id:");
-                    _engineerId=int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an engineer id"));
+                    _engineerId = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an engineer id"));
                     Console.WriteLine("Enter task's complexity level:");
-                    _complexityLevel=int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a complexity level"));
-                    task = new DO.Task(0,_description, _alias, false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, (EngineerExperience)_complexityLevel);
+                    _complexityLevel = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a complexity level"));
+                    task = new DO.Task(0, _description, _alias, false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, (EngineerExperience)_complexityLevel);
                     s_dalTask?.Create(task);
                     break;
                 case 2:
-                    int _id;
-                    Console.WriteLine("Enter task's id");
+                    Console.WriteLine("Enter an ID");
                     _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
-                    s_dalEngineer?.Read(_id);
+                    task = s_dalTask!.Read(_id);
+                    if (task!= null)
+                    {
+                        Console.WriteLine(task);
+                    }
+                    else
+                        Console.WriteLine("not exist");
                     break;
                 case 3:
-                    s_dalEngineer?.ReadAll();
+                    var taskList = s_dalTask?.ReadAll();
+                    Console.WriteLine("Engineers details");
+                    foreach (DO.Task tk in taskList!)
+                    {
+                        Console.WriteLine(tk);
+                    }
                     break;
                 case 4://update
                     Console.WriteLine("Enter task's details:");
+                    Console.WriteLine("Enter task's ID:");
+                    _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     Console.WriteLine("Enter task's description:");
-                    _description = (Console.ReadLine() ?? throw new Exception("You did not enter an id"));
+                    _description = (Console.ReadLine() ?? throw new Exception("You did not enter a description"));
                     Console.WriteLine("Enter task's alias:");
                     _alias = (Console.ReadLine() ?? throw new Exception("You did not enter an alias"));
                     Console.WriteLine("Enter task's create date:");
@@ -148,7 +171,7 @@ namespace DalTest
                     _engineerId = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an engineer id"));
                     Console.WriteLine("Enter task's complexity level:");
                     _complexityLevel = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a complexity level"));
-                    task = new DO.Task(0, _description, _alias, false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, (EngineerExperience)_complexityLevel);
+                    task = new DO.Task(_id, _description, _alias, false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, (EngineerExperience)_complexityLevel);
                     s_dalTask?.Update(task);
                     break;
                 case 5:
@@ -165,7 +188,7 @@ namespace DalTest
         {
             int choice = 0;
             int _id,_dependentTask, _dependsOnTask;
-            Dependency dependency;
+            Dependency? dependency;
             Console.WriteLine("Enter 1 to add a new dependency, 2 to display a dependency by ID, 3 to display all the dependency , 4 to update dependency's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             switch (choice)
@@ -183,17 +206,30 @@ namespace DalTest
                 case 2://read
                     Console.WriteLine("Enter an ID");
                     _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
-                    s_dalDependency?.Read(_id);
-                    break;
+                    dependency = s_dalDependency?.Read(_id);
+                    if (dependency != null)
+                    {
+                        Console.WriteLine(dependency);
+                    }
+                    else
+                        Console.WriteLine("not exist");
+                     break;
                 case 3://read all
-                    s_dalDependency?.ReadAll();
+                    var dependencyList = s_dalDependency?.ReadAll();
+                    Console.WriteLine("Engineers details");
+                    foreach (Dependency dep in dependencyList!)
+                    {
+                        Console.WriteLine(dep);
+                    }
                     break;
                 case 4://update
+                    Console.WriteLine("Enter dependency's ID:");
+                    _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     Console.WriteLine("Enter a number of DependentTask");
                     _dependentTask = int.Parse(Console.ReadLine() ?? throw new Exception("you did not enter dependent task"));
                     Console.WriteLine("Enter number of DependsOnTask");
                     _dependsOnTask = int.Parse(Console.ReadLine() ?? throw new Exception("you did not enter _depends on task"));
-                    dependency = new Dependency(0, _dependentTask, _dependsOnTask);
+                    dependency = new Dependency(_id, _dependentTask, _dependsOnTask);
                     s_dalDependency?.Update(dependency);
                     break;
                 case 5://delete
@@ -220,45 +256,55 @@ namespace DalTest
                 //the main menu
                 while (choice != 0)
                 {
-
-                    switch (choice)
+                    try
                     {
 
-                        case 1://engineer
-                           try { 
-                             engineer();
-                           }
-                           catch (Exception e)
-                           {
-                                Console.WriteLine(e.Message);
-                           }
-                            break;
-                        case 2:
-                            try
-                            {
-                              task();
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine(e.Message);
-                            }
-                            break;
-                        case 3:
-                            try
-                            { 
-                              dependency();
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine(e.Message);
-                            }
-                            break;
-                        default:
-                            throw new Exception("your choice is invaild");
 
+                        switch (choice)
+                        {
+
+                            case 1://engineer
+                                try
+                                {
+                                    engineer();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            case 2:
+                                try
+                                {
+                                    task();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            case 3:
+                                try
+                                {
+                                    dependency();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                }
+                                break;
+                            default:
+                                throw new Exception("your choice is invalid");
+
+
+                        }
+                         Console.WriteLine("Enter your choice");
+                         choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
                     }
-                    choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
-
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(  e.Message);
+                    }
                 }
             }
             catch (Exception e)
