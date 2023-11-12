@@ -2,7 +2,7 @@
 
 public record Task
 (
-    int Id,
+    int Id=0,
     string? Description=null,
     string? Alias=null,
     bool Milestone=false,
@@ -16,4 +16,7 @@ public record Task
     string? Remarks = null,
     int? EngineerId = null,
     EngineerExperience ComplexityLevel=0
-);
+)
+{
+    public Task() : this(0) { }
+}
