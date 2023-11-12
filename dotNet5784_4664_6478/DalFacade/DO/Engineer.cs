@@ -1,11 +1,11 @@
 ﻿namespace DO;
 public record Engineer
 (
-    int Id,
-    string Name,
-    string Email,
-    EngineerExperience Level,
-    double Cost,
+    int Id=0,
+    string Name="",
+    string Email = "",
+    EngineerExperience Level=0,
+    double Cost= 30,
     bool status = true 
 )
 {
