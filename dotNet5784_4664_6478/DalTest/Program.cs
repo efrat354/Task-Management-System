@@ -68,19 +68,8 @@ namespace DalTest
         }
         private static void task()
         {
-            //        bool Milestone = false,
-            //DateTime CreatedAt = new DateTime() ,
-            //DateTime? Start = null,
-            //DateTime? ForcastDate = null,
-            //DateTime? Deadline = null,
-            //DateTime? Complete = null  ,
-            //string? Product = null,
-            //string? Remarks = null,
-            //int? EngineerId = null,
-            //EngineerExperience ComplexityLevel = 0
             int choice = 0;
             string _description, _alias;
-        
             DO.Task task;
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             Console.WriteLine("Enter 1 to add a new task, 2 to display the task by ID, 3 to display all the tasks , 4 to update task's details , 5 to delete or 0 to exit");
@@ -152,10 +141,10 @@ namespace DalTest
             }
 
         }
-        private static void dependecy()
+        private static void dependency()
         {
             int choice = 0;
-            int DependentTask, DependsOnTask;
+            int _id,_dependentTask, _dependsOnTask;
             Dependency dependency;
             Console.WriteLine("Enter 1 to add a new dependency, 2 to display a dependency by ID, 3 to display all the dependency , 4 to update dependency's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
@@ -163,6 +152,39 @@ namespace DalTest
             {
                 case 0:
                     break;
+                case 1://create
+                    Console.WriteLine("Enter a number of DependentTask");
+                    _dependentTask = int.Parse(Console.ReadLine() ?? throw new Exception("you did not enter dependent task"));
+                    Console.WriteLine("Enter number of DependsOnTask");
+                    _dependsOnTask = int.Parse(Console.ReadLine() ?? throw new Exception("you did not enter _depends on task"));
+                    dependency = new Dependency(0, _dependentTask, _dependsOnTask);
+                    s_dalDependency?.Create(dependency);
+                    break;
+                case 2://read
+                    Console.WriteLine("Enter an ID");
+                    _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
+                    s_dalDependency?.Read(_id);
+                    break;
+                case 3://read all
+                    s_dalDependency?.ReadAll();
+                    break;
+                case 4://update
+                    Console.WriteLine("Enter a number of DependentTask");
+                    _dependentTask = int.Parse(Console.ReadLine() ?? throw new Exception("you did not enter dependent task"));
+                    Console.WriteLine("Enter number of DependsOnTask");
+                    _dependsOnTask = int.Parse(Console.ReadLine() ?? throw new Exception("you did not enter _depends on task"));
+                    dependency = new Dependency(0, _dependentTask, _dependsOnTask);
+                    s_dalDependency?.Update(dependency);
+                    break;
+                case 5://delete
+                    Console.WriteLine("Enter task's id");
+                    _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
+                    s_dalDependency?.Delete(_id);
+                    break;
+                default:
+                    throw new Exception("Your choice is invalid");
+
+
             }
 
         }
@@ -205,7 +227,7 @@ namespace DalTest
                         case 3:
                             try
                             { 
-                             dependecy();
+                              dependency();
                             }
                             catch (Exception e)
                             {
