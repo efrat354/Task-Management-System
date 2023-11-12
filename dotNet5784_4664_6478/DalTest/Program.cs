@@ -6,7 +6,7 @@ using System.Numerics;
 using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Xml.Linq;
-
+//האם צריך להגדיר משתנים לכל תכונה ואז להכניס אותם בפעולה בונה או קודם כל ליצור את העצם ואז לשוח את הנתונים ישר לתוך התכונות
 namespace DalTest
 {
     internal class Program
@@ -16,59 +16,67 @@ namespace DalTest
         private static ITask? s_dalTask = new TaskImplementation(); //stage 1
         private static void engineer()
         { 
-                int choice = 0;
-                int _id, _level;
-                string _name, _email;
-                double _cost;
-                Engineer engineer;
-                choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
-                Console.WriteLine("Enter 1 to add a new engineer, 2 to display the engineer by ID, 3 to display all the engineers in the company, 4 to update engineer's details and 5 to delete or 0 to exit");
-                choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
-                switch (choice)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        Console.WriteLine("Enter engineer's details: ID, name, email,level (0-JR,1-rookie,2-expert)");
-                        _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
-                        _name = (Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                        _email = (Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                        _level = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an level"));
-                        _cost = double.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                        engineer = new Engineer(_id, _name, _email, (EngineerExperience)_level, _cost);
-                        s_dalEngineer?.Create(engineer);
-                        break;
-                    case 2:
-                        Console.WriteLine("Enter an ID");
-                        _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
-                        s_dalEngineer?.Read(_id);
-                        break;
-                    case 3:
-                        Console.WriteLine(s_dalEngineer?.ReadAll());
-                        break;
-                    case 4:
-                        Console.WriteLine("Enter engineer's details: ID, name, email,level (0-JR,1-rookie,2-expert)");
-                        _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
-                        _name = (Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                        _email = (Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                        _level = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an level"));
-                        _cost = double.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an"));
-                        engineer = new Engineer(_id, _name, _email, (EngineerExperience)_level, _cost);
-                        s_dalEngineer?.Update(engineer);
-                        break;
-                    case 5:
-                        Console.WriteLine("Enter an ID");
-                        _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
-                        s_dalEngineer?.Delete(_id);
-                        break;
-                    default:
-                        throw new Exception("Your choice is invalid");
-                }
-           
+            int choice = 0;
+            int _id, _level;
+            string _name, _email;
+            double _cost;
+            Engineer engineer;
+            choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
+            Console.WriteLine("Enter 1 to add a new engineer, 2 to display the engineer by ID, 3 to display all the engineers in the company, 4 to update engineer's details and 5 to delete or 0 to exit");
+            choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
+            switch (choice)
+            {
+                case 0:
+                    break;
+                case 1:
+                    Console.WriteLine("Enter engineer's details:");
+                    Console.WriteLine("Enter engineer's ID:");
+                    _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
+                    Console.WriteLine("Enter engineer's name:");
+                    _name = (Console.ReadLine() ?? throw new Exception("You did not enter a name"));
+                    Console.WriteLine("Enter engineer's email:");
+                    _email = (Console.ReadLine() ?? throw new Exception("You did not enter an email"));
+                    Console.WriteLine("Enter engineer's level (0-JR,1-rookie,2-expert):");
+                    _level = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a level"));
+                    Console.WriteLine("Enter engineer's cost:");
+                    _cost = double.Parse(Console.ReadLine()!);
+                    engineer = new Engineer(_id, _name, _email, (EngineerExperience)_level, _cost);
+                    s_dalEngineer?.Create(engineer);
+                    break;
+                case 2:
+                    Console.WriteLine("Enter an ID");
+                    _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
+                    s_dalEngineer?.Read(_id);
+                    break;
+                case 3:
+                    Console.WriteLine(s_dalEngineer?.ReadAll());
+                    break;
+                case 4:
+                    Console.WriteLine("Enter engineer's details:");
+                    Console.WriteLine("Enter engineer's ID:");
+                    _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
+                    Console.WriteLine("Enter engineer's name:");
+                    _name = (Console.ReadLine() ?? throw new Exception("You did not enter a name"));
+                    Console.WriteLine("Enter engineer's email:");
+                    _email = (Console.ReadLine() ?? throw new Exception("You did not enter an email"));
+                    Console.WriteLine("Enter engineer's level (0-JR,1-rookie,2-expert):");
+                    _level = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a level"));
+                    Console.WriteLine("Enter engineer's cost:");
+                    _cost = double.Parse(Console.ReadLine()!);
+                    engineer = new Engineer(_id, _name, _email, (EngineerExperience)_level, _cost);
+                    s_dalEngineer?.Update(engineer);
+                    break;
+                case 5:
+                    Console.WriteLine("Enter an ID");
+                    _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
+                    s_dalEngineer?.Delete(_id);
+                    break;
+                default:
+                    throw new Exception("Your choice is invalid");
+            }
         }
         private static void task()
         {
-    //        bool Milestone = false,
     //DateTime CreatedAt = new DateTime() ,
     //DateTime? Start = null,
     //DateTime? ForcastDate = null,
@@ -78,8 +86,8 @@ namespace DalTest
     //string? Remarks = null,
     //int? EngineerId = null,
     //EngineerExperience ComplexityLevel = 0
-            int choice = 0;
-            string _description, _alias;
+            int choice = 0, EngineerId;
+            string _description, _alias, _product, _remark;
             DO.Task task;
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             Console.WriteLine("Enter 1 to add a new task, 2 to display the task by ID, 3 to display all the tasks , 4 to update task's details , 5 to delete or 0 to exit");
@@ -89,8 +97,21 @@ namespace DalTest
                 case 0:
                     break;
                 case 1:
-                    Console.WriteLine("Enter task's details:description and alias");
-                    _description =(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
+                    Console.WriteLine("Enter task's details:");
+                    Console.WriteLine("Enter task's description:");
+                    Console.WriteLine("Enter task's alias:");
+                    Console.WriteLine("Enter task's remarks:");
+                    Console.WriteLine("Enter engineer id:");
+                    Console.WriteLine("Enter task's complexity level:");
+                    Console.WriteLine("Enter task's product:");
+                    Console.WriteLine("Enter task's start date:");
+                    Console.WriteLine("Enter task's create date:");
+                    Console.WriteLine("Enter task's dead line date:");
+                    Console.WriteLine("Enter task's complete date:");
+                    Console.WriteLine("Enter task's forcast date:");
+
+
+                    _description = (Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     _alias = (Console.ReadLine() ?? throw new Exception("You did not enter an"));
                     task=new DO.Task();
                     s_dalTask?.Create(task);
