@@ -18,7 +18,7 @@
 public record Task
 (
     int Id=0,
-    string? Description=null,
+    string Description=" ",
     string? Alias=null,
     bool Milestone=false,
     DateTime CreatedAt=new DateTime() ,
@@ -28,7 +28,7 @@ public record Task
     DateTime? Complete = null  ,
     string? Product=null,
     string? Remarks = null,
-    int? EngineerId = null,
+    int EngineerId = 0,
     EngineerExperience ComplexityLevel=0
 )
 {
