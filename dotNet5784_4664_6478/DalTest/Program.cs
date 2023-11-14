@@ -6,10 +6,7 @@ using System.Numerics;
 using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Xml.Linq;
-//האם צריך להגדיר משתנים לכל תכונה ואז להכניס אותם בפעולה בונה או קודם כל ליצור את העצם ואז לשוח את הנתונים ישר לתוך התכונות
-//לבדוק את כל סימני הקריאה והסימני שאלה
-//למה רק  עכבTASK הוא מחייב לעשות DO.TASK
-//למה ?? לא עובדים
+
 namespace DalTest
 {
     //Running the project
@@ -144,9 +141,6 @@ namespace DalTest
                     Console.WriteLine("Created successfully");
                     break;
                 case 2://read
-                   case 2://read
-   
-                case 2:
                     Console.WriteLine("Enter an ID");
                     _id = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter an id"));
                     task = s_dalTask!.Read(_id);
@@ -212,9 +206,7 @@ namespace DalTest
         {
             //Declaration of variables
             Dependency ?dependency;
-            Dependency? dependency;
-            int _id, _dependentTask, _dependsOnTask;
-            Dependency dependency;
+            int _id, _dependentTask, _dependsOnTask, choice;
             Console.WriteLine("Enter 1 to add a new dependency, 2 to display a dependency by ID, 3 to display all the dependency , 4 to update dependency's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             //Dependency submenu
@@ -285,124 +277,43 @@ namespace DalTest
                 //The main menu
                 while (choice != 0)
                 {
-                        switch (choice)
-                        {
-                            case 1://engineer
-                                try
-                                {
-                                    engineer();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            case 2://task
-                                try
-                                {
-                                    task();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            case 3://dependency
-                                try
-                                {
-                                    dependency();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            default:
-                                throw new Exception("your choice is invalid");
-                        }
-                        Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
-                        choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
-                    }
-                    catch(Exception e)
+                    switch (choice)
                     {
-                        Console.WriteLine( e.Message);
-                        Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
-                        choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
-                        switch (choice)
-                        {
-                            case 1://engineer
-                                try
-                                {
-                                    engineer();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            case 2://task
-                                try
-                                {
-                                    task();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            case 3://dependency
-                                try
-                                {
-                                    dependency();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            default:
-                                throw new Exception("your choice is invaild");
-                        }
-                         Console.WriteLine("Enter your choice");
-                         choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
-                            case 1://engineer
-                                try
-                                {
-                                    engineer();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            case 2:
-                                try
-                                {
-                                    task();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            case 3:
-                                try
-                                {
-                                    dependency();
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                                break;
-                            default:
-                                throw new Exception("your choice is invalid");
-
-
-                        }
-                         Console.WriteLine("Enter your choice");
-                         choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
+                        case 1://engineer
+                            try
+                            {
+                                engineer();
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                            break;
+                        case 2://task
+                            try
+                            {
+                                task();
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                            break;
+                        case 3://dependency
+                            try
+                            {
+                                dependency();
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                            break;
+                        default:
+                            throw new Exception("your choice is invalid");
                     }
+                    Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
+                    choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
                 }
             }
             catch (Exception e)
