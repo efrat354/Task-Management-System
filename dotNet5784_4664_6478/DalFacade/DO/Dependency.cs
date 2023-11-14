@@ -9,7 +9,7 @@ public record Dependency
 (
     int Id,
     int DependentTask=0,
-    int DependsOnTask = 0
+    int DependsOnTask=0
 )
 {
     public Dependency() : this(0) { }
