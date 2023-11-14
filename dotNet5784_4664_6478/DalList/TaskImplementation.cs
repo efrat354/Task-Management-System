@@ -15,14 +15,14 @@ public class TaskImplementation : ITask
         Engineer? eng;
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
-        eng = e.Read(id);
-        if (eng != null)
+        eng = e.Read(item.EngineerId);
+        if (eng!.status)
         {
             DataSource.Tasks.Add(copy);
             return id;
         }
         else
-            throw new Exception("Tae engineer is not active");
+            throw new Exception("The engineer is not active");
     }
 
     //Delete an task by its id only if there is not task that depends on it
