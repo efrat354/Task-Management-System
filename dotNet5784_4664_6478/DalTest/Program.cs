@@ -105,7 +105,6 @@ namespace DalTest
             string _description, _alias, _product, _remarks;
             DateTime _createdAt, _start, _forcastDate, _deadline, _complete;
             DO.Task? task;
-
             Console.WriteLine("Enter 1 to add a new task, 2 to display the task by ID, 3 to display all the tasks , 4 to update task's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
             //Task submenu
@@ -199,7 +198,6 @@ namespace DalTest
                 default:
                     throw new Exception("Your choice is invalid");
             }
-
         }
 
         //Function that manage all the functions of dependency

@@ -30,11 +30,18 @@ internal class DependencyImplementation : IDependency
     //Gets ID and check if it exists in the list 
     public Dependency? Read(int id)
     {
-        if (DataSource.Dependencies.Exists(x => x!.Id == id))//
+        var dep = (DataSource.Dependencies).Where(dependency => dependency?.Id == id);
+        if (dep != null )
         {
-            return DataSource.Dependencies.Find(x => x!.Id == id);
+            return (Dependency)dep;
         }
         return null;
+
+        //if (DataSource.Dependencies.Exists(x => x!.Id == id))//
+        //{
+        //    return DataSource.Dependencies.Find(x => x!.Id == id);
+        //}
+        //return null;
     }
     //Return the dependencies list
     public List<Dependency> ReadAll()
@@ -47,6 +54,7 @@ internal class DependencyImplementation : IDependency
         Dependency? reference = Read(item.Id);
         if (reference!=null)
         {
+   
             DataSource.Dependencies.Remove(reference);
             DataSource.Dependencies.Add(item);
         }
