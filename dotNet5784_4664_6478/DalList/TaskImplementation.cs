@@ -56,11 +56,17 @@ internal class TaskImplementation : ITask
     //Read the task's details by its id-find it in the tasks' list and return a reference
     public Task? Read(int id)
     {
-        if (DataSource.Tasks.Exists(x => x!.Id == id))
+        var tk = (DataSource.Tasks).Where(task => task?.Id == id);
+        if (tk != null)
         {
-            return DataSource.Tasks.Find(x => x!.Id == id);
+            return (Task)tk;
         }
         return null;
+        //if (DataSource.Tasks.Exists(x => x!.Id == id))
+        //{
+        //    return DataSource.Tasks.Find(x => x!.Id == id);
+        //}
+        //return null;
     }
 
     //Read all the tasks' list-return a new list that include all the details
