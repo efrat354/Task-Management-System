@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// The implementation of the task's CRUD functions 
 /// </summary>
-public class TaskImplementation : ITask
+internal class TaskImplementation : ITask
 {
     //Create a new task and add it to the tasks' list 
     public int Create(Task item)

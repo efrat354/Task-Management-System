@@ -8,9 +8,10 @@ using System.Xml.Linq;
 public static class Initialization
 {
     //Static variables for each entity
-    private static IEngineer? s_dalEngineer;
-    private static IDependency? s_dalDependency;
-    private static ITask? s_dalTask;
+    private static IDal? s_dal;
+    //private static IEngineer? s_dalEngineer;
+    //private static IDependency? s_dalDependency;
+    //private static ITask? s_dalTask;
     //Random variable
     private static readonly Random s_rand = new();
     const int MIN_ID = 200000000;
@@ -41,7 +42,7 @@ public static class Initialization
         {
             do
                 _id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dalEngineer!.Read(_id) != null);
+            while (s_dal!.Engineer?.Read(_id) != null);
 
             foreach (string email in engineerEmails)
             {
@@ -50,7 +51,7 @@ public static class Initialization
             _level = (EngineerExperience)s_rand.Next(0, 3);
             _cost = s_rand.Next(0, 10000);
             newEng = new(_id, _name, _email, _level, _cost);
-            s_dalEngineer?.Create(newEng);
+            s_dal!.Engineer?.Create(newEng);
         }
     }
     //Dependency Initialization
@@ -61,7 +62,7 @@ public static class Initialization
         for (int i = 1; i < 5; i++)
         {
             dependency = new Dependency(0, i, i + 1);
-            s_dalDependency?.Create(dependency);//Calling the action create for each dependency
+            s_dal!.Dependency?.Create(dependency);//Calling the action create for each dependency
         }
     }
     //Task's Initialization
@@ -101,20 +102,21 @@ public static class Initialization
             _complete = _start.AddDays(s_rand.Next(1, 12));
             _product = taskProduct[count];
             _remarks= taskRemark[count];
-            var engineerList =s_dalEngineer?.ReadAll();
+            var engineerList = s_dal!.Engineer?.ReadAll();
             _engineerId = (engineerList?? throw new Exception("There are not exist engineers"))[count].Id;
             _complexityLevel = (EngineerExperience)s_rand.Next(0, 3);
             task = new Task(0, _description, _alias,false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, _complexityLevel);
-            s_dalTask?.Create(task);//Calling the action create for each dependency
+            s_dal!.Task?.Create(task);//Calling the action create for each dependency
             count++;
         }
     }
     //A function that calls all the initialization functions
-    public static void Do(IEngineer? dalEngineer, IDependency? dalDependency, ITask? dalTask)
+    public static void Do(IDal dal)
     {
-        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        //s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+        //s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); 
         createEngineer();
         createTask();
         createDependency();

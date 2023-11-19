@@ -4,7 +4,7 @@ using DO;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 //Implementation of the dependency interface
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {//Gets a dependency ,Create a copy of a dependency and add it to the dependencies list
     public int Create(Dependency item)
     {

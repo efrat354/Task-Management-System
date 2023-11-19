@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// The implementation of the engineer's CRUD functions 
 /// </summary>
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     //Create a new engineer and add it to the engineers' list 
     public int Create(Engineer item)
