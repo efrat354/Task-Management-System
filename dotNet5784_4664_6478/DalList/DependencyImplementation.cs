@@ -35,7 +35,6 @@ internal class DependencyImplementation : IDependency
 
     //Gets ID and check if it exists in the list 
 
-
     public Dependency? Read(int id)
     {
         return (DataSource.Dependencies).FirstOrDefault(dependency => dependency?.Id == id);

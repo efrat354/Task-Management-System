@@ -1,6 +1,4 @@
-﻿
-namespace DalApi;
-
+﻿namespace DalApi;
 public interface IDal
 {
     IDependency Dependency { get; }

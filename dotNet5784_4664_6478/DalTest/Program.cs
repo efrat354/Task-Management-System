@@ -1,21 +1,13 @@
 ﻿using Dal;
 using DalApi;
 using DO;
-//using System.Globalization;
-//using System.Numerics;
-//using System.Reflection.Emit;
-//using System.Security.Cryptography;
-//using System.Xml.Linq;האם למחוק
 
 namespace DalTest
 {
     //Running the project
     internal class Program
     {
-        //Enabling access to the interfaces we defined
-        //private static IEngineer? s_dalEngineer = new EngineerImplementation(); 
-        //private static IDependency? s_dalDependency = new DependencyImplementation(); 
-        //private static ITask? s_dalTask = new TaskImplementation(); 
+        //Enabling access to the global interface we defined
         static readonly IDal s_dal = new DalList();
 
         //Function that manage all the functions of engineer
@@ -29,7 +21,7 @@ namespace DalTest
             Engineer? engineer;
 
             Console.WriteLine("Enter 1 to add a new engineer, 2 to display the engineer by ID, 3 to display all the engineers in the company, 4 to update engineer's details and 5 to delete or 0 to exit");
-            choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
+            choice = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a choice"));
             //Engineer submenu
             switch (choice)
             {
@@ -65,12 +57,10 @@ namespace DalTest
                 case 3://read all
                     var engineersList = s_dal.Engineer?.ReadAll();
                     Console.WriteLine( "Engineers details");
-                    foreach (Engineer eng in engineersList!)
+                    foreach (Engineer? eng in engineersList!)
                     {
                         Console.WriteLine(eng);
                     }
-                    //engineersList!.ForEach(Console.WriteLine);
-
                     break;
                 case 4://update
                     Console.WriteLine("Enter engineer's details:");
@@ -238,7 +228,7 @@ namespace DalTest
                 case 3://read all
                     var dependencyList = s_dal.Dependency?.ReadAll();
                     Console.WriteLine("Engineers details");
-                    foreach (Dependency dep in dependencyList!)
+                    foreach (Dependency? dep in dependencyList!)
                     {
                         Console.WriteLine(dep);
                     }
@@ -311,10 +301,10 @@ namespace DalTest
                             }
                             break;
                         default:
-                            throw new Exception("your choice is invalid");
+                            throw new DalInvalidInput("your choice is invalid");
                     }
                     Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
-                    choice = int.Parse(Console.ReadLine() ?? throw new Exception("You did not enter a choice"));
+                    choice = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a choice"));
                 }
             }
             catch (Exception e)

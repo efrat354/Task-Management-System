@@ -7,11 +7,8 @@ using System.Xml.Linq;
 //Initialize the data
 public static class Initialization
 {
-    //Static variables for each entity
+    //Static variable for the entities
     private static IDal? s_dal;
-    //private static IEngineer? s_dalEngineer;
-    //private static IDependency? s_dalDependency;
-    //private static ITask? s_dalTask;
     //Random variable
     private static readonly Random s_rand = new();
     const int MIN_ID = 200000000;
@@ -113,9 +110,6 @@ public static class Initialization
     //A function that calls all the initialization functions
     public static void Do(IDal dal)
     {
-        //s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        //s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
-        //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
         s_dal = dal ?? throw new DalInvalidInitialization("DAL object can not be null!"); 
         createEngineer();
         createTask();
