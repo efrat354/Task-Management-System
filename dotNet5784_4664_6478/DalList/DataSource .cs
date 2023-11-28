@@ -1,5 +1,4 @@
-﻿
-namespace Dal;
+﻿namespace Dal;
 internal static class DataSource
 {
     //A department that is responsible for a running ID number
