@@ -1,11 +1,11 @@
 ﻿using Dal;
 using DalApi;
 using DO;
-using System.Globalization;
-using System.Numerics;
-using System.Reflection.Emit;
-using System.Security.Cryptography;
-using System.Xml.Linq;
+//using System.Globalization;
+//using System.Numerics;
+//using System.Reflection.Emit;
+//using System.Security.Cryptography;
+//using System.Xml.Linq;האם למחוק
 
 namespace DalTest
 {
@@ -69,6 +69,8 @@ namespace DalTest
                     {
                         Console.WriteLine(eng);
                     }
+                    //engineersList!.ForEach(Console.WriteLine);
+
                     break;
                 case 4://update
                     Console.WriteLine("Enter engineer's details:");
