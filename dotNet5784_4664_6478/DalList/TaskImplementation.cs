@@ -16,13 +16,13 @@ internal class TaskImplementation : ITask
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
         eng = e.Read(item.EngineerId);
-        if (eng!.status)
+        if (eng!.Active)
         {
             DataSource.Tasks.Add(copy);
             return id;
         }
         else
-            throw new Exception("The engineer is not active");
+            throw new DalInvalidInitialization("The engineer is not active,cannot be created");
     }
 
     //Delete an task by its id only if there is not task that depends on it
@@ -31,50 +31,58 @@ internal class TaskImplementation : ITask
         Task? reference = Read(id);
         if (reference != null)
         {
-            foreach (Dependency? depend in DataSource.Dependencies)
+            var dependency= (DataSource.Dependencies).FirstOrDefault(depend => depend?.DependentTask == id);
+            if (dependency != null)
             {
-                if (depend?.DependentTask == id)
-                {
-                    throw new Exception("This task cannot be deleted because other tasks depend on it");
-                }
+                throw new DalDeletionImpossible("This task cannot be deleted because other tasks depend on it");
             }
-            foreach (Dependency? depend in DataSource.Dependencies)
+            else
             {
-                if (depend?.DependsOnTask == id)
-                {
-                    DataSource.Dependencies.Remove(depend);
-                }
+               // DataSource.Dependencies.Remove(dependency);
             }
-            DataSource.Tasks.Remove(reference);
+            Task task = reference with { Active = false };
+            Update(task);
         }
         else
         {
-            throw new Exception("The item to delete does not exist in the system");
+            throw new DalDeletionImpossible("The item to delete does not exist in the system");
         }
+        //foreach (Dependency? depend in DataSource.Dependencies)
+        //{
+        //    if (depend?.DependentTask == id)
+        //    {
+        //        throw new Exception("This task cannot be deleted because other tasks depend on it");
+        //    }
+        //}
+        //foreach (Dependency? depend in DataSource.Dependencies)
+        //{
+        //    if (depend?.DependsOnTask == id)
+        //    {
+        //        DataSource.Dependencies.Remove(depend);
+        //    }
+        //}
+        //DataSource.Tasks.Remove(reference);
+    }
+    public Task? Read(Func<Task, bool> filter)
+    {
+        return DataSource.Tasks.FirstOrDefault(filter!);
     }
 
     //Read the task's details by its id-find it in the tasks' list and return a reference
     public Task? Read(int id)
     {
-        var tk = (DataSource.Tasks).Where(task => task?.Id == id);
-        if (tk != null)
-        {
-            return (Task)tk;
-        }
-        return null;
-        //if (DataSource.Tasks.Exists(x => x!.Id == id))
-        //{
-        //    return DataSource.Tasks.Find(x => x!.Id == id);
-        //}
-        //return null;
+        return (DataSource.Tasks).FirstOrDefault(task => task?.Id == id);
     }
 
     //Read all the tasks' list-return a new list that include all the details
-    public List<Task> ReadAll()
-    {
-        return new List<Task>(DataSource.Tasks!);
-    }
 
+    public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
+    {
+        if (filter == null)
+            return DataSource.Tasks.Select(item => item);
+        else
+            return DataSource.Tasks.Where(filter);
+    }
     //Update the task's details by its id
     public void Update(Task item)
     {
@@ -86,7 +94,7 @@ internal class TaskImplementation : ITask
         }
         else
         {
-            throw new Exception("The item to update does not exist in the system");
+            throw new DalDoesNotExistException("The item to update does not exist in the system");
         }
     }
 }

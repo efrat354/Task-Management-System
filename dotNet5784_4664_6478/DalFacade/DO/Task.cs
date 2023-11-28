@@ -29,7 +29,8 @@ public record Task
     string? Product=null,
     string? Remarks = null,
     int EngineerId = 0,
-    EngineerExperience ComplexityLevel=0
+    EngineerExperience ComplexityLevel=0,
+    bool Active=true
 )
 {
     public Task() : this(0) { }

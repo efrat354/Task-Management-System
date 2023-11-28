@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 //Implementation of the dependency interface
 internal class DependencyImplementation : IDependency
@@ -23,44 +24,42 @@ internal class DependencyImplementation : IDependency
         }
         else
         {
-            throw new Exception("The dependency to delete does not exist in the system");
+            throw new DalDoesNotExistException("The dependency to delete does not exist in the system");
         }
+    }
+
+    public Dependency? Read(Func<Dependency, bool> filter)
+    {
+         return DataSource.Dependencies.FirstOrDefault(filter!);
     }
 
     //Gets ID and check if it exists in the list 
     public Dependency? Read(int id)
     {
-        var dep = (DataSource.Dependencies).Where(dependency => dependency?.Id == id);
-        if (dep != null )
-        {
-            return (Dependency)dep;
-        }
-        return null;
-
-        //if (DataSource.Dependencies.Exists(x => x!.Id == id))//
-        //{
-        //    return DataSource.Dependencies.Find(x => x!.Id == id);
-        //}
-        //return null;
+        return (DataSource.Dependencies).FirstOrDefault(dependency => dependency?.Id == id);
     }
+
     //Return the dependencies list
-    public List<Dependency> ReadAll()
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
     {
-        return new List<Dependency>(DataSource.Dependencies!);
+        if (filter == null)
+            return DataSource.Dependencies.Select(item => item);
+        else
+            return DataSource.Dependencies.Where(filter);
     }
     //Gets a dependency and update the dependency with the same ID from the dependencies list 
     public void Update(Dependency item)
     {
         Dependency? reference = Read(item.Id);
-        if (reference!=null)
+        if (reference != null)
         {
-   
+
             DataSource.Dependencies.Remove(reference);
             DataSource.Dependencies.Add(item);
         }
         else
         {
-            throw new Exception("The item to update does not exist in the system");
+            throw new DalDoesNotExistException("The dependency to update does not exist in the system");
         }
     }
 }

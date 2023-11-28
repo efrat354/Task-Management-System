@@ -12,7 +12,7 @@ internal class EngineerImplementation : IEngineer
     public int Create(Engineer item)
     {
         if (Read(item.Id) is not null)
-            throw new Exception($"Engineer with ID={item.Id} already exists");
+            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item);
         return item.Id;
     }
@@ -21,39 +21,41 @@ internal class EngineerImplementation : IEngineer
     public void Delete(int id)
     {
         Engineer? reference = Read(id);
-        if (reference==null)
+        if (reference == null)
         {
-            throw new Exception("Cannot be deleted, engineer does not exist");
+            throw new DalDoesNotExistException("Engineer does not exist, cannot be deleted");
         }
         else
         {
-           Engineer engineer = reference with { status=false};
+            Engineer engineer = reference with { Active = false };
             Update(engineer);
         }
-        
+
+    }
+    public Engineer? Read(Func<Engineer, bool> filter)
+    {
+        return DataSource.Engineers.FirstOrDefault(filter!);
     }
 
     //Read the engineer's details by his id-find him in the engineers' list and return a reference
     public Engineer? Read(int id)
     {
-        var eng = (DataSource.Engineers).Where(engineer => engineer?.Id == id);
-        if(eng!=null)
-        {
-            return (Engineer)eng;
-        }
-        return null;
-        //if (DataSource.Engineers.Exists(x => x!.Id == id))
-        //{
-        //    return DataSource.Engineers.Find(x => x!.Id == id);
-        //}
-        //return null;
+        return (DataSource.Engineers).FirstOrDefault(engineer => engineer?.Id == id);
+
     }
 
     //Read all the engineers' list-return a new list that include all the details
-    public List<Engineer> ReadAll()
+
+    //האם מותר לשנותאת הההגדרה בICRUD T
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
     {
-        return new List<Engineer>(DataSource.Engineers!);
+        if (filter == null)
+            return DataSource.Engineers.Select(item => item);
+        else
+            return DataSource.Engineers.Where(filter);
     }
+
+
 
     //Update the engineer's details by his id
     public void Update(Engineer item)
@@ -66,7 +68,7 @@ internal class EngineerImplementation : IEngineer
         }
         else
         {
-            throw new Exception("The item to update does not exist in the system");
+            throw new DalDoesNotExistException("The item to update does not exist in the system");
         }
     }
 }
