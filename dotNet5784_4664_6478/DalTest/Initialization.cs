@@ -103,7 +103,7 @@ public static class Initialization
             _product = taskProduct[count];
             _remarks= taskRemark[count];
             var engineerList = s_dal!.Engineer?.ReadAll();
-            _engineerId = (engineerList?? throw new Exception("There are not exist engineers"))[count].Id;
+            _engineerId = (engineerList?.ToList() ?? throw new Exception("There are not exist engineers"))[count]!.Id;
             _complexityLevel = (EngineerExperience)s_rand.Next(0, 3);
             task = new Task(0, _description, _alias,false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, _complexityLevel);
             s_dal!.Task?.Create(task);//Calling the action create for each dependency

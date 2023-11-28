@@ -56,25 +56,18 @@ internal class TaskImplementation : ITask
     //Read the task's details by its id-find it in the tasks' list and return a reference
     public Task? Read(int id)
     {
-        var tk = (DataSource.Tasks).Where(task => task?.Id == id);
-        if (tk != null)
-        {
-            return (Task)tk;
-        }
-        return null;
-        //if (DataSource.Tasks.Exists(x => x!.Id == id))
-        //{
-        //    return DataSource.Tasks.Find(x => x!.Id == id);
-        //}
-        //return null;
+        return (DataSource.Tasks).FirstOrDefault(task => task?.Id == id);
     }
 
     //Read all the tasks' list-return a new list that include all the details
-    public List<Task> ReadAll()
-    {
-        return new List<Task>(DataSource.Tasks!);
-    }
 
+    public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
+    {
+        if (filter == null)
+            return DataSource.Tasks.Select(item => item);
+        else
+            return DataSource.Tasks.Where(filter);
+    }
     //Update the task's details by its id
     public void Update(Task item)
     {

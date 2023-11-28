@@ -21,40 +21,37 @@ internal class EngineerImplementation : IEngineer
     public void Delete(int id)
     {
         Engineer? reference = Read(id);
-        if (reference==null)
+        if (reference == null)
         {
             throw new Exception("Cannot be deleted, engineer does not exist");
         }
         else
         {
-           Engineer engineer = reference with { status=false};
+            Engineer engineer = reference with { status = false };
             Update(engineer);
         }
-        
+
     }
 
     //Read the engineer's details by his id-find him in the engineers' list and return a reference
     public Engineer? Read(int id)
     {
-        /* var eng = (DataSource.Engineers).Where(engineer => engineer?.Id == id);
-         if(eng!=null)
-         {
-             return (Engineer?)eng;
-         }
-         return null;*/
-        return DataSource.Engineers.FirstOrDefault(engineer => engineer?.Id == id);
-        //if (DataSource.Engineers.Exists(x => x!.Id == id))
-        //{
-        //    return DataSource.Engineers.Find(x => x!.Id == id);
-        //}
-        //return null;
+        return (DataSource.Engineers).FirstOrDefault(engineer => engineer?.Id == id);
+
     }
 
     //Read all the engineers' list-return a new list that include all the details
-    public List<Engineer> ReadAll()
+
+    //האם מותר לשנותאת הההגדרה בICRUD T
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
     {
-        return new List<Engineer>(DataSource.Engineers!);
+        if (filter == null)
+            return DataSource.Engineers.Select(item => item);
+        else
+            return DataSource.Engineers.Where(filter);
     }
+
+
 
     //Update the engineer's details by his id
     public void Update(Engineer item)
