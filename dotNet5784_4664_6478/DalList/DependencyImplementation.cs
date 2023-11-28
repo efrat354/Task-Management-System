@@ -54,7 +54,6 @@ internal class DependencyImplementation : IDependency
         Dependency? reference = Read(item.Id);
         if (reference!=null)
         {
-   
             DataSource.Dependencies.Remove(reference);
             DataSource.Dependencies.Add(item);
         }

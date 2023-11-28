@@ -36,12 +36,13 @@ internal class EngineerImplementation : IEngineer
     //Read the engineer's details by his id-find him in the engineers' list and return a reference
     public Engineer? Read(int id)
     {
-        var eng = (DataSource.Engineers).Where(engineer => engineer?.Id == id);
-        if(eng!=null)
-        {
-            return (Engineer)eng;
-        }
-        return null;
+        /* var eng = (DataSource.Engineers).Where(engineer => engineer?.Id == id);
+         if(eng!=null)
+         {
+             return (Engineer?)eng;
+         }
+         return null;*/
+        return DataSource.Engineers.FirstOrDefault(engineer => engineer?.Id == id);
         //if (DataSource.Engineers.Exists(x => x!.Id == id))
         //{
         //    return DataSource.Engineers.Find(x => x!.Id == id);
