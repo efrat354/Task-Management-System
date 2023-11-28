@@ -63,6 +63,7 @@ internal class TaskImplementation : ITask
         //}
         //DataSource.Tasks.Remove(reference);
     }
+    //Gets a pointer to a boolean function which will go through the task's list and return the first task in the list on which the function returns True.
     public Task? Read(Func<Task, bool> filter)
     {
         return DataSource.Tasks.FirstOrDefault(filter!);
@@ -74,7 +75,8 @@ internal class TaskImplementation : ITask
         return (DataSource.Tasks).FirstOrDefault(task => task?.Id == id);
     }
 
-    //Read all the tasks' list-return a new list that include all the details
+    //Gets a pointer to a boolean function ,which will go through the task's list and return the list of all tasks objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
+
 
     public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
     {

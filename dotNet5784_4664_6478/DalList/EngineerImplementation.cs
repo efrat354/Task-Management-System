@@ -32,6 +32,7 @@ internal class EngineerImplementation : IEngineer
         }
 
     }
+    //Gets a pointer to a boolean function which will go through the engineer's list and return the first engineer in the list on which the function returns True.
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         return DataSource.Engineers.FirstOrDefault(filter!);
@@ -44,9 +45,8 @@ internal class EngineerImplementation : IEngineer
 
     }
 
-    //Read all the engineers' list-return a new list that include all the details
+    //Gets a pointer to a boolean function ,which will go through the engineer's list and return the list of all the engineers objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
 
-    //האם מותר לשנותאת הההגדרה בICRUD T
     public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
     {
         if (filter == null)

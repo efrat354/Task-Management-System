@@ -27,7 +27,7 @@ internal class DependencyImplementation : IDependency
             throw new DalDoesNotExistException("The dependency to delete does not exist in the system");
         }
     }
-
+    //Gets a pointer to a boolean function which will go through the dependency's list and return the first dependency in the list on which the function returns True.
     public Dependency? Read(Func<Dependency, bool> filter)
     {
          return DataSource.Dependencies.FirstOrDefault(filter!);
@@ -41,7 +41,7 @@ internal class DependencyImplementation : IDependency
         return (DataSource.Dependencies).FirstOrDefault(dependency => dependency?.Id == id);
     }
 
-    //Return the dependencies list
+    //Gets a pointer to a boolean function ,which will go through the dependency's list and return the list of all dependencies objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
     {
         if (filter == null)
