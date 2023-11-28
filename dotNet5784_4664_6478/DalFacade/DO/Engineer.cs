@@ -7,7 +7,7 @@
 /// <param name="Email">Engineer's email</param>
 /// <param name="Level">The level of experience of the engineer</param>
 /// <param name="Cost">The cost of the engineer per hour</param>
-/// <param name="status">Engineer's status- if the engineer is active</param>
+/// <param name="Active">Engineer's Active- if the engineer is active</param>
 public record Engineer
 (
     int Id=0,
@@ -15,7 +15,7 @@ public record Engineer
     string Email = "",
     EngineerExperience Level=0,
     double Cost= 30,
-    bool status = true 
+    bool Active = true 
 )
 {
   public Engineer() : this(0,"","",EngineerExperience.Rookie,0) { } //empty ctor 

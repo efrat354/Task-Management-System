@@ -103,7 +103,7 @@ public static class Initialization
             _product = taskProduct[count];
             _remarks= taskRemark[count];
             var engineerList = s_dal!.Engineer?.ReadAll();
-            _engineerId = (engineerList?.ToList() ?? throw new Exception("There are not exist engineers"))[count]!.Id;
+            _engineerId = (engineerList?.ToList() ?? throw new DalInvalidInitialization("There are not exist engineers, cannot be created"))[count]!.Id;
             _complexityLevel = (EngineerExperience)s_rand.Next(0, 3);
             task = new Task(0, _description, _alias,false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, _complexityLevel);
             s_dal!.Task?.Create(task);//Calling the action create for each dependency
@@ -116,7 +116,7 @@ public static class Initialization
         //s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         //s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
         //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); 
+        s_dal = dal ?? throw new DalInvalidInitialization("DAL object can not be null!"); 
         createEngineer();
         createTask();
         createDependency();

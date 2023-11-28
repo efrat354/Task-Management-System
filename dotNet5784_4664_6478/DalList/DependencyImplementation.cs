@@ -24,8 +24,13 @@ internal class DependencyImplementation : IDependency
         }
         else
         {
-            throw new Exception("The dependency to delete does not exist in the system");
+            throw new DalDoesNotExistException("The dependency to delete does not exist in the system");
         }
+    }
+
+    public Dependency? Read(Func<Dependency, bool> filter)
+    {
+         return DataSource.Dependencies.FirstOrDefault(filter!);
     }
 
     //Gets ID and check if it exists in the list 
@@ -33,17 +38,8 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
-        if (filter == null)
-            return DataSource.Dependencies.(item => item);
-        else
-            return DataSource.Dependencies.Where(filter);
+        return (DataSource.Dependencies).FirstOrDefault(dependency => dependency?.Id == id);
     }
-
-    // stage 2
-//public Dependency? Read(int id)
-//{      
-//    return (DataSource.Dependencies).FirstOrDefault(dependency => dependency?.Id == id);
-//}
 
     //Return the dependencies list
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
@@ -65,7 +61,7 @@ internal class DependencyImplementation : IDependency
         }
         else
         {
-            throw new Exception("The item to update does not exist in the system");
+            throw new DalDoesNotExistException("The dependency to update does not exist in the system");
         }
     }
 }
