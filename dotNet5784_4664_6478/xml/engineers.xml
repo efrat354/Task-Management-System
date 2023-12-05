@@ -1,3 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer>
+	<Engineer>
+		<!--int Id=0,
+		string Name="",
+		string Email = "",
+		EngineerExperience Level=0,
+		double Cost= 30,
+		bool Active = true-->
+
+	</Engineer>
 </ArrayOfEngineer>
