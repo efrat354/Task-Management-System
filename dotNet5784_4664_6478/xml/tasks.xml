@@ -1,3 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask>
+	int Id=0,
+	string Description=" ",
+	string? Alias=null,
+	bool Milestone=false,
+	DateTime CreatedAt = new DateTime(),
+	DateTime? Start = null,
+	DateTime? ForcastDate = null,
+	DateTime? Deadline = null,
+	DateTime? Complete = null,
+	string? Product=null,
+	string? Remarks = null,
+	int EngineerId = 0,
+	EngineerExperience ComplexityLevel=0,
+	bool Active=true
+	<Task>
+		<Id></Id>
+		<Description></Description>
+	</Task>
 </ArrayOfTask>

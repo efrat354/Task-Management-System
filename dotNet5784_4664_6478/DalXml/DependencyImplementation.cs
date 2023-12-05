@@ -7,7 +7,6 @@ internal class DependencyImplementation : IDependency
 {
     const string dependencysFile = @"..\xml\dependencys.xml";
     XDocument dependencysDocument = XDocument.Load(dependencysFile);
-
     public int Create(Dependency item)
     {
         int newDependencyId = Config.NextDependencyId;
@@ -22,17 +21,54 @@ internal class DependencyImplementation : IDependency
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        if (dependencysDocument.Root!=null)
+        {
+            XElement? dependencyElement= dependencysDocument.Root.Elements("Dependency")
+                .FirstOrDefault(d => (int)d.Element("Id")! == id);
+            if (dependencyElement!=null)
+            {
+                dependencyElement.Remove();
+                dependencysDocument.Save(dependencysFile);
+            }
+            else 
+            {
+                throw new DalDoesNotExistException($"The dependency with Id={id} does not exist in the system");
+            }
+        }
+        else
+        {
+            throw new DalDoesNotExistException("The dependencies document is empty");
+        }
     }
 
     public Dependency? Read(int id)
     {
-        throw new NotImplementedException();
+        if (dependencysDocument.Root != null)
+        {
+            XElement? dependencyElement = dependencysDocument.Root.Elements("Dependency")
+                .FirstOrDefault(d => (int)d.Element("Id")! == id);
+
+            //return XMLTools.ToEnumNullable<Dependency>(dependencyElement, " ");
+        }
+        else
+        {
+            throw new DalDoesNotExistException("The dependencies document is empty");
+        }
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
-        throw new NotImplementedException();
+        if (dependencysDocument.Root != null)
+        {
+            XElement? dependencyElement = dependencysDocument.Root.Elements("Dependency")
+                .FirstOrDefault(filter);
+
+            //return XMLTools.ToEnumNullable<Dependency>(dependencyElement, " ");
+        }
+        else
+        {
+            throw new DalDoesNotExistException("The dependencies document is empty");
+        }
     }
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null)
