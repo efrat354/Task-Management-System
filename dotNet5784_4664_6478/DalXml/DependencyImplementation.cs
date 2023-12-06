@@ -7,7 +7,6 @@ internal class DependencyImplementation : IDependency
 {
     const string dependencysFile = @"..\xml\dependencys.xml";
     XDocument dependencysDocument = XDocument.Load(dependencysFile);
-
     public int Create(Dependency item)
     {
         int newDependencyId = Config.NextDependencyId;
@@ -22,25 +21,85 @@ internal class DependencyImplementation : IDependency
 
     public void Delete(int id)
     {
+        if (dependencysDocument.Root!=null)
+        {
+            XElement? dependencyElement= dependencysDocument.Root.Elements("Dependency")
+                .FirstOrDefault(d => (int)d.Element("Id")! == id);
+            if (dependencyElement!=null)
+            {
+                dependencyElement.Remove();
+                dependencysDocument.Save(dependencysFile);
+            }
+            else 
+            {
+                throw new DalDoesNotExistException($"The dependency with Id={id} does not exist in the system");
+            }
+        }
+        else
+        {
+            throw new DalDoesNotExistException("The dependencies document is empty");
+        }
     }
 
     public Dependency? Read(int id)
     {
-        throw new NotImplementedException();
+       //f (dependencysDocument.Root != null)
+       
+            XElement? dependencyElement = dependencysDocument.Root?
+            .Elements("Dependency").FirstOrDefault(d => (int)d.Element("Id")! == id);
+
+         if(dependencyElement!=null)
+            {
+                Dependency? dependency = new Dependency
+                    ((int)dependencyElement.Element("Id")!,
+                    (int)dependencyElement.Element("DependentTask")!,
+                    (int)dependencyElement.Element("DependsOnTask")!);
+                return dependency;
+            }
+
+ 
+        else
+        {
+            throw new DalDoesNotExistException("The dependencies document is empty");
+        }
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
-        throw new NotImplementedException();
+        Dependency? dependencyElements =
+         dependencysDocument.Root?.Elements("Dependency")?.
+        Select(d => new Dependency(
+                (int)d.Element("Id")!,
+                (int)d.Element("DependentTask")!,
+                (int)d.Element("DependsOnTask")!))
+        .FirstOrDefault(filter);
+         //if(dependencyElement!=null)
+            return dependencyElements;
+
     }
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null)
     {
-        throw new NotImplementedException();
-    }
+        XElement? dependenciesElement = XMLTools.LoadListFromXMLElement("dependencys");
+        
 
+            IEnumerable<Dependency> dependencies = dependenciesElement
+         .Elements("Dependency")
+         .Select(e => new Dependency(
+              (int)e.Element("Id")!,
+             (int)e.Element("DependentTask")!,
+             (int)e.Element("DependsOnTask")!
+         ));
+        if(dependencies != null)
+        {
+            dependencies = dependencies.Where(filter);
+        }
+        return dependencies;
+
+     
+    }
     public void Update(Dependency item)
     {
-        throw new NotImplementedException();
+
     }
 }
