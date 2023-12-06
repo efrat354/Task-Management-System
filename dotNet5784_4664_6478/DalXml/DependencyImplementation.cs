@@ -5,8 +5,8 @@ using System.Xml.Linq;
 
 internal class DependencyImplementation : IDependency
 {
-    const string dependencysFile = @"..\xml\dependencys.xml";
-    XDocument dependencysDocument = XDocument.Load(dependencysFile);
+    const string dependenciesFile = @"..\xml\dependencies.xml";
+    XDocument dependencyiesDocument = XDocument.Load(dependenciesFile);
     public int Create(Dependency item)
     {
         int newDependencyId = Config.NextDependencyId;
@@ -14,28 +14,28 @@ internal class DependencyImplementation : IDependency
         new XElement("Id", newDependencyId),
         new XElement("DependentTask", item.DependentTask),
         new XElement("DependsOnTask", item.DependsOnTask));
-        dependencysDocument.Root?.Add(dependencyElement);
-        dependencysDocument.Save(dependencysFile);
+        dependencyiesDocument.Root?.Add(dependencyElement);
+        dependencyiesDocument.Save(dependenciesFile);
         return newDependencyId;
     }
 
     public void Delete(int id)
     {
-        if (dependencysDocument.Root!=null)
+        if (dependencyiesDocument.Root != null)
         {
-            XElement? dependencyElement= dependencysDocument.Root.Elements("Dependency")
+            XElement? dependencyElement = dependencyiesDocument.Root.Elements("Dependency")
                 .FirstOrDefault(d => (int)d.Element("Id")! == id);
-            if (dependencyElement!=null)
+            if (dependencyElement != null)
             {
                 dependencyElement.Remove();
-                dependencysDocument.Save(dependencysFile);
+                dependencyiesDocument.Save(dependenciesFile);
             }
-            else 
+            else
             {
                 throw new DalDoesNotExistException($"The dependency with Id={id} does not exist in the system");
             }
         }
-        else
+        else//האם לעשות כזאת שגיאה או רק להגיד שי אםשר למחוק
         {
             throw new DalDoesNotExistException("The dependencies document is empty");
         }
@@ -43,63 +43,66 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-       //f (dependencysDocument.Root != null)
-       
-            XElement? dependencyElement = dependencysDocument.Root?
-            .Elements("Dependency").FirstOrDefault(d => (int)d.Element("Id")! == id);
-
-         if(dependencyElement!=null)
-            {
-                Dependency? dependency = new Dependency
-                    ((int)dependencyElement.Element("Id")!,
-                    (int)dependencyElement.Element("DependentTask")!,
-                    (int)dependencyElement.Element("DependsOnTask")!);
-                return dependency;
-            }
-
- 
-        else
-        {
-            throw new DalDoesNotExistException("The dependencies document is empty");
-        }
+        XElement? dependencyElement = dependencyiesDocument.Root?
+        .Elements("Dependency").FirstOrDefault(d => (int)d.Element("Id")! == id);
+        Dependency? dependency = new Dependency
+            ((int)dependencyElement?.Element("Id")!,
+            (int)dependencyElement?.Element("DependentTask")!,
+            (int)dependencyElement?.Element("DependsOnTask")!);
+        return dependency;
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
-        Dependency? dependencyElements =
-         dependencysDocument.Root?.Elements("Dependency")?.
+        Dependency? dependencyElement = dependencyiesDocument.Root?.Elements("Dependency")?.
         Select(d => new Dependency(
                 (int)d.Element("Id")!,
                 (int)d.Element("DependentTask")!,
                 (int)d.Element("DependsOnTask")!))
         .FirstOrDefault(filter);
-         //if(dependencyElement!=null)
-            return dependencyElements;
-
+        return dependencyElement;
     }
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null)
     {
-        XElement? dependenciesElement = XMLTools.LoadListFromXMLElement("dependencys");
-        
-
-            IEnumerable<Dependency> dependencies = dependenciesElement
+        XElement? dependenciesElement = XMLTools.LoadListFromXMLElement("dependencyies");
+        IEnumerable<Dependency> dependencies = dependenciesElement
          .Elements("Dependency")
          .Select(e => new Dependency(
-              (int)e.Element("Id")!,
+             (int)e.Element("Id")!,
              (int)e.Element("DependentTask")!,
              (int)e.Element("DependsOnTask")!
          ));
-        if(dependencies != null)
+        if (dependencies != null && filter != null)
         {
             dependencies = dependencies.Where(filter);
         }
-        return dependencies;
-
-     
+        return dependencies!;//???האם להחזיר ריק
     }
     public void Update(Dependency item)
     {
-
+        if (dependencyiesDocument.Root != null)
+        {
+            XElement? dependencyElement = dependencyiesDocument.Root.Elements("Dependency")
+                .FirstOrDefault(d => (int)d.Element("Id")! == item.Id);
+            if (dependencyElement != null)
+            {
+                dependencyElement.Remove();
+                dependencyElement = new XElement("Dependency",
+                new XElement("Id", item.Id),
+                new XElement("DependentTask", item.DependentTask),
+                new XElement("DependsOnTask", item.DependsOnTask));
+                dependencyiesDocument.Root?.Add(dependencyElement);
+                dependencyiesDocument.Save(dependenciesFile);
+            }
+            else
+            {
+                throw new DalDoesNotExistException($"The dependency with Id={item.Id} does not exist in the system");
+            }
+        }
+        else
+        {
+            throw new DalDoesNotExistException("The dependencies document is empty");
+        }
     }
 }

@@ -1,9 +1,12 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Xml.Linq;
 
 internal class EngineerImplementation : IEngineer
 {
+    const string engineerFile = @"..\xml\engineers.xml";
+    XDocument dependencyiesDocument = XDocument.Load(engineerFile);
     public int Create(Engineer item)
     {
         throw new NotImplementedException();
