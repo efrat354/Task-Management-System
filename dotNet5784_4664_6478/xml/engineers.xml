@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer>
 	<Engineer>
-		<!--int Id=0,
-		string Name="",
-		string Email = "",
-		EngineerExperience Level=0,
-		double Cost= 30,
-		bool Active = true-->
-
+		<Id>214785693</Id>
+		<Name>Dina Klein</Name>
+		<Email>DinaKlein@gmail.com</Email>
+		<EngineerExperience>2</EngineerExperience>
+		<Cost>70</Cost>
+		<Active>true</Active>
+	</Engineer>
+	<Engineer>
+		<Id>3158624702</Id>
+		<Name>Ariela Levin</Name>
+		<Email>ArielaLevin@gmail.com</Email>
+		<EngineerExperience>0</EngineerExperience>
+		<Cost>80</Cost>
+		<Active>true</Active>
+	</Engineer>
+	<Engineer>
+		<Id>214856475</Id>
+		<Name>Yair Cohen</Name>
+		<Email>YairCohen@gmail.com</Email>
+		<EngineerExperience>1</EngineerExperience>
+		<Cost>90</Cost>
+		<Active>true</Active>
+	</Engineer>
+	<Engineer>
+		<Id>214856741</Id>
+		<Name>Eli Amar</Name>
+		<Email>EliAmar@gmail.com</Email>
+		<EngineerExperience>2</EngineerExperience>
+		<Cost>100</Cost>
+		<Active>true</Active>
+	</Engineer>
+	<Engineer>
+		<Id>218563478</Id>
+		<Name>Dani Levi</Name>
+		<Email>DaniLevi@gmail.com</Email>
+		<EngineerExperience>0</EngineerExperience>
+		<Cost>110</Cost>
+		<Active>true</Active>
 	</Engineer>
 </ArrayOfEngineer>
