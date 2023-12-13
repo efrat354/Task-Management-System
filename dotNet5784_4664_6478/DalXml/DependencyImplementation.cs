@@ -65,7 +65,7 @@ internal class DependencyImplementation : IDependency
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null)
     {
-        XElement? dependenciesElement = XMLTools.LoadListFromXMLElement("dependencyies");
+        XElement ?dependenciesElement = XMLTools.LoadListFromXMLElement("dependencyies");
         IEnumerable<Dependency> dependencies = dependenciesElement
          .Elements("Dependency")
          .Select(e => new Dependency(
