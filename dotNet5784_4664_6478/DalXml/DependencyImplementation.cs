@@ -35,7 +35,7 @@ internal class DependencyImplementation : IDependency
                 throw new DalDoesNotExistException($"The dependency with Id={id} does not exist in the system");
             }
         }
-        else//האם לעשות כזאת שגיאה או רק להגיד שי אםשר למחוק
+        else
         {
             throw new DalDoesNotExistException("The dependencies document is empty");
         }
@@ -77,7 +77,7 @@ internal class DependencyImplementation : IDependency
         {
             dependencies = dependencies.Where(filter);
         }
-        return dependencies!;//???האם להחזיר ריק
+        return dependencies!;
     }
     public void Update(Dependency item)
     {

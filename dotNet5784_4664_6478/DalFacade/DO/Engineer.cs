@@ -18,6 +18,6 @@ public record Engineer
     bool Active = true 
 )
 {
-  public Engineer() : this(0,"","",EngineerExperience.Rookie,0) { } //empty ctor 
+  public Engineer() : this(0,"","",EngineerExperience.Novice,0) { } //empty ctor 
 
 }

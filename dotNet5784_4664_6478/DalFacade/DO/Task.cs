@@ -18,19 +18,19 @@
 public record Task
 (
     int Id=0,
-    string Description=" ",
-    string? Alias=null,
-    bool Milestone=false,
-   // int duration=0,
-    DateTime CreatedAt = new DateTime(),
-    DateTime? Start = null,
-    DateTime? ForcastDate = null,
-    DateTime? Complete = null,
-    DateTime? Deadline = null,
+    string Alias = "",
+    string Description="",
+    DateTime CreatedAtDate = new DateTime(),
+    TimeSpan RequiredEffortTime=new TimeSpan(), 
+    bool IsMilestone =false,
+    EngineerExperience Complexity = 0,
+    DateTime? StartDate = null,
+    DateTime? ScheduledDate = null,
+    DateTime? DeadlineDate = null,
+    DateTime? CompleteDate = null,
     string? Product=null,
     string? Remarks = null,
     int EngineerId = 0,
-    EngineerExperience ComplexityLevel=0,
     bool Active=true
 )
 {
