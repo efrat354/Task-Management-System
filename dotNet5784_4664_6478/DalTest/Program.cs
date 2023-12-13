@@ -8,7 +8,8 @@ namespace DalTest
     internal class Program
     {
         //Enabling access to the global interface we defined
-        static readonly IDal s_dal = new DalList();
+        //static readonly IDal s_dal = new DalList();
+        static readonly IDal s_dal = new DalXml(); //stage 3
 
         //Function that manage all the functions of engineer
         private static void engineer()
