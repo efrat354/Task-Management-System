@@ -6,7 +6,11 @@ using System.Xml.Serialization;
 
 internal class EngineerImplementation : IEngineer
 {
+   /// The implementation of the engineer's CRUD functions 
+
     const string engineerFile = @"..\xml\engineers.xml";
+    //Create a new engineer and add it to the engineers' list 
+
     public int Create(Engineer item)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
@@ -15,6 +19,7 @@ internal class EngineerImplementation : IEngineer
         XMLTools.SaveListToXMLSerializer<Engineer>(lst, "engineers");
         return item.Id;
     }
+    //Delete an engineer by his id- change the engineer to inactive
 
     public void Delete(int id)
     {
@@ -29,6 +34,7 @@ internal class EngineerImplementation : IEngineer
             Update(engineer);
         }
     }
+    //Gets a pointer to a boolean function which will go through the engineer's list and return the first engineer in the list on which the function returns True.
 
     public Engineer? Read(int id)
     {
@@ -36,6 +42,7 @@ internal class EngineerImplementation : IEngineer
         List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
         return lst.FirstOrDefault(engineer => engineer?.Id == id);
     }
+    //Read the engineer's details by his id-find him in the engineers' list and return a reference
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
@@ -44,6 +51,7 @@ internal class EngineerImplementation : IEngineer
         return lst.FirstOrDefault(filter!);
 
     }
+    //Gets a pointer to a boolean function ,which will go through the engineer's list and return the list of all the engineers objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
 
     public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null)
     {
@@ -54,6 +62,7 @@ internal class EngineerImplementation : IEngineer
         else
             return lst.Where(filter);
     }
+    //Update the engineer's details by his id
 
     public void Update(Engineer item)
     {
