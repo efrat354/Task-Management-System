@@ -13,12 +13,6 @@ internal class TaskImplementation : ITask
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
         lst.Add(item);
         XMLTools.SaveListToXMLSerializer<Task>(lst, "tasks");
-
-        //using (TextWriter writer = new StreamWriter(taskFile))
-        //{
-        //    serializer.Serialize(writer, lst);
-        //}
-
         return item.Id;
     }
 

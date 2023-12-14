@@ -5,8 +5,11 @@ using System.Xml.Linq;
 
 internal class DependencyImplementation : IDependency
 {
+    //Implementation of the dependency interface
+
     const string dependenciesFile = @"..\xml\dependencies.xml";
     XDocument dependencyiesDocument = XDocument.Load(dependenciesFile);
+//Gets a dependency ,Create a copy of a dependency and add it to the dependencies list
     public int Create(Dependency item)
     {
         int newDependencyId = Config.NextDependencyId;
@@ -18,6 +21,7 @@ internal class DependencyImplementation : IDependency
         dependencyiesDocument.Save(dependenciesFile);
         return newDependencyId;
     }
+    //Gets ID and deleting the dependency with the Received ID from the list
 
     public void Delete(int id)
     {
@@ -40,6 +44,7 @@ internal class DependencyImplementation : IDependency
             throw new DalDoesNotExistException("The dependencies document is empty");
         }
     }
+    //Gets ID and check if it exists in the list 
 
     public Dependency? Read(int id)
     {
@@ -51,6 +56,7 @@ internal class DependencyImplementation : IDependency
             (int)dependencyElement?.Element("DependsOnTask")!);
         return dependency;
     }
+    //Gets a pointer to a boolean function which will go through the dependency's list and return the first dependency in the list on which the function returns True.
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
@@ -62,6 +68,7 @@ internal class DependencyImplementation : IDependency
         .FirstOrDefault(filter);
         return dependencyElement;
     }
+    //Gets a pointer to a boolean function ,which will go through the dependency's list and return the list of all dependencies objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null)
     {
@@ -79,6 +86,8 @@ internal class DependencyImplementation : IDependency
         }
         return dependencies!;
     }
+    //Gets a dependency and update the dependency with the same ID from the dependencies list 
+
     public void Update(Dependency item)
     {
         if (dependencyiesDocument.Root != null)
