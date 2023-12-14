@@ -93,7 +93,6 @@ namespace DalTest
         //Function that manage all the functions of task
         private static void task()
         {
-            //DateTime _createdAt, _start, _forcastDate, _deadline, _complete;נעשה שינויים בשמות
             //Declaration of variables
             int choice = 0, _engineerId, _complexity,_id;
             string _description, _alias, _product, _remarks;
@@ -119,7 +118,7 @@ namespace DalTest
                     _requiredEffortTime=new TimeSpan(int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter required effort time")));
                     Console.WriteLine("Enter task's start date:");
                     _startDate = Convert.ToDateTime(Console.ReadLine());
-                    Console.WriteLine("Enter task's forcast date:");
+                    Console.WriteLine("Enter task's scheduled date:");
                     _scheduledDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's deadline date:");
                     //_deadline = Convert.ToDateTime(Console.ReadLine());
@@ -170,7 +169,7 @@ namespace DalTest
                     _requiredEffortTime = new TimeSpan(int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter required effort time")));
                     Console.WriteLine("Enter task's start date:");
                     _startDate = Convert.ToDateTime(Console.ReadLine());
-                    Console.WriteLine("Enter task's forcast date:");
+                    Console.WriteLine("Enter task's scheduled date:");
                     _scheduledDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's deadline date:");
                    // _deadline = Convert.ToDateTime(Console.ReadLine());

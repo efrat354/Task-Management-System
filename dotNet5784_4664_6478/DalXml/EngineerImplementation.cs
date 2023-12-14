@@ -12,11 +12,12 @@ internal class EngineerImplementation : IEngineer
         XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
         List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
         lst.Add(item);
+        XMLTools.SaveListToXMLSerializer<Engineer>(lst, "engineers");
 
-        using (TextWriter writer = new StreamWriter(engineerFile))
-        {
-            serializer.Serialize(writer, lst);
-        }
+        //using (TextWriter writer = new StreamWriter(engineerFile))
+        //{
+        //    serializer.Serialize(writer, lst);
+        //}
 
         return item.Id;
     }
