@@ -11,13 +11,13 @@ internal class TaskImplementation : ITask
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
-
         lst.Add(item);
+        XMLTools.SaveListToXMLSerializer<Task>(lst, "tasks");
 
-        using (TextWriter writer = new StreamWriter(taskFile))
-        {
-            serializer.Serialize(writer, lst);
-        }
+        //using (TextWriter writer = new StreamWriter(taskFile))
+        //{
+        //    serializer.Serialize(writer, lst);
+        //}
 
         return item.Id;
     }
@@ -40,7 +40,6 @@ internal class TaskImplementation : ITask
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
-
         return lst.FirstOrDefault(Task => Task?.Id == id);
     }
 
@@ -48,16 +47,13 @@ internal class TaskImplementation : ITask
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
-
         return lst.FirstOrDefault(filter!);
-
     }
 
     public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
-
         if (filter == null)
             return lst.Select(item => item);
         else
@@ -74,7 +70,6 @@ internal class TaskImplementation : ITask
             lst.Remove(reference);
             lst.Add(item);
             XMLTools.SaveListToXMLSerializer<Task>(lst, "tasks");
-
         }
         else
         {
