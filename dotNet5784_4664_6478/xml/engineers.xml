@@ -1,307 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfEngineer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Engineer>
-    <Id>123456789</Id>
-    <Name>Ethan Cohen</Name>
-    <Email>ethan.cohen@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>300</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>987654321</Id>
-    <Name>Levi Goldberg</Name>
-    <Email>levi.goldberg@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>500</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>111111111</Id>
-    <Name>Isaac Levy</Name>
-    <Email>isaac.levy@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>350</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>222222222</Id>
-    <Name>Aaron Rosenberg</Name>
-    <Email>aaron.rosenberg@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>550</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>333333333</Id>
-    <Name>Jacob Katz</Name>
-    <Email>jacob.katz@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>320</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>444444444</Id>
-    <Name>Samuel Schwartz</Name>
-    <Email>samuel.schwartz@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>520</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>555555555</Id>
-    <Name>Noah Friedman</Name>
-    <Email>noah.friedman@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>340</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>666666666</Id>
-    <Name>Elijah Stein</Name>
-    <Email>elijah.stein@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>560</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>777777777</Id>
-    <Name>Benjamin Weiss</Name>
-    <Email>benjamin.weiss@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>330</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>888888888</Id>
-    <Name>Daniel Silverman</Name>
-    <Email>daniel.silverman@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>550</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>999999999</Id>
-    <Name>David Cohen</Name>
-    <Email>david.cohen@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>340</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>101010101</Id>
-    <Name>Joseph Schwartz</Name>
-    <Email>joseph.schwartz@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>570</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>121212121</Id>
-    <Name>Joshua Abramowitz</Name>
-    <Email>joshua.abramowitz@example.com</Email>
-    <Level>Novice</Level>
-    <Cost>350</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>224814244</Id>
-    <Name>Dani Levi</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>2583</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>322001889</Id>
-    <Name>Eli Amar</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>2016</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>333721725</Id>
-    <Name>Yair Cohen</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Competent</Level>
-    <Cost>4743</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>382097203</Id>
-    <Name>Ariela Levin</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Novice</Level>
-    <Cost>4810</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>350449345</Id>
-    <Name>Dina Klein</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Novice</Level>
-    <Cost>5716</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>208204418</Id>
-    <Name>Shira Israelof</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>123</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>225139769</Id>
-    <Name>Dani Levi</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>6964</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>266256755</Id>
-    <Name>Eli Amar</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Competent</Level>
-    <Cost>7807</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>205793850</Id>
-    <Name>Yair Cohen</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Competent</Level>
-    <Cost>8278</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>230549656</Id>
-    <Name>Ariela Levin</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>151</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>397396770</Id>
-    <Name>Dina Klein</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Novice</Level>
-    <Cost>8667</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>200519330</Id>
-    <Name>Shira Israelof</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>4103</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>123456789</Id>
-    <Name>yoy</Name>
-    <Email>yoy@</Email>
-    <Level>Expert</Level>
-    <Cost>500</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>203654583</Id>
-    <Name>Dani Levi</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>609</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>317502580</Id>
-    <Name>Eli Amar</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Competent</Level>
-    <Cost>9415</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>305714156</Id>
-    <Name>Yair Cohen</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Competent</Level>
-    <Cost>2891</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>287328465</Id>
-    <Name>Ariela Levin</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Novice</Level>
-    <Cost>2839</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>243382175</Id>
-    <Name>Dina Klein</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Novice</Level>
-    <Cost>5526</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>306911851</Id>
-    <Name>Shira Israelof</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Novice</Level>
-    <Cost>1604</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>250479614</Id>
-    <Name>Dani Levi</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Competent</Level>
-    <Cost>8011</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>239793374</Id>
-    <Name>Eli Amar</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>2215</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>319208020</Id>
-    <Name>Yair Cohen</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Competent</Level>
-    <Cost>1981</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>363047385</Id>
-    <Name>Ariela Levin</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Competent</Level>
-    <Cost>8679</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>272079824</Id>
-    <Name>Dina Klein</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>Novice</Level>
-    <Cost>5542</Cost>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>201108173</Id>
-    <Name>Shira Israelof</Name>
-    <Email>ShiraIsraelof@gmail.com</Email>
-    <Level>AdvancedBeginner</Level>
-    <Cost>9427</Cost>
-    <Active>true</Active>
-  </Engineer>
+<ArrayOfEngineer>
+	<!-- Engineer 1 -->
+	<Engineer>
+		<Id>214785693</Id>
+		<Name>Dina Klein</Name>
+		<Email>DinaKlein@gmail.com</Email>
+		<EngineerExperience>Novice</EngineerExperience>
+		<Cost>250.00</Cost>
+	</Engineer>
+
+	<!-- Engineer 2 -->
+	<Engineer>
+		<Id>3158624702</Id>
+		<Name>Ariela Levin</Name>
+		<Email>ArielaLevin@gmail.com</Email>
+		<EngineerExperience>Novice</EngineerExperience>
+		<Cost>300.00</Cost>
+	</Engineer>
+
+	<!-- Engineer 3 -->
+	<Engineer>
+		<Id>214856475</Id>
+		<Name>Yair Cohen</Name>
+		<Email>YairCohen@gmail.com</Email>
+		<EngineerExperience>Competent</EngineerExperience>
+		<Cost>400.00</Cost>
+	</Engineer>
+
+	<!-- Engineer 4 -->
+	<Engineer>
+		<Id>214856741</Id>
+		<Name>Eli Amar</Name>
+		<Email>EliAmar@gmail.com</Email>
+		<EngineerExperience>Novice</EngineerExperience>
+		<Cost>120.00</Cost>
+		<Active>true</Active>
+	</Engineer>
+
+	<!-- Engineer 5 -->
+	<Engineer>
+		<Id>218563478</Id>
+		<Name>Dani Levi</Name>
+		<Email>DaniLevi@gmail.com</Email>
+		<EngineerExperience>Expert</EngineerExperience>
+		<Cost>520.00</Cost>
+		<Active>true</Active>
+	</Engineer>
+
+	<!-- Engineer 6 -->
+	<Engineer>
+		<Id>2154879764</Id>
+		<Name>Avraham Mandelovich</Name>
+		<Email>AvrahamMandelovich@gmail.com</Email>
+		<EngineerExperience>Competent</EngineerExperience>
+		<Cost>410.00</Cost>
+		<Active>true</Active>
+	</Engineer>
+
+	<!-- Engineer 7 -->
+	<Engineer>
+		<Id>212549638</Id>
+		<Name>Shimon Moalem</Name>
+		<Email>ShimonMoalem@gmail.com</Email>
+		<EngineerExperience>AdvancedBeginner</EngineerExperience>
+		<Cost>320.00</Cost>
+		<Active>true</Active>
+	</Engineer>
+
+	<!-- Engineer 8 -->
+	<Engineer>
+		<Id>211125487</Id>
+		<Name>Eliezer Klein</Name>
+		<Email>EliezerKlein@gmail.com</Email>
+		<EngineerExperience>Proficient</EngineerExperience>
+		<Cost>420.00</Cost>
+		<Active>true</Active>
+	</Engineer>
+
+	<!-- Engineer 9 -->
+	<Engineer>
+		<Id>213456789</Id>
+		<Name>Mordechai Levy</Name>
+		<Email>MordechaiLevy@gmail.com</Email>
+		<EngineerExperience>AdvancedBeginner</EngineerExperience>
+		<Cost>310.00</Cost>
+		<Active>true</Active>
+	</Engineer>
+
+	<!-- Engineer 10 -->
+	<Engineer>
+		<Id>235614789</Id>
+		<Name>Reuven Cohen</Name>
+		<Email>ReuvenCohen@gmail.com</Email>
+		<EngineerExperience>Expert</EngineerExperience>
+		<Cost>540.00</Cost>
+		<Active>true</Active>
+	</Engineer>
 </ArrayOfEngineer>
