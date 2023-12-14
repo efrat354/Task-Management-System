@@ -10,13 +10,15 @@
 /// <param name="IsMilestone">Milestones during the mission</param>
 /// <param name="Complexity">The level of complexity of the task</param>
 /// <param name="StartDate">Task's start date</param>
-/// <param name="ScheduledDate"></param>
+/// <param name="ScheduledDate">ask's estimated date of completion</param>
 /// <param name="DeadlineDate">Task's final date for completion</param>
 /// <param name="CompleteDate">Task's actual end date</param>
 /// <param name="Product">Product -describing the product</param>
 /// <param name="Remarks">Remarks on the task</param>
 /// <param name="EngineerId">The engineer's id the responsible on the task</param>
 /// <param name="Active">Task's status</param>
+/// 
+
 public record Task
 (
     int Id=0,
