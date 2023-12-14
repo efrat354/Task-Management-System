@@ -7,52 +7,74 @@ using System.Xml.Serialization;
 internal class EngineerImplementation : IEngineer
 {
     const string engineerFile = @"..\xml\engineers.xml";
-    XDocument dependencyiesDocument = XDocument.Load(engineerFile);
     public int Create(Engineer item)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
-        TextReader textReader = new StringReader(tasksFile);
-        List<Engineer lst = (List<Engineer>?)serializer.Deserialize(textReader) ?? throw new Exception();
+        List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
+        lst.Add(item);
 
-        //int newDependencyId = Config.NextDependencyId;
-        //XElement? dependencyElement = new XElement("Dependency",
-        //new XElement("Id", newDependencyId),
-        //new XElement("DependentTask", item.DependentTask),
-        //new XElement("DependsOnTask", item.DependsOnTask));
-        //dependencyiesDocument.Root?.Add(dependencyElement);
-        //dependencyiesDocument.Save(dependenciesFile);
-        //return newDependencyId;
+        using (TextWriter writer = new StreamWriter(engineerFile))
+        {
+            serializer.Serialize(writer, lst);
+        }
 
-
-
-        //if (Read(item.Id) is not null)
-        //    throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
-        //DataSource.Engineers.Add(item);
-        //return item.Id;
+        return item.Id;
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Engineer? reference = Read(id);
+        if (reference == null)
+        {
+            throw new DalDoesNotExistException("Engineer does not exist, cannot be deleted");
+        }
+        else
+        {
+            Engineer engineer = reference with { Active = false };
+            Update(engineer);
+        }
     }
 
     public Engineer? Read(int id)
     {
-        throw new NotImplementedException();
+        XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
+        List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
+        return lst.FirstOrDefault(engineer => engineer?.Id == id);
     }
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
-        throw new NotImplementedException();
+        XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
+        List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
+        return lst.FirstOrDefault(filter!);
+
     }
 
     public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null)
     {
-        throw new NotImplementedException();
+        XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
+        List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
+        if (filter == null)
+            return lst.Select(item => item);
+        else
+            return lst.Where(filter);
     }
 
     public void Update(Engineer item)
     {
-        throw new NotImplementedException();
+        XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
+        List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
+        Engineer? reference = Read(item.Id);
+        if (reference != null)
+        {
+            lst.Remove(reference);
+            lst.Add(item);
+            XMLTools.SaveListToXMLSerializer<Engineer>(lst, "engineers");
+        }
+        else
+        {
+            throw new DalDoesNotExistException("The item to update does not exist in the system");
+        }
     }
 }
+

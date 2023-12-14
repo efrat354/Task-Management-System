@@ -15,7 +15,7 @@ internal class TaskImplementation : ITask
         Engineer? eng;
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
-        eng = e.Read(item.EngineerId);
+        eng = e.Read((int)item.EngineerId!);
         if (eng!.Active)
         {
             DataSource.Tasks.Add(copy);
