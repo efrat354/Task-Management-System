@@ -30,7 +30,7 @@ public record Task
     DateTime? CompleteDate = null,
     string? Product=null,
     string? Remarks = null,
-    int EngineerId = 0,
+    int? EngineerId =null,
     bool Active=true
 )
 {

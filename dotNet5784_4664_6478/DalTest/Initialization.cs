@@ -65,21 +65,7 @@ public static class Initialization
     //Task's Initialization
     private static void createTask()
     {
-    //    int Id = 0,
-    //string Alias = "",
-    //string Description = "",
-    //DateTime CreatedAtDate = new DateTime(),
-    //TimeSpan RequiredEffortTime = new TimeSpan(),
-    //bool IsMilestone = false,
-    //EngineerExperience Complexity = 0,
-    //DateTime? StartDate = null,
-    //DateTime? ScheduledDate = null,
-    //DateTime? DeadlineDate = null,
-    //DateTime? CompleteDate = null,
-    //string? Product = null,
-    //string? Remarks = null,
-    //int EngineerId = 0,
-    //bool Active = true
+   
        // Declaration of variables
         string _alias, _product, _remarks;
         int _engineerId, count=0;
@@ -107,8 +93,6 @@ public static class Initialization
         //Go through a loop for each dependency in the array
         foreach (string _description in taskDescription)
         {
-            // _alias = (s_rand.Next(0, 10000) % 2) == 0 ? _description + "ALIAS" : null;פה היה שינוי
-            //_deadlineDate= _startDate.AddDays(s_rand.Next(1, 4));כתוב שבשלוש השלבים הראשונים יהיה ריק 
             _alias = _description + "ALIAS";
             _requiredEffortTime = new TimeSpan(s_rand.Next(1, 60));
              _createdAtDate = DateTime.Now;
