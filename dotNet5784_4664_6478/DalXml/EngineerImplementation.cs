@@ -13,12 +13,6 @@ internal class EngineerImplementation : IEngineer
         List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
         lst.Add(item);
         XMLTools.SaveListToXMLSerializer<Engineer>(lst, "engineers");
-
-        //using (TextWriter writer = new StreamWriter(engineerFile))
-        //{
-        //    serializer.Serialize(writer, lst);
-        //}
-
         return item.Id;
     }
 

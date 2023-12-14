@@ -2,10 +2,13 @@
 using DalApi;
 using DO;
 using System.Xml.Serialization;
-
+/// <summary>
+/// The implementation of the task's CRUD functions 
+/// </summary>
 internal class TaskImplementation : ITask
 {
     const string taskFile = @"..\xml\tasks.xml";
+    //Create a new task and add it to the tasks' xml file 
 
     public int Create(Task item)
     {
@@ -13,15 +16,9 @@ internal class TaskImplementation : ITask
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
         lst.Add(item);
         XMLTools.SaveListToXMLSerializer<Task>(lst, "tasks");
-
-        //using (TextWriter writer = new StreamWriter(taskFile))
-        //{
-        //    serializer.Serialize(writer, lst);
-        //}
-
         return item.Id;
     }
-
+    //Delete an task by its id only if there is not task that depends on it
     public void Delete(int id)
     {
         Task? reference = Read(id);
@@ -35,21 +32,21 @@ internal class TaskImplementation : ITask
             Update(Task);
         }
     }
-
+    //Read the task's details by its id-find it in the tasks' xml file and return a reference
     public Task? Read(int id)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
         return lst.FirstOrDefault(Task => Task?.Id == id);
     }
-
+    //Gets a pointer to a boolean function which will go through the task's list and return the first task in the xml file on which the function returns True.
     public Task? Read(Func<Task, bool> filter)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
         return lst.FirstOrDefault(filter!);
     }
-
+    //Gets a pointer to a boolean function ,which will go through the task's xml file and return the xml file of all tasks objects in the xml file for which the function returns True. If no pointer is sent the entire xml file will be returned.
     public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
@@ -59,7 +56,7 @@ internal class TaskImplementation : ITask
         else
             return lst.Where(filter);
     }
-
+    //Update the task's details by its id
     public void Update(Task item)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));

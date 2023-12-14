@@ -268,8 +268,7 @@ namespace DalTest
             {
                 int choice = 0;
                 //Intilizate the project with some deta.
-                Initialization.Do(s_dal);
-                Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
+                Console.WriteLine("Enter 1 to engineer, 2 to task , 3 to dependency and 4 to initialize data or 0 to exit");
                 choice = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a choice"));
                 //The main menu
                 while (choice != 0)
@@ -305,6 +304,13 @@ namespace DalTest
                             {
                                 Console.WriteLine(e.Message);
                             }
+                            break;
+                        case 4:
+                            Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
+                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+                            if (ans == "Y") //stage 3
+                                //reset();
+                                Initialization.Do(s_dal); //stage 2
                             break;
                         default:
                             throw new DalInvalidInput("your choice is invalid");
