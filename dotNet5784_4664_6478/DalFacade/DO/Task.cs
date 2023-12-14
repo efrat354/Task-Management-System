@@ -1,6 +1,6 @@
 ﻿namespace DO;
 /// <summary>
-/// 
+/// An entity that describe task
 /// </summary>
 /// <param name="Id">indicates the time when the task was created by the administrator</param>
 /// <param name="Alias">A alias for the task</param>
@@ -10,7 +10,7 @@
 /// <param name="IsMilestone">Milestones during the mission</param>
 /// <param name="Complexity">The level of complexity of the task</param>
 /// <param name="StartDate">Task's start date</param>
-/// <param name="ScheduledDate">ask's estimated date of completion</param>
+/// <param name="ScheduledDate">Task's estimated date of completion</param>
 /// <param name="DeadlineDate">Task's final date for completion</param>
 /// <param name="CompleteDate">Task's actual end date</param>
 /// <param name="Product">Product -describing the product</param>
