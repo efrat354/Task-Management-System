@@ -9,7 +9,7 @@ internal class EngineerImplementation : IEngineer
    /// The implementation of the engineer's CRUD functions 
 
     const string engineerFile = @"..\xml\engineers.xml";
-    //Create a new engineer and add it to the engineers' list 
+    //Create a new engineer and add it to the engineerxml file
 
     public int Create(Engineer item)
     {
@@ -42,7 +42,7 @@ internal class EngineerImplementation : IEngineer
         List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
         return lst.FirstOrDefault(engineer => engineer?.Id == id);
     }
-    //Read the engineer's details by his id-find him in the engineers' list and return a reference
+    //Read the engineer's details by his id-find him in the engineerxml file and return a reference
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
