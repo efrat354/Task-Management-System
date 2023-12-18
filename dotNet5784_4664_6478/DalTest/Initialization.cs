@@ -65,12 +65,14 @@ public static class Initialization
     //Task's Initialization
     private static void createTask()
     {
+   
        // Declaration of variables
-        string? _alias, _product, _remarks;
+        string _alias, _product, _remarks;
         int _engineerId, count=0;
-        DateTime _createdAt, _start, _forcastDate, _deadline, _complete;
+        DateTime _createdAtDate, _startDate, _scheduledDate, _completeDate;//_deadlineDate,
+        TimeSpan _requiredEffortTime;
         Task task;
-        EngineerExperience _complexityLevel = new EngineerExperience();
+        EngineerExperience _complexity = new EngineerExperience();
 
         //The data array of the names of the tasks
         string[] taskDescription =
@@ -91,18 +93,18 @@ public static class Initialization
         //Go through a loop for each dependency in the array
         foreach (string _description in taskDescription)
         {
-            _alias = (s_rand.Next(0, 10000) % 2) == 0 ? _description + "ALIAS" : null;
-            _createdAt = DateTime.Now;
-            _start = _createdAt.AddDays(s_rand.Next(1,10));
-            _forcastDate = _start.AddDays(7);
-            _deadline= _start.AddDays(s_rand.Next(1, 4));
-            _complete = _start.AddDays(s_rand.Next(1, 12));
+            _alias = _description + "ALIAS";
+            _requiredEffortTime = new TimeSpan(s_rand.Next(1, 60));
+             _createdAtDate = DateTime.Now;
+            _startDate = _createdAtDate.AddDays(s_rand.Next(1,10));
+            _scheduledDate = _startDate.AddDays(7);
+            _completeDate = _startDate.AddDays(s_rand.Next(1, 12));
             _product = taskProduct[count];
             _remarks= taskRemark[count];
             var engineerList = s_dal!.Engineer?.ReadAll();
             _engineerId = (engineerList?.ToList() ?? throw new DalInvalidInitialization("There are not exist engineers, cannot be created"))[count]!.Id;
-            _complexityLevel = (EngineerExperience)s_rand.Next(0, 3);
-            task = new Task(0, _description, _alias,false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, _complexityLevel);
+            _complexity = (EngineerExperience)s_rand.Next(0, 5);
+            task = new Task(0, _alias, _description, _createdAtDate,_requiredEffortTime,false, _complexity, _startDate, _scheduledDate, null, _completeDate, _product, _remarks, _engineerId);
             s_dal!.Task?.Create(task);//Calling the action create for each dependency
             count++;
         }

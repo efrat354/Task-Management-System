@@ -15,7 +15,7 @@ internal class TaskImplementation : ITask
         Engineer? eng;
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
-        eng = e.Read(item.EngineerId);
+        eng = e.Read((int)item.EngineerId!);
         if (eng!.Active)
         {
             DataSource.Tasks.Add(copy);
@@ -76,8 +76,6 @@ internal class TaskImplementation : ITask
     }
 
     //Gets a pointer to a boolean function ,which will go through the task's list and return the list of all tasks objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
-
-
     public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
     {
         if (filter == null)

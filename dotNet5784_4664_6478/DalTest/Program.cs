@@ -8,7 +8,8 @@ namespace DalTest
     internal class Program
     {
         //Enabling access to the global interface we defined
-        static readonly IDal s_dal = new DalList();
+        //static readonly IDal s_dal = new DalList();
+       static readonly IDal s_dal = new DalXml(); //stage 3
 
         //Function that manage all the functions of engineer
         private static void engineer()
@@ -35,7 +36,7 @@ namespace DalTest
                     _name = (Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a name"));
                     Console.WriteLine("Enter engineer's email:");
                     _email = (Console.ReadLine() ?? throw new DalInvalidInput("You did not enter an email"));
-                    Console.WriteLine("Enter engineer's level (0-JR,1-rookie,2-expert):");
+                    Console.WriteLine("Enter engineer's level { 0-Novice, 1-AdvancedBeginner, 2-Competent, 3-Proficient, 4-Expert }:");
                     _level = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a level"));
                     Console.WriteLine("Enter engineer's cost:");
                     _cost = double.Parse(Console.ReadLine()!);
@@ -70,7 +71,7 @@ namespace DalTest
                     _name = (Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a name"));
                     Console.WriteLine("Enter engineer's email:");
                     _email = (Console.ReadLine() ?? throw new DalInvalidInput("You did not enter an email"));
-                    Console.WriteLine("Enter engineer's level (0-JR,1-rookie,2-expert):");
+                    Console.WriteLine("Enter engineer's level { 0-Novice, 1-AdvancedBeginner, 2-Competent, 3-Proficient, 4-Expert }:");
                     _level = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a level"));
                     Console.WriteLine("Enter engineer's cost:");
                     _cost = double.Parse(Console.ReadLine()!);
@@ -93,9 +94,10 @@ namespace DalTest
         private static void task()
         {
             //Declaration of variables
-            int choice = 0, _engineerId, _complexityLevel,_id;
+            int choice = 0, _engineerId, _complexity,_id;
             string _description, _alias, _product, _remarks;
-            DateTime _createdAt, _start, _forcastDate, _deadline, _complete;
+            DateTime _createdAtDate, _startDate, _scheduledDate, _completeDate;
+            TimeSpan _requiredEffortTime;
             DO.Task? task;
             Console.WriteLine("Enter 1 to add a new task, 2 to display the task by ID, 3 to display all the tasks , 4 to update task's details , 5 to delete or 0 to exit");
             choice = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a choice"));
@@ -111,15 +113,17 @@ namespace DalTest
                     Console.WriteLine("Enter task's alias:");
                     _alias = (Console.ReadLine() ?? throw new DalInvalidInput("You did not enter an alias"));
                     Console.WriteLine("Enter task's create date:");
-                    _createdAt = Convert.ToDateTime(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter create date"));
+                    _createdAtDate = Convert.ToDateTime(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter create date"));
+                    Console.WriteLine("Enter the amount of time required to perform the task");
+                    _requiredEffortTime=new TimeSpan(int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter required effort time")));
                     Console.WriteLine("Enter task's start date:");
-                    _start = Convert.ToDateTime(Console.ReadLine());
-                    Console.WriteLine("Enter task's forcast date:");
-                    _forcastDate = Convert.ToDateTime(Console.ReadLine());
+                    _startDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's scheduled date:");
+                    _scheduledDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's deadline date:");
-                    _deadline = Convert.ToDateTime(Console.ReadLine());
+                    //_deadline = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's complete date:");
-                    _complete = Convert.ToDateTime(Console.ReadLine());
+                    _completeDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's product:");
                     _product = Console.ReadLine()!;
                     Console.WriteLine("Enter task's remarks:");
@@ -127,8 +131,8 @@ namespace DalTest
                     Console.WriteLine("Enter engineer id:");
                     _engineerId = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter an engineer id"));
                     Console.WriteLine("Enter task's complexity level:");
-                    _complexityLevel = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a complexity level"));
-                    task = new DO.Task(0, _description, _alias, false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, (EngineerExperience)_complexityLevel);
+                    _complexity = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a complexity level"));
+                    task = new DO.Task(0, _alias, _description, _createdAtDate, _requiredEffortTime,false, (EngineerExperience)_complexity, _startDate, _scheduledDate,null, _completeDate, _product, _remarks, _engineerId);
                     s_dal.Task?.Create(task);
                     Console.WriteLine("Created successfully");
                     break;
@@ -146,7 +150,7 @@ namespace DalTest
                 case 3://read all
                     var taskList = s_dal.Task?.ReadAll();
                     Console.WriteLine("Engineers details");
-                    foreach (DO.Task tk in taskList!)
+                    foreach (DO.Task ?tk in taskList!)
                     {
                         Console.WriteLine(tk);
                     }
@@ -160,15 +164,17 @@ namespace DalTest
                     Console.WriteLine("Enter task's alias:");
                     _alias = (Console.ReadLine() ?? throw new DalInvalidInput("You did not enter an alias"));
                     Console.WriteLine("Enter task's create date:");
-                    _createdAt = Convert.ToDateTime(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter create date"));
+                    _createdAtDate = Convert.ToDateTime(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter create date"));
+                    Console.WriteLine("Enter the amount of time required to perform the task");
+                    _requiredEffortTime = new TimeSpan(int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter required effort time")));
                     Console.WriteLine("Enter task's start date:");
-                    _start = Convert.ToDateTime(Console.ReadLine());
-                    Console.WriteLine("Enter task's forcast date:");
-                    _forcastDate = Convert.ToDateTime(Console.ReadLine());
+                    _startDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's scheduled date:");
+                    _scheduledDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's deadline date:");
-                    _deadline = Convert.ToDateTime(Console.ReadLine());
+                   // _deadline = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's complete date:");
-                    _complete = Convert.ToDateTime(Console.ReadLine());
+                    _completeDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's product:");
                     _product = Console.ReadLine()!;
                     Console.WriteLine("Enter task's remarks:");
@@ -176,8 +182,8 @@ namespace DalTest
                     Console.WriteLine("Enter engineer id:");
                     _engineerId = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter an engineer id"));
                     Console.WriteLine("Enter task's complexity level:");
-                    _complexityLevel = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a complexity level"));
-                    task = new DO.Task(_id, _description, _alias, false, _createdAt, _start, _forcastDate, _deadline, _complete, _product, _remarks, _engineerId, (EngineerExperience)_complexityLevel);
+                    _complexity = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a complexity level"));
+                    task = new DO.Task(0, _alias, _description, _createdAtDate, _requiredEffortTime, false, (EngineerExperience)_complexity, _startDate, _scheduledDate, null, _completeDate, _product, _remarks, _engineerId);
                     s_dal.Task?.Update(task);
                     Console.WriteLine("successfully updated");
                     break;
@@ -262,8 +268,7 @@ namespace DalTest
             {
                 int choice = 0;
                 //Intilizate the project with some deta.
-                Initialization.Do(s_dal);
-                Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
+                Console.WriteLine("Enter 1 to engineer, 2 to task , 3 to dependency and 4 to initialize data or 0 to exit");
                 choice = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a choice"));
                 //The main menu
                 while (choice != 0)
@@ -299,6 +304,13 @@ namespace DalTest
                             {
                                 Console.WriteLine(e.Message);
                             }
+                            break;
+                        case 4:
+                            Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
+                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+                            if (ans == "Y") //stage 3
+                                //reset();
+                                Initialization.Do(s_dal); //stage 2
                             break;
                         default:
                             throw new DalInvalidInput("your choice is invalid");
