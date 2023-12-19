@@ -9,7 +9,7 @@ internal class DependencyImplementation : IDependency
 
     const string dependenciesFile = @"..\xml\dependencies.xml";
     XDocument dependencyiesDocument = XDocument.Load(dependenciesFile);
-//Gets a dependency ,Create a copy of a dependency and add it to the dependencies list
+    //Gets a dependency ,Create a copy of a dependency and add it to the dependencies' xml file
     public int Create(Dependency item)
     {
         int newDependencyId = Config.NextDependencyId;
@@ -56,7 +56,7 @@ internal class DependencyImplementation : IDependency
             (int)dependencyElement?.Element("DependsOnTask")!);
         return dependency;
     }
-    //Gets a pointer to a boolean function which will go through the dependency's list and return the first dependency in the list on which the function returns True.
+    //Gets a pointer to a boolean function which will go through the dependencies' xml file and return the first dependency in the list on which the function returns True.
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
@@ -68,7 +68,7 @@ internal class DependencyImplementation : IDependency
         .FirstOrDefault(filter);
         return dependencyElement;
     }
-    //Gets a pointer to a boolean function ,which will go through the dependency's list and return the list of all dependencies objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
+    //Gets a pointer to a boolean function ,which will go through the dependencies' xml file and return the list of all dependencies objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null)
     {
