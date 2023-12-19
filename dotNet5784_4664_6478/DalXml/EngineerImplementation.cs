@@ -9,7 +9,7 @@ internal class EngineerImplementation : IEngineer
    /// The implementation of the engineer's CRUD functions 
 
     const string engineerFile = @"..\xml\engineers.xml";
-    //Create a new engineer and add it to the engineerxml file
+    //Create a new engineer and add it to the engineer' xml file
 
     public int Create(Engineer item)
     {
@@ -34,7 +34,7 @@ internal class EngineerImplementation : IEngineer
             Update(engineer);
         }
     }
-    //Gets a pointer to a boolean function which will go through the engineer's list and return the first engineer in the list on which the function returns True.
+    //Gets a pointer to a boolean function which will go through the engineer' xml file and return the first engineer in the list on which the function returns True.
 
     public Engineer? Read(int id)
     {
@@ -42,7 +42,7 @@ internal class EngineerImplementation : IEngineer
         List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
         return lst.FirstOrDefault(engineer => engineer?.Id == id);
     }
-    //Read the engineer's details by his id-find him in the engineerxml file and return a reference
+    //Read the engineer's details by his id-find him in the engineers' xml file and return a reference
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
@@ -51,7 +51,7 @@ internal class EngineerImplementation : IEngineer
         return lst.FirstOrDefault(filter!);
 
     }
-    //Gets a pointer to a boolean function ,which will go through the engineer's list and return the list of all the engineers objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
+    //Gets a pointer to a boolean function ,which will go through the engineers'xml file and return the list of all the engineers objects in the list for which the function returns True. If no pointer is sent the entire list will be returned.
 
     public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null)
     {
