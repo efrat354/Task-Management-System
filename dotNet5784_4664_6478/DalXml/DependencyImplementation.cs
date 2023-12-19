@@ -86,6 +86,20 @@ internal class DependencyImplementation : IDependency
         }
         return dependencies!;
     }
+
+    public void Reset()
+    {
+        if (dependencyiesDocument.Root != null) 
+        {
+            XElement? dependencyElement = dependencyiesDocument.Root;
+            if (dependencyElement != null)
+            {
+                dependencyElement.RemoveAll();
+                dependencyiesDocument.Save(dependenciesFile);
+            }
+        }
+    }
+
     //Gets a dependency and update the dependency with the same ID from the dependencies list 
 
     public void Update(Dependency item)

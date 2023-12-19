@@ -12,9 +12,11 @@ internal class TaskImplementation : ITask
 
     public int Create(Task item)
     {
+        int newTaskId = Config.NextTaskId;
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
         List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
-        lst.Add(item);
+        Task copy = item with { Id = newTaskId };
+        lst.Add(copy);
         XMLTools.SaveListToXMLSerializer<Task>(lst, "tasks");
         return item.Id;
     }
@@ -71,6 +73,16 @@ internal class TaskImplementation : ITask
         else
         {
             throw new DalDoesNotExistException("The item to update does not exist in the system");
+        }
+    }
+    public void Reset()
+    {
+        XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
+        List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
+        if (lst.Count() != 0)
+        {
+            lst.Clear();
+            XMLTools.SaveListToXMLSerializer<Task>(lst, "tasks");
         }
     }
 }

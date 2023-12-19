@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 internal class EngineerImplementation : IEngineer
 {
-   /// The implementation of the engineer's CRUD functions 
+    /// The implementation of the engineer's CRUD functions 
 
     const string engineerFile = @"..\xml\engineers.xml";
     //Create a new engineer and add it to the engineers' list 
@@ -62,6 +62,18 @@ internal class EngineerImplementation : IEngineer
         else
             return lst.Where(filter);
     }
+
+    public void Reset()
+    {
+        XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
+        List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
+        if (lst.Count() != 0)
+        {
+            lst.Clear();
+            XMLTools.SaveListToXMLSerializer<Engineer>(lst, "engineers");
+        }
+    }
+
     //Update the engineer's details by his id
 
     public void Update(Engineer item)

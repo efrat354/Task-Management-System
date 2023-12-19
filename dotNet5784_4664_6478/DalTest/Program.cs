@@ -306,11 +306,13 @@ namespace DalTest
                             }
                             break;
                         case 4:
-                            Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
-                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
-                            if (ans == "Y") //stage 3
-                                //reset();
-                                Initialization.Do(s_dal); //stage 2
+                            Console.Write("Would you like to create Initial data? (Y/N)"); 
+                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); 
+                            if (ans == "Y") 
+                            {
+                                s_dal.Reset();
+                                Initialization.Do(s_dal); 
+                            }
                             break;
                         default:
                             throw new DalInvalidInput("your choice is invalid");

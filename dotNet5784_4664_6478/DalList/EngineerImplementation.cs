@@ -55,7 +55,14 @@ internal class EngineerImplementation : IEngineer
             return DataSource.Engineers.Where(filter);
     }
 
-
+    //Delete all the list's data
+    public void Reset()
+    {
+        if (DataSource.Engineers.Count != 0)
+        {
+            DataSource.Engineers.Clear();
+        }
+    }
 
     //Update the engineer's details by his id
     public void Update(Engineer item)
