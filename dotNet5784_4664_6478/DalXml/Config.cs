@@ -1,5 +1,5 @@
 ﻿namespace Dal;
-
+//Class that responsible to promote the running id's
 internal static class Config
 {
     static string s_data_config_xml = "data-config";

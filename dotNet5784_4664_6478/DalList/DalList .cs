@@ -4,7 +4,8 @@ using System;
 
 /// <summary>
 /// Class that use IDal by creating 3 implementations each one for an one entity 
-///And creation dates for th ebegining and the end of the project. In addition it implements the reset function
+///And creation dates for the begining and the end of the project. In addition it implements the reset function
+///And reset function
 /// </summary>
 
 sealed public class DalList : IDal
@@ -19,6 +20,7 @@ sealed public class DalList : IDal
 
     public DateTime? EndProjectDate => throw new NotImplementedException();
 
+    //Delete all the data
     public void Reset()
     {
         Task.Reset();

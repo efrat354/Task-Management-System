@@ -19,6 +19,7 @@ public class DalXml : IDal
 
     public DateTime? EndProjectDate => throw new NotImplementedException();
 
+    //Delete all the data
     public void Reset()
     {
         Task.Reset();

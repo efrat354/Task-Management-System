@@ -75,6 +75,7 @@ internal class TaskImplementation : ITask
             throw new DalDoesNotExistException("The item to update does not exist in the system");
         }
     }
+    //Delete all the xml's data
     public void Reset()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));

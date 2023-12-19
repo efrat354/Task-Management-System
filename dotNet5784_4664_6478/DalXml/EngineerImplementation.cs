@@ -63,6 +63,7 @@ internal class EngineerImplementation : IEngineer
             return lst.Where(filter);
     }
 
+    //Delete all the xml's data
     public void Reset()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
