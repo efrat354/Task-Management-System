@@ -5,8 +5,9 @@
 		<Id>214785693</Id>
 		<Name>Dina Klein</Name>
 		<Email>DinaKlein@gmail.com</Email>
-		<EngineerExperience>Novice</EngineerExperience>
+		<Level>Novice</Level>
 		<Cost>250.00</Cost>
+		<Active>true</Active>
 	</Engineer>
 
 	<!-- Engineer 2 -->
@@ -14,8 +15,9 @@
 		<Id>3158624702</Id>
 		<Name>Ariela Levin</Name>
 		<Email>ArielaLevin@gmail.com</Email>
-		<EngineerExperience>Novice</EngineerExperience>
+		<Level>Novice</Level>
 		<Cost>300.00</Cost>
+		<Active>true</Active>
 	</Engineer>
 
 	<!-- Engineer 3 -->
@@ -23,8 +25,9 @@
 		<Id>214856475</Id>
 		<Name>Yair Cohen</Name>
 		<Email>YairCohen@gmail.com</Email>
-		<EngineerExperience>Competent</EngineerExperience>
+		<Level>Competent</Level>
 		<Cost>400.00</Cost>
+		<Active>true</Active>
 	</Engineer>
 
 	<!-- Engineer 4 -->
@@ -32,7 +35,7 @@
 		<Id>214856741</Id>
 		<Name>Eli Amar</Name>
 		<Email>EliAmar@gmail.com</Email>
-		<EngineerExperience>Novice</EngineerExperience>
+		<Level>Novice</Level>
 		<Cost>120.00</Cost>
 		<Active>true</Active>
 	</Engineer>
@@ -42,7 +45,7 @@
 		<Id>218563478</Id>
 		<Name>Dani Levi</Name>
 		<Email>DaniLevi@gmail.com</Email>
-		<EngineerExperience>Expert</EngineerExperience>
+		<Level>Expert</Level>
 		<Cost>520.00</Cost>
 		<Active>true</Active>
 	</Engineer>
@@ -52,7 +55,7 @@
 		<Id>2154879764</Id>
 		<Name>Avraham Mandelovich</Name>
 		<Email>AvrahamMandelovich@gmail.com</Email>
-		<EngineerExperience>Competent</EngineerExperience>
+		<Level>Competent</Level>
 		<Cost>410.00</Cost>
 		<Active>true</Active>
 	</Engineer>
@@ -62,7 +65,7 @@
 		<Id>212549638</Id>
 		<Name>Shimon Moalem</Name>
 		<Email>ShimonMoalem@gmail.com</Email>
-		<EngineerExperience>AdvancedBeginner</EngineerExperience>
+		<Level>AdvancedBeginner</Level>
 		<Cost>320.00</Cost>
 		<Active>true</Active>
 	</Engineer>
@@ -72,7 +75,7 @@
 		<Id>211125487</Id>
 		<Name>Eliezer Klein</Name>
 		<Email>EliezerKlein@gmail.com</Email>
-		<EngineerExperience>Proficient</EngineerExperience>
+		<Level>Proficient</Level>
 		<Cost>420.00</Cost>
 		<Active>true</Active>
 	</Engineer>
@@ -82,7 +85,7 @@
 		<Id>213456789</Id>
 		<Name>Mordechai Levy</Name>
 		<Email>MordechaiLevy@gmail.com</Email>
-		<EngineerExperience>AdvancedBeginner</EngineerExperience>
+		<Level>AdvancedBeginner</Level>
 		<Cost>310.00</Cost>
 		<Active>true</Active>
 	</Engineer>
@@ -92,7 +95,7 @@
 		<Id>235614789</Id>
 		<Name>Reuven Cohen</Name>
 		<Email>ReuvenCohen@gmail.com</Email>
-		<EngineerExperience>Expert</EngineerExperience>
+		<Level>Expert</Level>
 		<Cost>540.00</Cost>
 		<Active>true</Active>
 	</Engineer>
