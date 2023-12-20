@@ -172,7 +172,7 @@ namespace DalTest
                     Console.WriteLine("Enter task's scheduled date:");
                     _scheduledDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's deadline date:");
-                   // _deadline = Convert.ToDateTime(Console.ReadLine());
+                    //_deadline = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's complete date:");
                     _completeDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's product:");
@@ -233,7 +233,7 @@ namespace DalTest
                      break;
                 case 3://read all
                     var dependencyList = s_dal.Dependency?.ReadAll();
-                    Console.WriteLine("Engineers details");
+                    Console.WriteLine("Dependencies details");
                     foreach (Dependency? dep in dependencyList!)
                     {
                         Console.WriteLine(dep);
@@ -306,11 +306,13 @@ namespace DalTest
                             }
                             break;
                         case 4:
-                            Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
-                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
-                            if (ans == "Y") //stage 3
-                                //reset();
-                                Initialization.Do(s_dal); //stage 2
+                            Console.Write("Would you like to create Initial data? (Y/N)"); 
+                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); 
+                            if (ans == "Y") 
+                            {
+                                s_dal.Reset();
+                                Initialization.Do(s_dal); 
+                            }
                             break;
                         default:
                             throw new DalInvalidInput("your choice is invalid");

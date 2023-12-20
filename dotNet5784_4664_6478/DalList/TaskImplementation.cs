@@ -16,13 +16,8 @@ internal class TaskImplementation : ITask
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
         eng = e.Read((int)item.EngineerId!);
-        if (eng!.Active)
-        {
-            DataSource.Tasks.Add(copy);
-            return id;
-        }
-        else
-            throw new DalInvalidInitialization("The engineer is not active,cannot be created");
+        DataSource.Tasks.Add(copy);
+        return id;
     }
 
     //Delete an task by its id only if there is not task that depends on it
@@ -31,14 +26,14 @@ internal class TaskImplementation : ITask
         Task? reference = Read(id);
         if (reference != null)
         {
-            var dependency= (DataSource.Dependencies).FirstOrDefault(depend => depend?.DependentTask == id);
+            var dependency = (DataSource.Dependencies).FirstOrDefault(depend => depend?.DependentTask == id);
             if (dependency != null)
             {
                 throw new DalDeletionImpossible("This task cannot be deleted because other tasks depend on it");
             }
             else
             {
-               // DataSource.Dependencies.Remove(dependency);
+                // DataSource.Dependencies.Remove(dependency);
             }
             Task task = reference with { Active = false };
             Update(task);
@@ -95,6 +90,15 @@ internal class TaskImplementation : ITask
         else
         {
             throw new DalDoesNotExistException("The item to update does not exist in the system");
+        }
+    }
+
+    //Delete all the list's data
+    public void Reset()
+    {
+        if (DataSource.Tasks.Count != 0)
+        {
+            DataSource.Tasks.Clear();
         }
     }
 }

@@ -48,6 +48,16 @@ internal class DependencyImplementation : IDependency
         else
             return DataSource.Dependencies.Where(filter);
     }
+
+    //Delete all the list's data
+    public void Reset()
+    {
+        if(DataSource.Dependencies.Count!=0)
+        {
+            DataSource.Dependencies.Clear();
+        }
+    }
+
     //Gets a dependency and update the dependency with the same ID from the dependencies list 
     public void Update(Dependency item)
     {

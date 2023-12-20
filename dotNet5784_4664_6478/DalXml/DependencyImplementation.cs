@@ -72,7 +72,7 @@ internal class DependencyImplementation : IDependency
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null)
     {
-        XElement ?dependenciesElement = XMLTools.LoadListFromXMLElement("dependencyies");
+        XElement ?dependenciesElement = XMLTools.LoadListFromXMLElement("dependencies");
         IEnumerable<Dependency> dependencies = dependenciesElement
          .Elements("Dependency")
          .Select(e => new Dependency(
@@ -86,6 +86,21 @@ internal class DependencyImplementation : IDependency
         }
         return dependencies!;
     }
+
+    //Delete all the xml's data
+    public void Reset()
+    {
+        if (dependencyiesDocument.Root != null) 
+        {
+            XElement? dependencyElement = dependencyiesDocument.Root;
+            if (dependencyElement != null)
+            {
+                dependencyElement.RemoveAll();
+                dependencyiesDocument.Save(dependenciesFile);
+            }
+        }
+    }
+
     //Gets a dependency and update the dependency with the same ID from the dependencies list 
 
     public void Update(Dependency item)
