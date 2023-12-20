@@ -1,5 +1,6 @@
 ﻿
 using DalApi;
+using System.Diagnostics;
 
 namespace Dal;
 /// <summary>
@@ -7,8 +8,10 @@ namespace Dal;
 /// ///And creation dates for th ebegining and the end of the project. In addition it implements the reset function
 /// </summary>
 
-public class DalXml : IDal
+sealed internal class DalXml : IDal
 {
+    public static IDal Instance { get; } = new DalXml();
+    private DalXml() { }
     public IDependency Dependency => new DependencyImplementation();
 
     public IEngineer Engineer => new EngineerImplementation();
