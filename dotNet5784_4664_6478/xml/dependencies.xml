@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDependency>
-	<Dependency>
+  <Dependency>
 		<Id>1000</Id>
 		<DependentTask>2</DependentTask>
 		<DependsOnTask>1</DependsOnTask>

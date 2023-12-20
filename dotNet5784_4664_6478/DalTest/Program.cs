@@ -9,8 +9,9 @@ namespace DalTest
     internal class Program
     {
         //Enabling access to the global interface we defined
-        static readonly IDal s_dal = new DalList();
-       //static readonly IDal s_dal = new DalXml(); //stage 3
+        //static readonly IDal s_dal = new DalList();
+        //static readonly IDal s_dal = new DalXml(); //stage 3
+        static readonly IDal s_dal = Factory.Get;
 
         //Function that manage all the functions of engineer
         private static void engineer()
@@ -312,13 +313,13 @@ namespace DalTest
                             if (ans == "Y") 
                             {
                                 s_dal.Reset();
-                                Initialization.Do(s_dal); 
+                                Initialization.Do(); 
                             }
                             break;
                         default:
                             throw new DalInvalidInput("your choice is invalid");
                     }
-                    Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
+                    Console.WriteLine("Enter 1 to engineer, 2 to task , 3 to dependency and 4 to initialize data or 0 to exit");
                     choice = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a choice"));
                 }
             }
