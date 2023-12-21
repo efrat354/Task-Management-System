@@ -312,7 +312,7 @@ namespace DalTest
                             if (ans == "Y") 
                             {
                                 s_dal.Reset();
-                                Initialization.Do(s_dal); 
+                                Initialization.Do(); 
                             }
                             break;
                         default:
