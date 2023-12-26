@@ -3,7 +3,7 @@
 public class Engineer
 {
     public int Id { get; init; }
-    public string  Name { get; set; }
+    public required string Name { get; set; }
     public string? Email { get; set; }//כנ"ל
     public EngineerExperience Level { get; set; }
     public double Cost { get; set; }

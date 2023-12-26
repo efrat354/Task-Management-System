@@ -18,5 +18,4 @@ public class Task
     public string? Remarks { get; set; }
     public EngineerInTask ?Engineer { get; set; }
     public EngineerExperience Level { get; set; }
-   // TimeSpan RequiredEffortTime = new TimeSpan(),
 }
