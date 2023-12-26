@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 
+
 namespace DalTest
 {
     //Running the project
@@ -9,7 +10,8 @@ namespace DalTest
     {
         //Enabling access to the global interface we defined
         //static readonly IDal s_dal = new DalList();
-       static readonly IDal s_dal = new DalXml(); //stage 3
+        //static readonly IDal s_dal = new DalXml(); //stage 3
+        static readonly IDal s_dal = Factory.Get;
 
         //Function that manage all the functions of engineer
         private static void engineer()
@@ -172,7 +174,7 @@ namespace DalTest
                     Console.WriteLine("Enter task's scheduled date:");
                     _scheduledDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's deadline date:");
-                   // _deadline = Convert.ToDateTime(Console.ReadLine());
+                    //_deadline = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's complete date:");
                     _completeDate = Convert.ToDateTime(Console.ReadLine());
                     Console.WriteLine("Enter task's product:");
@@ -233,7 +235,7 @@ namespace DalTest
                      break;
                 case 3://read all
                     var dependencyList = s_dal.Dependency?.ReadAll();
-                    Console.WriteLine("Engineers details");
+                    Console.WriteLine("Dependencies details");
                     foreach (Dependency? dep in dependencyList!)
                     {
                         Console.WriteLine(dep);
@@ -306,16 +308,18 @@ namespace DalTest
                             }
                             break;
                         case 4:
-                            Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
-                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
-                            if (ans == "Y") //stage 3
-                                //reset();
-                                Initialization.Do(s_dal); //stage 2
+                            Console.Write("Would you like to create Initial data? (Y/N)"); 
+                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); 
+                            if (ans == "Y") 
+                            {
+                                s_dal.Reset();
+                                Initialization.Do(); 
+                            }
                             break;
                         default:
                             throw new DalInvalidInput("your choice is invalid");
                     }
-                    Console.WriteLine("Enter 1 to engineer, 2 to task and 3 to dependency or 0 to exit");
+                    Console.WriteLine("Enter 1 to engineer, 2 to task , 3 to dependency and 4 to initialize data or 0 to exit");
                     choice = int.Parse(Console.ReadLine() ?? throw new DalInvalidInput("You did not enter a choice"));
                 }
             }

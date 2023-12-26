@@ -9,4 +9,5 @@ public interface ICrud<T> where T : class
     IEnumerable<T?> ReadAll(Func<T?, bool>? filter = null);//return all the objects in the entity by a filter
     void Update(T item); //Updates entity object
     void Delete(int id); //Deletes a entity by its Id
+    void Reset();//Reset all the exist data
 }

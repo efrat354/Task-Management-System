@@ -1,16 +1,32 @@
 ﻿namespace Dal;
 using DalApi;
+using System;
 
-sealed public class DalList : IDal
+/// <summary>
+/// Class that use IDal by creating 3 implementations each one for an one entity 
+///And creation dates for the begining and the end of the project. In addition it implements the reset function
+///And reset function
+/// </summary>
+
+sealed internal class DalList : IDal
 {
-    public IDependency Dependency => new DependencyImplementation ();
+    public static IDal Instance { get; } = new DalList();
+    private DalList() { }
+    public IDependency Dependency => new DependencyImplementation();
 
     public IEngineer Engineer => new EngineerImplementation();
 
     public ITask Task => new TaskImplementation();
 
-   // public void Reset()
-    //{
-   //   foreach( DataSource.Dependencies )
-   // }
+    public DateTime? StartProjectDate => throw new NotImplementedException();
+
+    public DateTime? EndProjectDate => throw new NotImplementedException();
+
+    //Delete all the data
+    public void Reset()
+    {
+        Task.Reset();
+        Engineer.Reset();
+        Dependency.Reset();
+    }
 }

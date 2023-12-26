@@ -110,9 +110,10 @@ public static class Initialization
         }
     }
     //A function that calls all the initialization functions
-    public static void Do(IDal dal)
+    public static void Do() 
     {
-        s_dal = dal ?? throw new DalInvalidInitialization("DAL object can not be null!"); 
+        //s_dal = dal ?? throw new DalInvalidInitialization("DAL object can not be null!"); 
+        s_dal = DalApi.Factory.Get;
         createEngineer();
         createTask();
         createDependency();
