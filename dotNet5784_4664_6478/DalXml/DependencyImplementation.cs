@@ -13,7 +13,7 @@ internal class DependencyImplementation : IDependency
     public int Create(Dependency item)
     {
         int newDependencyId = Config.NextDependencyId;
-        XElement? dependencyElement = 
+        XElement? dependencyElement =
         new XElement("Dependency",
         new XElement("Id", newDependencyId),
         new XElement("DependentTask", item.DependentTask),
