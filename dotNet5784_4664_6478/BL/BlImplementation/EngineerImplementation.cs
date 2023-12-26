@@ -12,18 +12,25 @@ internal class EngineerImplementation : IEngineer
                (boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost, boEngineer.Active);
         //try
         //{
-            int idEng = _dal.Engineer.Create(doEngineer);
-            return idEng;
-       // }
-       // catch (DO.DalAlreadyExistsException ex)
-       // {
-            // throw new BO.BlAlreadyExistsException($"Engineer with ID={boEngineer.Id} already exists", ex);
-       // }
+        int idEng = _dal.Engineer.Create(doEngineer);
+        return idEng;
+        // }
+        // catch (DO.DalAlreadyExistsException ex)
+        // {
+        // throw new BO.BlAlreadyExistsException($"Engineer with ID={boEngineer.Id} already exists", ex);
+        // }
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _dal.Engineer.Delete(id);
+        }
+        catch
+        {
+
+        }
     }
 
     public BO.Engineer Read(int id)
@@ -38,7 +45,7 @@ internal class EngineerImplementation : IEngineer
         DO.Task? t = _dal.Task.ReadAll().FirstOrDefault(t => t?.EngineerId == id);
         if (t == null)
         {
-            taskInEngineer = new TaskInEngineer() { };
+            taskInEngineer = new TaskInEngineer() { Alias = " " };
         }
         else
         {
@@ -47,7 +54,7 @@ internal class EngineerImplementation : IEngineer
         return new BO.Engineer()
         {
             Id = id,
-            Name = doEngineer.Name,
+            Name = doEngineer.Name,//למה
             Email = doEngineer.Email,
             Level = (BO.EngineerExperience)doEngineer.Level,
             Cost = doEngineer.Cost,
@@ -64,15 +71,23 @@ internal class EngineerImplementation : IEngineer
                 {
                     Id = doEngineer.Id,
                     Name = doEngineer.Name,
+                    Email = doEngineer.Email,
+                    Level = (BO.EngineerExperience)doEngineer.Level,
+                    Cost = doEngineer.Cost
+                    //צריך task?
                 });
     }
 
     public void Update(BO.Engineer eng)
     {
-        BO.Engineer? reference = Read(eng.Id);
+        DO.Engineer? reference = _dal.Engineer.Read(eng.Id);
         if (reference != null)
         {
-
+            _dal.Engineer.Update(reference);
         }
+        //else{
+        //}
+
+
     }
 }
