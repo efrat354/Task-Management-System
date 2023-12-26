@@ -14,10 +14,10 @@ public record Engineer
     string Name="",
     string Email = "",
     EngineerExperience Level=0,
-    double Cost= 30,
+    double Cost = 30,
     bool Active = true 
 )
 {
-  public Engineer() : this(0,"","",EngineerExperience.Novice,0) { } //empty ctor 
+  public Engineer() : this(0,"","",EngineerExperience.Novice,0,true) { } //empty ctor 
 
 }
