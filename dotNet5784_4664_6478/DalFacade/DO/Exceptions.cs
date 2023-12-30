@@ -21,7 +21,7 @@ public class DalDeletionImpossible : Exception
     public DalDeletionImpossible(string? message) : base(message) { }
 }
 
-//Add a new exception class in order to take care of cases of invalid initialization such as creating a task with not active engineer etc. 
+//Add a new exception class in order to take care of cases of invalid initialization such as creating a task with not active engineer etc.
 [Serializable]
 public class DalInvalidInitialization : Exception
 {
@@ -29,11 +29,11 @@ public class DalInvalidInitialization : Exception
 }
 
 //Add a new exception class in order to take care of cases of invalid input such as entering nothing etc. 
-[Serializable]
-public class DalInvalidInput : Exception
-{
-    public DalInvalidInput(string? message) : base(message) { }
-}
+//[Serializable]
+//public class DalInvalidInput : Exception
+//{
+//    public DalInvalidInput(string? message) : base(message) { }
+//}
 
 
 [Serializable]
