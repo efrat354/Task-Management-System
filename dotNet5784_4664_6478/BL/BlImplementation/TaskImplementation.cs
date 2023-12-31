@@ -1,6 +1,7 @@
 ﻿
 
 using BlApi;
+using BO;
 using System.Collections.Generic;
 
 namespace BlImplementation;
@@ -27,16 +28,16 @@ internal class TaskImplementation : ITask
 
     public void Create(BO.Task boTask)
     {
-        bool isMilestone =false;
-        string message= Validation(boTask);
-        if (message!="")
+        bool isMilestone = false;
+        string message = Validation(boTask);
+        if (message != "")
         {
             throw new BO.BlInvalidInput(message);
         }
-        if (boTask.Dependencies!=null)
+        if (boTask.Dependencies != null)
         {
             isMilestone = true;
-           var listDep = from BO.TaskInList dependency in boTask.Dependencies!
+            var listDep = from BO.TaskInList dependency in boTask.Dependencies!
                           select new DO.Dependency
                           {
                               DependsOnTask = dependency.Id,
@@ -47,8 +48,8 @@ internal class TaskImplementation : ITask
         TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));
         DO.Task doTask = new DO.Task
                (0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
-               isMilestone,(DO.EngineerExperience)boTask.ComplexityLevel,
-               boTask.StartDate,boTask.ForecastDate, boTask.DeadlineDate, 
+               isMilestone, (DO.EngineerExperience)boTask.ComplexityLevel,
+               boTask.StartDate, boTask.ForecastDate, boTask.DeadlineDate,
                boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
         _dal.Task.Create(doTask);
     }
@@ -78,29 +79,47 @@ internal class TaskImplementation : ITask
     }*/
     public BO.Task Read(int id)
     {
+        Status status = Status.Unscheduled;
         DO.Task? doTask = _dal.Task.Read(id);
-        if(doTask == null)
+        if (doTask == null)
         {
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
         }
+        if (doTask.ScheduledDate != null && doTask.StartDate == null)//> DateTime.Now
+            status = Status.Scheduled;
+        if (doTask.StartDate < DateTime.Now && doTask.CompleteDate == null)
+            status = Status.OnTrack;
+        if (doTask.DeadlineDate < DateTime.Now && doTask.CompleteDate == null)
+            status = Status.InJeopardy;
+        //var listDep = from  dep in _dal.Dependency.ReadAll()
+        //               where ( dep.DependentTask =doTask.Id )
+        //               select new {  };
+        var listDep = _dal.Dependency.ReadAll();
+        listDep = listDep.Where(dep => dep.DependsOnTask == doTask.Id);
+        if (listDep.Any())
+        {
+         
+        }
+
+        listDep.Select(dep => _dal.Dependency.Create(dep));
         return new BO.Task()
         {
             Id = id,
             Alias = doTask.Alias,
             Description = doTask.Description,
             CreatedAtDate = doTask.CreatedAtDate,
-            //   Status = doTask.,
+            Status = status,//מה עם משימה שהסתימה בהצלחה?
             //     Dependencies = doTask,
             //   Milestone = doTask
             // ScheduledStartDate = doTask.ScheduledDate,//?
             StartDate = doTask.StartDate,
-             ForecastDate = doTask.ScheduledDate,
+            ForecastDate = doTask.ScheduledDate,
             DeadlineDate = doTask.DeadlineDate,
             CompleteDate = doTask.CompleteDate,
             Product = doTask.Product,
             Remarks = doTask.Remarks,
             //   Engineer = doTask.EngineerId
-            Complexity =(BO.EngineerExperience) doTask.Complexity,
+            // Complexity =(BO.EngineerExperience) doTask.Complexity,
         };
     }
 
