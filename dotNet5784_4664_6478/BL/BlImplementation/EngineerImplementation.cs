@@ -1,14 +1,11 @@
-﻿using BlApi;
-using BO;
+﻿namespace BlImplementation;
+using BlApi;
 using System.Net.Mail;
-using System.Security.Cryptography.X509Certificates;
-
-namespace BlImplementation;
 
 internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    private TaskInEngineer? FindTask(int id)
+    private BO.TaskInEngineer? FindTask(int id)
     {
         BO.TaskInEngineer? taskInEngineer;
         DO.Task? task = _dal.Task.ReadAll().FirstOrDefault(t => t?.EngineerId == id);
@@ -34,25 +31,37 @@ internal class EngineerImplementation : IEngineer
             return false;
         }
     }
-    public int Create(BO.Engineer boEngineer)
+
+    private string Validation(BO.Engineer boEngineer)
     {
-        if (boEngineer.Id<=0)
+        if (boEngineer.Id <= 0)
         {
-            throw new BO.BlInvalidInput("Id is not valid");
+           return "Id is not valid";
         }
         if (boEngineer.Name != "")
         {
-            throw new BO.BlInvalidInput("Name is not valid");
+            return "Name is not valid";
         }
         if (!IsValidEmail(boEngineer.Email))
         {
-            throw new BO.BlInvalidInput("Email is not valid");
+            return "Email is not valid";
         }
         if (boEngineer.Cost <= 0)
         {
-            throw new BO.BlInvalidInput("Cost is not valid");
+            return "Cost is not valid";
         }
-
+        else
+        {
+            return "";
+        }
+    }
+    public int Create(BO.Engineer boEngineer)
+    {
+        string message = Validation(boEngineer);
+        if (message != "")
+        {
+            throw new BO.BlInvalidInput(message);
+        }
         DO.Engineer doEngineer = new DO.Engineer
                (boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost, boEngineer.Active);
         try
@@ -68,17 +77,16 @@ internal class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-        //האם צריך לבדוק פה האם המהנדס קיים כי אם הוא לוחץ עליו למחוק אותו אז הוא בטוח קיים
-        BO.Engineer boEngineer = Read(id);
-        if (boEngineer.Task!=null)
+        BO.TaskInEngineer? taskInEngineer = FindTask(id);
+        if (taskInEngineer == null)
         {
             try
             {
                 _dal.Engineer.Delete(id);
             }
-            catch (BO.BlDoesNotExistException ex) { }
+            catch (DO.DalDoesNotExistException ex)
             {
-                // והאם צריך לעשות פה שגיאה מסוג מחיקה אןו לא קיים למעלה
+                throw new BO.BlDoesNotExistException($"Engineer with ID={id} does not exists", ex);
             }
         }
         else
@@ -110,7 +118,8 @@ internal class EngineerImplementation : IEngineer
 
     public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer, bool>? filter = null)
     {
-        return (from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)//לבדוק איך לשלוח כי הוא יכול להיות null
+       //האם let=VAR
+        var listEng= from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)//לבדוק איך לשלוח כי הוא יכול להיות null
                 select new BO.Engineer
                 {
                     Id = doEngineer.Id,
@@ -120,19 +129,26 @@ internal class EngineerImplementation : IEngineer
                     Cost = doEngineer.Cost,
                     Task = FindTask(doEngineer.Id)
                     //??Active
-                }); ; 
+                }; 
+        return listEng;
     }
 
-    public void Update(BO.Engineer eng)
+    public void Update(BO.Engineer boEngineer)
     {
-        DO.Engineer? reference = _dal.Engineer.Read(eng.Id);
-        if (reference != null)
+        string message = Validation(boEngineer);
+        if (message != "")
         {
-            _dal.Engineer.Update(reference);
+            throw new BO.BlInvalidInput(message);
         }
-        //else{
-        //}
-
-
+        DO.Engineer doEngineer = new DO.Engineer
+               (boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost, boEngineer.Active);
+        try
+        {
+            _dal.Engineer.Update(doEngineer);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer.Id} does not exists", ex);
+        }
     }
 }

@@ -31,8 +31,8 @@ public class Task
     public DateTime? CompleteDate { get; set; }
     public string? Product { get; set; }
     public string? Remarks { get; set; }
-    public Tuple<string, string>? Engineer { get; set; }//????
-    public EngineerExperience Level { get; set; }
+    public EngineerInTask? Engineer { get; set; }//????
+    public EngineerExperience ComplexityLevel { get; set; }
     // public override string? ToString() => base.ToString();
 
     // TimeSpan RequiredEffortTime = new TimeSpan(),

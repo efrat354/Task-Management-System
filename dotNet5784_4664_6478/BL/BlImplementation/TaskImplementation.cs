@@ -1,16 +1,56 @@
 ﻿
 
 using BlApi;
-using System.Reflection.Emit;
+using System.Collections.Generic;
 
 namespace BlImplementation;
+
 
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    public void Create(BO.Task task)
+    private string Validation(BO.Task boTask)
     {
-        throw new NotImplementedException();
+        if (boTask.Id <= 0)
+        {
+            return "Id is not valid";
+        }
+        if (boTask.Alias != "")
+        {
+            return "Alias is not valid";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public void Create(BO.Task boTask)
+    {
+        bool isMilestone =false;
+        string message= Validation(boTask);
+        if (message!="")
+        {
+            throw new BO.BlInvalidInput(message);
+        }
+        if (boTask.Dependencies!=null)
+        {
+            isMilestone = true;
+           var listDep = from BO.TaskInList dependency in boTask.Dependencies!
+                          select new DO.Dependency
+                          {
+                              DependsOnTask = dependency.Id,
+                              DependentTask = boTask.Id
+                          };
+            listDep.Select(dep => _dal.Dependency.Create(dep));
+        }
+        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));
+        DO.Task doTask = new DO.Task
+               (0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
+               isMilestone,(DO.EngineerExperience)boTask.ComplexityLevel,
+               boTask.StartDate,boTask.ForecastDate, boTask.DeadlineDate, 
+               boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
+        _dal.Task.Create(doTask);
     }
 
     public void Delete(int id)

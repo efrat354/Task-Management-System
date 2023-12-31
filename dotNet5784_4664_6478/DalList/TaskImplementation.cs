@@ -11,11 +11,11 @@ internal class TaskImplementation : ITask
     //Create a new task and add it to the tasks' list 
     public int Create(Task item)
     {
-        EngineerImplementation e = new EngineerImplementation();
-        Engineer? eng;
+        //EngineerImplementation e = new EngineerImplementation();
+        //Engineer? eng;
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
-        eng = e.Read((int)item.EngineerId!);
+        //eng = e.Read((int)item.EngineerId!);
         DataSource.Tasks.Add(copy);
         return id;
     }
