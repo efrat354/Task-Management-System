@@ -116,11 +116,10 @@ internal class EngineerImplementation : IEngineer
         };
     }
 
-    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer, bool>? filter = null)
+    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer?, bool>? filter = null)
     {
-       //האם let=VAR
         var listEng= from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)//לבדוק איך לשלוח כי הוא יכול להיות null
-                select new BO.Engineer
+                select new BO.Engineer()
                 {
                     Id = doEngineer.Id,
                     Name = doEngineer.Name,

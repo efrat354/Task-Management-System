@@ -10,6 +10,18 @@ namespace BlImplementation;
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    private BO.Status CreateStatus(DO.Task doTask)
+    {
+        Status status = Status.Unscheduled;
+        if (doTask.ScheduledDate != null && doTask.StartDate == null)//> DateTime.Now
+            status = Status.Scheduled;
+        if (doTask.StartDate < DateTime.Now && doTask.CompleteDate == null)
+            status = Status.OnTrack;
+        if (doTask.DeadlineDate < DateTime.Now && doTask.CompleteDate == null)
+            status = Status.InJeopardy;
+        //מה עושים כשהוא גמר את המשימה
+        return status;
+    }
     private string Validation(BO.Task boTask)
     {
         if (boTask.Id <= 0)
@@ -40,8 +52,8 @@ internal class TaskImplementation : ITask
             var listDep = from BO.TaskInList dependency in boTask.Dependencies!
                           select new DO.Dependency
                           {
-                              DependsOnTask = dependency.Id,
-                              DependentTask = boTask.Id
+                              DependentTask = boTask.Id,
+                              DependsOnTask = dependency.Id
                           };
             listDep.Select(dep => _dal.Dependency.Create(dep));
         }
@@ -79,46 +91,40 @@ internal class TaskImplementation : ITask
     }*/
     public BO.Task Read(int id)
     {
-        Status status = Status.Unscheduled;
         DO.Task? doTask = _dal.Task.Read(id);
         if (doTask == null)
         {
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
         }
-        if (doTask.ScheduledDate != null && doTask.StartDate == null)//> DateTime.Now
-            status = Status.Scheduled;
-        if (doTask.StartDate < DateTime.Now && doTask.CompleteDate == null)
-            status = Status.OnTrack;
-        if (doTask.DeadlineDate < DateTime.Now && doTask.CompleteDate == null)
-            status = Status.InJeopardy;
-        //var listDep = from  dep in _dal.Dependency.ReadAll()
-        //               where ( dep.DependentTask =doTask.Id )
-        //               select new {  };
-        var listDep = _dal.Dependency.ReadAll();
-        listDep = listDep.Where(dep => dep.DependsOnTask == doTask.Id);
-        if (listDep.Any())
-        {
-         
-        }
-
-        listDep.Select(dep => _dal.Dependency.Create(dep));
+        var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
+                      where dependency.DependsOnTask == id
+                      let task = _dal.Task.Read(dependency.DependentTask)
+                      select new BO.TaskInList
+                      {
+                          Id = task.Id,
+                          Alias = task.Alias,
+                          Description = task.Description,
+                          Status = CreateStatus(task)
+                      };
+        //מציאת הנדס של המשימה
+    //  DO.Engineer engineer=_dal.Engineer.Read((int?)doTask.EngineerId);
         return new BO.Task()
         {
             Id = id,
             Alias = doTask.Alias,
             Description = doTask.Description,
             CreatedAtDate = doTask.CreatedAtDate,
-            Status = status,//מה עם משימה שהסתימה בהצלחה?
-            //     Dependencies = doTask,
-            //   Milestone = doTask
-            // ScheduledStartDate = doTask.ScheduledDate,//?
+            Status = CreateStatus(doTask),
+            Dependencies = (List<TaskInList>)listDep,
+          //  Milestone = listDep==null? false :true,
+          // ScheduledStartDate = doTask.ScheduledDate,//?
             StartDate = doTask.StartDate,
             ForecastDate = doTask.ScheduledDate,
             DeadlineDate = doTask.DeadlineDate,
             CompleteDate = doTask.CompleteDate,
             Product = doTask.Product,
             Remarks = doTask.Remarks,
-            //   Engineer = doTask.EngineerId
+              // Engineer = doTask.EngineerId
             // Complexity =(BO.EngineerExperience) doTask.Complexity,
         };
     }
