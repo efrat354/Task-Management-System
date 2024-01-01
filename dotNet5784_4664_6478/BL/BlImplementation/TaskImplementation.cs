@@ -131,7 +131,44 @@ internal class TaskImplementation : ITask
 
     public IEnumerable<BO.Task> ReadAll(Func<DO.Task, bool>? filter = null)
     {
-        throw new NotImplementedException();
+    //    public int Id { get; init; }
+    //public required string Alias { get; set; }
+    //public required string Description { get; set; }
+    //public required DateTime CreatedAtDate { get; init; }
+    //public Status? Status { get; set; }
+    //public List<TaskInList>? Dependencies { get; set; }
+    //public Milestone? Milestone { get; set; }
+    //public DateTime? ScheduledStartDate { get; set; }//הוא כתב baselinedate מה צריך לעשות עם התאריך הזה
+    //public DateTime? StartDate { get; set; }
+    //public DateTime? ForecastDate { get; set; }//ScheduledEndDate
+    //public DateTime? DeadlineDate { get; set; }
+    //public DateTime? CompleteDate { get; set; }
+    //public string? Product { get; set; }
+    //public string? Remarks { get; set; }
+    //public EngineerInTask? Engineer { get; set; }//????
+    //public EngineerExperience ComplexityLevel { get; set; }
+        return from DO.Task doTask in _dal.Task.ReadAll(filter)
+               let engineerId=doTask.EngineerId
+               select new BO.Task()
+               {
+                   Id = doTask.Id,
+                   Alias=doTask.Alias,
+                   Description = doTask.Description,
+                   CreatedAtDate=doTask.CreatedAtDate,
+                   Status = CreateStatus(doTask),
+                   //Dependencies = (List<TaskInList>),
+                   //milestone
+                   ScheduledStartDate=doTask.ScheduledDate,//????
+                   StartDate = doTask.StartDate,
+                   ForecastDate=doTask.ScheduledDate,
+                   DeadlineDate=doTask.DeadlineDate,
+                   CompleteDate=doTask.CompleteDate,
+                   Product = doTask.Product,
+                   Remarks=doTask.Remarks,
+                   Engineer= doTask.EngineerId != null ? new EngineerInTask() { Id= doTask.EngineerId, Name="bbb"}:null,
+                   ComplexityLevel= (BO.EngineerExperience)doTask.Complexity
+                   //??Active
+               };
     }
 
     public void Update(BO.Task task)

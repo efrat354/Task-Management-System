@@ -118,7 +118,7 @@ internal class EngineerImplementation : IEngineer
 
     public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer?, bool>? filter = null)
     {
-        var listEng= from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)//לבדוק איך לשלוח כי הוא יכול להיות null
+        return from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)
                 select new BO.Engineer()
                 {
                     Id = doEngineer.Id,
@@ -129,7 +129,6 @@ internal class EngineerImplementation : IEngineer
                     Task = FindTask(doEngineer.Id)
                     //??Active
                 }; 
-        return listEng;
     }
 
     public void Update(BO.Engineer boEngineer)
