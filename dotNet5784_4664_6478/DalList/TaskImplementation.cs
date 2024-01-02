@@ -26,21 +26,13 @@ internal class TaskImplementation : ITask
         Task? reference = Read(id);
         if (reference != null)
         {
-            var dependency = (DataSource.Dependencies).FirstOrDefault(depend => depend?.DependentTask == id);
-            if (dependency != null)
-            {
-                throw new DalDeletionImpossible("This task cannot be deleted because other tasks depend on it");
-            }
-            else
-            {
-                // DataSource.Dependencies.Remove(dependency);
-            }
+             // DataSource.Dependencies.Remove(dependency);?????
             Task task = reference with { Active = false };
             Update(task);
         }
         else
         {
-            throw new DalDeletionImpossible("The item to delete does not exist in the system");
+            throw new DalDoesNotExistException("The item to delete does not exist in the system");
         }
         //foreach (Dependency? depend in DataSource.Dependencies)
         //{

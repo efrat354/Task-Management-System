@@ -116,7 +116,7 @@ internal class EngineerImplementation : IEngineer
         };
     }
 
-    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer?, bool>? filter = null)
+    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer?, bool>? filter = null)//לבדוק האם צריך את ה? בכותרת
     {
         return from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)
                 select new BO.Engineer()
