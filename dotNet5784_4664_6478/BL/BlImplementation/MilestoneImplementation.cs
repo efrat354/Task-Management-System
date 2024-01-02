@@ -72,9 +72,37 @@ internal class MilestoneImplementation : IMilestone
             .GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask, (id, dependency) => new { TaskId = id, Dependencies = dependency })
             .ToList();
 
-        var distinctDependencies = dependenciesList.Distinct().ToList();//מחיקת כפילויות
-                                                                        //  var milestoneList = from dep in distinctDependencies
-                                                                        //   select new BO.Milestone() { }//
+        var distinctDependencies = dependenciesList
+        .SelectMany(depGroup => depGroup.Dependencies)
+        .Where(dep => dep != null)
+        .Distinct()
+        .ToList();
+
+        var milestones = _dal.Dependency.ReadAll()
+    .OrderBy(dep => dep?.DependsOnTask)
+    .GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask, (id, dependency) => new { TaskId = id, Dependencies = dependency })
+    .Select(depGroup => new BO.Milestone()
+    {
+        Id = (int)depGroup.TaskId!,
+        Alias = "M",
+        Description = "",
+        CreatedAtDate = DateTime.Now,
+        Status = 0,
+        StartDate = DateTime.Now,
+        ForecastDate = DateTime.Now,
+        DeadlineDate = DateTime.Now,
+        CompleteDate = DateTime.Now,
+        CompletionPercentage = 0,
+        Remarks = " ",
+        Dependencies = depGroup.Dependencies?.Select(dep => new TaskInList
+        {
+            Id = dep ?? 0,
+            Alias = "",
+            Description = "",
+            Status = 0,
+        }).ToList() ?? new List<TaskInList>() // אם התלות היא null, יצירת רשימה ריקה
+    })
+    .ToList();
     }
 
     public Milestone Read(int id)//CompletionPercentage ליצור 
