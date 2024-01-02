@@ -37,6 +37,20 @@ internal class TaskImplementation : ITask
             return "";
         }
     }
+    private IEnumerable<BO.TaskInList> FindDependencies(int id)
+    {
+        var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
+                      where dependency.DependentTask == id
+                      let task = _dal.Task.Read(dependency.DependentTask)
+                      select new BO.TaskInList
+                      {
+                          Id = task.Id,
+                          Alias = task.Alias,
+                          Description = task.Description,
+                          Status = CreateStatus(task)
+                      };
+        return listDep;
+    }
 
     public void Create(BO.Task boTask)
     {
@@ -96,16 +110,7 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
         }
-        var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
-                      where dependency.DependsOnTask == id
-                      let task = _dal.Task.Read(dependency.DependentTask)
-                      select new BO.TaskInList
-                      {
-                          Id = task.Id,
-                          Alias = task.Alias,
-                          Description = task.Description,
-                          Status = CreateStatus(task)
-                      };
+       
         //מציאת הנדס של המשימה
     //  DO.Engineer engineer=_dal.Engineer.Read((int?)doTask.EngineerId);
         return new BO.Task()
@@ -165,7 +170,8 @@ internal class TaskImplementation : ITask
                    CompleteDate=doTask.CompleteDate,
                    Product = doTask.Product,
                    Remarks=doTask.Remarks,
-                   Engineer= doTask.EngineerId != null ? new EngineerInTask() { Id= doTask.EngineerId, Name="bbb"}:null,
+                   Engineer= doTask.EngineerId == null ? null: new EngineerInTask() 
+                   { Id= (int)doTask.EngineerId, Name=_dal.Engineer.Read((int)doTask.EngineerId)!.Name },
                    ComplexityLevel= (BO.EngineerExperience)doTask.Complexity
                    //??Active
                };
