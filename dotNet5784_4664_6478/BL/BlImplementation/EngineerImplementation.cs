@@ -54,7 +54,7 @@ internal class EngineerImplementation : IEngineer
         {
             return "";
         }
-    }
+    }//מה עם הגיאה של NULL לא שתמשנו בה?
     public int Create(BO.Engineer boEngineer)
     {
         string message = Validation(boEngineer);

@@ -2,9 +2,6 @@
 
 using BlApi;
 using BO;
-using DalApi;
-using DO;
-using System.Collections.Generic;
 
 namespace BlImplementation;
 
@@ -12,6 +9,7 @@ namespace BlImplementation;
 
 internal class MilestoneImplementation : IMilestone
 {
+    private DalApi.IDal _dal = DalApi.Factory.Get;
     private IEnumerable<BO.TaskInList> FindDependencies(int id)
     {
         var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
@@ -55,7 +53,6 @@ internal class MilestoneImplementation : IMilestone
             return "";
         }
     }
-    private DalApi.IDal _dal = DalApi.Factory.Get;
     /*
      var groupedDependencies = _dal.Dependency.ReadAll()
      .OrderBy(dep => dep?.DependsOnTask)
@@ -65,45 +62,111 @@ internal class MilestoneImplementation : IMilestone
      */
     public void CreateSchedule()
     {
-        BO.Milestone milestone;
-        //רשימת אוביקטים מקובצים לפי dependent
-        var dependenciesList = _dal.Dependency.ReadAll()
-            .OrderBy(dep => dep?.DependsOnTask)//מיון לפי המשימה שתלוים בה
-            .GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask, (id, dependency) => new { TaskId = id, Dependencies = dependency })
-            .ToList();
-
-        var distinctDependencies = dependenciesList
-        .SelectMany(depGroup => depGroup.Dependencies)
-        .Where(dep => dep != null)
-        .Distinct()
-        .ToList();
-
-        var milestones = _dal.Dependency.ReadAll()
+        //יצרנו קבוצה של משימה תלויות וערכים של משימות שבהן היא תלויה ואז עבור כל קבוצה יצרנו אבן דרך שהתלויות שלה זה DEPENDENCIES
+        var groups = _dal.Dependency.ReadAll()
     .OrderBy(dep => dep?.DependsOnTask)
     .GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask, (id, dependency) => new { TaskId = id, Dependencies = dependency })
-    .Select(depGroup => new BO.Milestone()
-    {
-        Id = (int)depGroup.TaskId!,
-        Alias = "M",
-        Description = "",
-        CreatedAtDate = DateTime.Now,
-        Status = 0,
-        StartDate = DateTime.Now,
-        ForecastDate = DateTime.Now,
-        DeadlineDate = DateTime.Now,
-        CompleteDate = DateTime.Now,
-        CompletionPercentage = 0,
-        Remarks = " ",
-        Dependencies = depGroup.Dependencies?.Select(dep => new TaskInList
-        {
-            Id = dep ?? 0,
-            Alias = "",
-            Description = "",
-            Status = 0,
-        }).ToList() ?? new List<TaskInList>() // אם התלות היא null, יצירת רשימה ריקה
-    })
-    .ToList();
+    .Distinct();
+        _dal.Dependency.Reset();
+
+        int indexMilestone = 0;//לבדוק מה קורה כשאין תלויות
+        var newList = groups.Select(groupDep =>
+                      {
+                          int idMilstone = _dal.Task.Create(new DO.Task(indexMilestone++, $"milestone{indexMilestone}", $"M{indexMilestone}", DateTime.Now, new TimeSpan(0), true, 0, null, null, null, null, "", "", null));
+                          int idDepNext=_dal.Dependency.Create(new DO.Dependency( (int)groupDep.TaskId!, idMilstone));//יצירת התלות בין משימה 3 לאבן דרך בתרשים
+                          return groupDep.Dependencies.Select(dep =>
+                          {
+                              int idDep = _dal.Dependency.Create(new DO.Dependency(idMilstone, dep!.Value));//יצירת תלויות בין משימות קודמות לאבן דרך
+                              return idDep;
+                          });
+                      });
+        int idFirst = _dal.Task.Create(new DO.Task(0, "milestone0", "M0", DateTime.Now, new TimeSpan(0), true, 0, null, null, null, null, "", "", null));
+        //פה צריך לעשות תלויות לראשונות
+        //חלק 4 ו5 של חישוב אבני דרך
+
+        //BO.Milestone milestone;
+        ////רשימת אוביקטים מקובצים לפי dependent
+        //var dependenciesList = _dal.Dependency.ReadAll()
+        //    .OrderBy(dep => dep?.DependsOnTask)//מיון לפי המשימה שתלוים בה
+        //    .GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask, (id, dependency) => new { TaskId = id, Dependencies = dependency })
+        //    .ToList();
+
+        //var distinctDependencies = dependenciesList
+        //.SelectMany(depGroup => depGroup.Dependencies)
+        //.Where(dep => dep != null)
+        //.Distinct()
+        //.ToList();
+
+        //var newList = from groupDep in groups
+        //              select groupDep =>
+        //var newList = from groupDep in groups
+        //              select groupDep =>
+        //              {
+        //                  int id = _dal.Task.Create(new DO.Task(indexMilestone++, $"milestone{indexMilestone}", $"M{indexMilestone}", DateTime.Now, new TimeSpan(0), true, 0, null, null, null, null, "", "", null));
+
+
+        //              };
+        //var newMilstones = from milestone in groups
+        //                   select new BO.Milestone()
+        //                   {
+        //                       Id = (int)milestone.TaskId!,
+        //                       Alias = "M",
+        //                       Description = "",
+        //                       CreatedAtDate = DateTime.Now,
+        //                       Status = 0,
+        //                       StartDate = DateTime.Now,
+        //                       ForecastDate = DateTime.Now,
+        //                       DeadlineDate = DateTime.Now,
+        //                       CompleteDate = DateTime.Now,
+        //                       CompletionPercentage = 0,
+        //                       Remarks = " ",
+        //                       Dependencies = milestone.Dependencies?.Select(dep => new TaskInList
+        //                       {
+        //                           Id = dep ?? 0,
+        //                           Alias = "",
+        //                           Description = "",
+        //                           Status = 0,
+        //                       }).ToList() ?? new List<TaskInList>() // אם התלות היא null, יצירת רשימה ריקה
+        //                   };
+
+        // var newList = groups.
+
+        //select new DO.Dependency()
+        //{
+        //    Id = dependency.,
+        //    DependentTask = dependency.Dependencies
+
+        //}
+        //Select(dep=> _dal.Dependency.Create())
+
+
     }
+
+    //.Select(depGroup => new BO.Milestone()
+    //{
+    //    Id = (int)depGroup.TaskId!,
+    //    Alias = "M",
+    //    Description = "",
+    //    CreatedAtDate = DateTime.Now,
+    //    Status = 0,
+    //    StartDate = DateTime.Now,
+    //    ForecastDate = DateTime.Now,
+    //    DeadlineDate = DateTime.Now,
+    //    CompleteDate = DateTime.Now,
+    //    CompletionPercentage = 0,
+    //    Remarks = " ",
+    //    Dependencies = depGroup.Dependencies?.Select(dep => new TaskInList
+    //    {
+    //        Id = dep ?? 0,
+    //        Alias = "",
+    //        Description = "",
+    //        Status = 0,
+    //    }).ToList() ?? new List<TaskInList>() // אם התלות היא null, יצירת רשימה ריקה
+    //}
+    //)
+    //.ToList();
+
+    //}
 
     public Milestone Read(int id)//CompletionPercentage ליצור 
     {
