@@ -80,7 +80,6 @@ internal class MilestoneImplementation : IMilestone
         }
         return boMilestone;
     }
-
 }
 
 
