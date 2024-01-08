@@ -1,4 +1,4 @@
 ﻿namespace BO;
 
 public enum EngineerExperience { Novice, AdvancedBeginner, Competent, Proficient, Expert };
-public enum Status { Unscheduled, Scheduled, OnTrack, InJeopardy };
+public enum Status { Unscheduled, Scheduled, OnTrack, InJeopardy };// לבדוק האם צריך להוסיף סטטוס

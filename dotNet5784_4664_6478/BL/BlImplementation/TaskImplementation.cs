@@ -80,29 +80,25 @@ internal class TaskImplementation : ITask
         _dal.Task.Create(doTask);
     }
 
-    public void Delete(int id)
+    public void Delete(int id)//לבדוק האם ? !
     {
-        throw new NotImplementedException();
-    }
-    /* public BO.Engineer Read(int id)
-    {
-        DO.Engineer? doEngineer = _dal.Engineer.Read(id);
-        if (doEngineer == null)
+        BO.Task task = Read(id);
+        if (task != null)
         {
-            throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
+            var isPrevious = _dal.Dependency.ReadAll()
+                .FirstOrDefault( dep => dep?.DependsOnTask == id);//???
+            if (isPrevious != null)
+            {
+                throw new BO.BlDeletionImpossible($"Task with id={id} can not be deleted");
+            }
+            _dal.Task.Delete(id);
         }
-
-        return new BO.Engineer()
+        else
         {
-            Id = id,
-            Name = doEngineer.Name,
-            Email = doEngineer.Email,
-            Level = (BO.EngineerExperience)doEngineer.Level,
-            Cost = doEngineer.Cost,
-            Active = doEngineer.Active,
-            Task = FindTask(id)
-        };
-    }*/
+            throw new BO.BlDoesNotExistException($"Task with id={id} does not exist");
+        }
+    }
+
     public BO.Task Read(int id)
     {
         DO.Task? doTask = _dal.Task.Read(id);
@@ -110,75 +106,76 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
         }
-       
-        //מציאת הנדס של המשימה
-    //  DO.Engineer engineer=_dal.Engineer.Read((int?)doTask.EngineerId);
         return new BO.Task()
         {
-            Id = id,
+            Id = doTask.Id,
             Alias = doTask.Alias,
             Description = doTask.Description,
             CreatedAtDate = doTask.CreatedAtDate,
             Status = CreateStatus(doTask),
-            Dependencies = (List<TaskInList>)listDep,
-          //  Milestone = listDep==null? false :true,
-          // ScheduledStartDate = doTask.ScheduledDate,//?
+            Dependencies = (List<TaskInList>)FindDependencies(doTask.Id),//????
+            //milestone
+            ScheduledStartDate = doTask.ScheduledDate,//????
             StartDate = doTask.StartDate,
             ForecastDate = doTask.ScheduledDate,
             DeadlineDate = doTask.DeadlineDate,
             CompleteDate = doTask.CompleteDate,
             Product = doTask.Product,
             Remarks = doTask.Remarks,
-              // Engineer = doTask.EngineerId
-            // Complexity =(BO.EngineerExperience) doTask.Complexity,
+            Engineer = doTask.EngineerId == null ? null : new EngineerInTask()
+            { Id = (int)doTask.EngineerId, Name = _dal.Engineer.Read((int)doTask.EngineerId)!.Name },
+            ComplexityLevel = (BO.EngineerExperience)doTask.Complexity
+            //??Active
         };
-    }
+    }//מה לעשות לגבי DEPENDENCIES, MILESTONE, תאריכים שגויים,כפילות קוד 
 
-    public IEnumerable<BO.Task> ReadAll(Func<DO.Task, bool>? filter = null)
+    public IEnumerable<BO.Task> ReadAll(Func<DO.Task?, bool>? filter = null)//תאריכים לא מסונכרנים, ACTIVE?,MILSTONE,האם צריך ? בכותרת
     {
-    //    public int Id { get; init; }
-    //public required string Alias { get; set; }
-    //public required string Description { get; set; }
-    //public required DateTime CreatedAtDate { get; init; }
-    //public Status? Status { get; set; }
-    //public List<TaskInList>? Dependencies { get; set; }
-    //public Milestone? Milestone { get; set; }
-    //public DateTime? ScheduledStartDate { get; set; }//הוא כתב baselinedate מה צריך לעשות עם התאריך הזה
-    //public DateTime? StartDate { get; set; }
-    //public DateTime? ForecastDate { get; set; }//ScheduledEndDate
-    //public DateTime? DeadlineDate { get; set; }
-    //public DateTime? CompleteDate { get; set; }
-    //public string? Product { get; set; }
-    //public string? Remarks { get; set; }
-    //public EngineerInTask? Engineer { get; set; }//????
-    //public EngineerExperience ComplexityLevel { get; set; }
         return from DO.Task doTask in _dal.Task.ReadAll(filter)
-               let engineerId=doTask.EngineerId
                select new BO.Task()
                {
+
                    Id = doTask.Id,
-                   Alias=doTask.Alias,
+                   Alias = doTask.Alias,
                    Description = doTask.Description,
-                   CreatedAtDate=doTask.CreatedAtDate,
+                   CreatedAtDate = doTask.CreatedAtDate,
                    Status = CreateStatus(doTask),
-                   //Dependencies = (List<TaskInList>),
+                   Dependencies = (List<TaskInList>)FindDependencies(doTask.Id),
                    //milestone
-                   ScheduledStartDate=doTask.ScheduledDate,//????
+                   ScheduledStartDate = doTask.ScheduledDate,//????
                    StartDate = doTask.StartDate,
-                   ForecastDate=doTask.ScheduledDate,
-                   DeadlineDate=doTask.DeadlineDate,
-                   CompleteDate=doTask.CompleteDate,
+                   ForecastDate = doTask.ScheduledDate,
+                   DeadlineDate = doTask.DeadlineDate,
+                   CompleteDate = doTask.CompleteDate,
                    Product = doTask.Product,
-                   Remarks=doTask.Remarks,
-                   Engineer= doTask.EngineerId == null ? null: new EngineerInTask() 
-                   { Id= (int)doTask.EngineerId, Name=_dal.Engineer.Read((int)doTask.EngineerId)!.Name },
-                   ComplexityLevel= (BO.EngineerExperience)doTask.Complexity
+                   Remarks = doTask.Remarks,
+                   Engineer = doTask.EngineerId == null ? null : new EngineerInTask()
+                   { Id = (int)doTask.EngineerId, Name = _dal.Engineer.Read((int)doTask.EngineerId)!.Name },
+                   ComplexityLevel = (BO.EngineerExperience)doTask.Complexity
                    //??Active
                };
     }
 
-    public void Update(BO.Task task)
+    public void Update(BO.Task boTask)//האם ניתן לשנות את הDEPENDENCIES ע"י עדכון משימה
     {
-        throw new NotImplementedException();
+        string message = Validation(boTask);
+        if (message != "")
+        {
+            throw new BO.BlInvalidInput(message);
+        }
+        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));
+        DO.Task doTask = new DO.Task
+               (boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
+              boTask.Dependencies==null?false:true, (DO.EngineerExperience)boTask.ComplexityLevel,
+               boTask.StartDate, boTask.ForecastDate, boTask.DeadlineDate,
+               boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
+        try
+        {
+            _dal.Task.Update(doTask);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Task with ID={boTask.Id} does not exists", ex);
+        }
     }
 }
