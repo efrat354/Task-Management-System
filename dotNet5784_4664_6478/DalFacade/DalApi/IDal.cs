@@ -9,8 +9,8 @@ public interface IDal
     IDependency Dependency { get; }
     IEngineer Engineer { get; }
     ITask Task { get; }
-    DateTime? StartProjectDate { get; }
-    DateTime? EndProjectDate { get; }
+    DateTime? startDateProject { get; set; }
+    DateTime? endDateProject { get; set; }
     public void Reset();
    
 }

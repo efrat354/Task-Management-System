@@ -18,9 +18,8 @@ sealed internal class DalXml : IDal
 
     public ITask Task => new TaskImplementation();
 
-    public DateTime? StartProjectDate => throw new NotImplementedException(); // set get איך להגדיר אותו פה ואיפה לתת לו לעשות 
-
-    public DateTime? EndProjectDate => throw new NotImplementedException();
+    public DateTime? startDateProject { get => Config.startProjectDate; set => Config.startProjectDate = value; }
+    public DateTime? endDateProject { get => Config.endProjectDate; set => Config.endProjectDate = value; }
 
     //Delete all the data
     public void Reset()

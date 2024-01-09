@@ -12,8 +12,8 @@ internal static class DataSource
         private static int nextTaskId = startTaskId;
         internal static int NextTaskId { get => nextTaskId++; }
         //Dates of beginning and ending the project
-        internal static DateTime startProjectDate= new DateTime(2024,1,1);
-        internal static DateTime endProjectDate = new DateTime(2030,1,1);
+        internal static DateTime? startProjectDate= new DateTime(2024,1,1);
+        internal static DateTime? endProjectDate = new DateTime(2030,1,1);
     }
       //Dependencies list
     internal static List<DO.Dependency?> Dependencies { get; } = new();
