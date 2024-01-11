@@ -31,14 +31,13 @@ internal class EngineerImplementation : IEngineer
             return false;
         }
     }
-
     private string Validation(BO.Engineer boEngineer)
     {
         if (boEngineer.Id <= 0)
         {
-           return "Id is not valid";
+            return "Id is not valid";
         }
-        if (boEngineer.Name != "")
+        if (boEngineer.Name == "")
         {
             return "Name is not valid";
         }
@@ -54,7 +53,7 @@ internal class EngineerImplementation : IEngineer
         {
             return "";
         }
-    }//מה עם הגיאה של NULL לא שתמשנו בה?
+    }
     public int Create(BO.Engineer boEngineer)
     {
         string message = Validation(boEngineer);
@@ -63,7 +62,7 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BlInvalidInput(message);
         }
         DO.Engineer doEngineer = new DO.Engineer
-               (boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost, boEngineer.Active);
+               (boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
         try
         {
             int idEng = _dal.Engineer.Create(doEngineer);
@@ -101,7 +100,7 @@ internal class EngineerImplementation : IEngineer
         DO.Engineer? doEngineer = _dal.Engineer.Read(id);
         if (doEngineer == null)
         {
-             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
+            throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
         }
 
         return new BO.Engineer()
@@ -111,24 +110,22 @@ internal class EngineerImplementation : IEngineer
             Email = doEngineer.Email,
             Level = (BO.EngineerExperience)doEngineer.Level,
             Cost = doEngineer.Cost,
-            Active = doEngineer.Active,
             Task = FindTask(id)
         };
     }
 
-    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer?, bool>? filter = null)//לבדוק האם צריך את ה? בכותרת
+    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer?, bool>? filter = null)
     {
         return from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)
-                select new BO.Engineer()
-                {
-                    Id = doEngineer.Id,
-                    Name = doEngineer.Name,
-                    Email = doEngineer.Email,
-                    Level = (BO.EngineerExperience)doEngineer.Level,
-                    Cost = doEngineer.Cost,
-                    Task = FindTask(doEngineer.Id)
-                    //??Active
-                }; 
+               select new BO.Engineer()
+               {
+                   Id = doEngineer.Id,
+                   Name = doEngineer.Name,
+                   Email = doEngineer.Email,
+                   Level = (BO.EngineerExperience)doEngineer.Level,
+                   Cost = doEngineer.Cost,
+                   Task = FindTask(doEngineer.Id)
+               };
     }
 
     public void Update(BO.Engineer boEngineer)
@@ -139,7 +136,7 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BlInvalidInput(message);
         }
         DO.Engineer doEngineer = new DO.Engineer
-               (boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost, boEngineer.Active);
+               (boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
         try
         {
             _dal.Engineer.Update(doEngineer);
