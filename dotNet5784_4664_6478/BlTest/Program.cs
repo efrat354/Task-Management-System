@@ -173,17 +173,16 @@ internal class Program
                     Description=_description,
                     CreatedAtDate=_createdAtDate,
                     Status=0,
-                    //dependencies
-                    //milstone
+                    Dependencies=null,
+                    Milestone = null,
                     ScheduledStartDate= _scheduledStartDate,
                     RequiredEffortTime =_requiredEffortTime, 
                     StartDate= _startDate,
-                    ForecastDate= _forecastDate,
                     DeadlineDate= _deadlineDate,
                     CompleteDate= _completeDate,
                     Product= _product,
                     Remarks= _remarks,
-                    //engineer
+                    Engineer=null,
                     ComplexityLevel= (BO.EngineerExperience)_complexityLevel,
                 };
                 s_bl.Task?.Create(task);
@@ -199,10 +198,10 @@ internal class Program
 
             case 3://read all
                 var taskList = s_bl.Task.ReadAll();
-                Console.WriteLine("Engineers details:");
-                foreach (BO.Task? tk in taskList!)
+                Console.WriteLine("Tasks' details:");
+                foreach (var tk in taskList!)
                 {
-                    Console.WriteLine(tk);
+                    Console.WriteLine(tk.ToString());//DO tostring
                 }
                 break;
 
@@ -242,17 +241,16 @@ internal class Program
                     Description = _description,
                     CreatedAtDate = _createdAtDate,
                     Status = 0,
-                    //dependencies
-                    //milstone
+                    Dependencies=null,
+                    Milestone = null,
                     ScheduledStartDate = _scheduledStartDate,
                     RequiredEffortTime = _requiredEffortTime,
                     StartDate = _startDate,
-                    ForecastDate = _forecastDate,
                     DeadlineDate = _deadlineDate,
                     CompleteDate = _completeDate,
                     Product = _product,
                     Remarks = _remarks,
-                    //engineer
+                    Engineer = null,
                     ComplexityLevel = (BO.EngineerExperience)_complexityLevel,
                 };
                 s_bl.Task.Update(task);
@@ -276,7 +274,7 @@ internal class Program
     /// </summary>
     private static void milstone()
     {
-
+        s_bl.Milestone.CreateSchedule();
     }
 
 
@@ -353,80 +351,3 @@ internal class Program
 
 
 
-namespace DalTest
-{
-    //Running the project
-    internal class Program
-    {
-        //Enabling access to the global interface we defined
-        //static readonly IDal s_dal = new DalList();
-        //static readonly IDal s_dal = new DalXml(); //stage 3
-        static readonly IDal s_dal = Factory.Get;
-
-        //Project management
-        static void Main(string[] args)
-        {
-            try
-            {
-                int choice = 0;
-                //Intilizate the project with some deta.
-                Console.WriteLine("Enter 1 to engineer, 2 to task , 3 to dependency and 4 to initialize data or 0 to exit");
-                choice = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a choice"));
-                //The main menu
-                while (choice != 0)
-                {
-                    switch (choice)
-                    {
-                        case 1://engineer
-                            try
-                            {
-                                engineer();
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine(e.Message);
-                            }
-                            break;
-                        case 2://task
-                            try
-                            {
-                                task();
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine(e.Message);
-                            }
-                            break;
-                        case 3://dependency
-                            try
-                            {
-                                dependency();
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine(e.Message);
-                            }
-                            break;
-                        case 4:
-                            Console.Write("Would you like to create Initial data? (Y/N)");
-                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                            if (ans == "Y")
-                            {
-                                s_dal.Reset();
-                                Initialization.Do();
-                            }
-                            break;
-                        default:
-                            throw new BlNullPropertyException("your choice is invalid");
-                    }
-                    Console.WriteLine("Enter 1 to engineer, 2 to task , 3 to dependency and 4 to initialize data or 0 to exit");
-                    choice = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a choice"));
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-    }
-}

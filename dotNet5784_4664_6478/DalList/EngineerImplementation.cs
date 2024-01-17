@@ -27,10 +27,8 @@ internal class EngineerImplementation : IEngineer
         }
         else
         {
-            Engineer engineer = reference with { Active = false };
-            Update(engineer);
+            DataSource.Engineers.Remove(reference);
         }
-
     }
     //Gets a pointer to a boolean function which will go through the engineer's list and return the first engineer in the list on which the function returns True.
     public Engineer? Read(Func<Engineer, bool> filter)

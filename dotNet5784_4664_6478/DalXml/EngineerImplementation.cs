@@ -23,15 +23,17 @@ internal class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
+        XmlSerializer serializer = new XmlSerializer(typeof(List<Engineer>));
+        List<Engineer> lst = XMLTools.LoadListFromXMLSerializer<Engineer>("engineers");
         Engineer? reference = Read(id);
-        if (reference == null)
+        if (reference != null)
         {
-            throw new DalDoesNotExistException("Engineer does not exist, cannot be deleted");
+            lst.Remove(reference);
+            XMLTools.SaveListToXMLSerializer<Engineer>(lst, "engineers");
         }
         else
         {
-            Engineer engineer = reference with { Active = false };
-            Update(engineer);
+            throw new DalDoesNotExistException("Engineer does not exist, cannot be deleted");
         }
     }
     //Gets a pointer to a boolean function which will go through the engineer' xml file and return the first engineer in the list on which the function returns True.

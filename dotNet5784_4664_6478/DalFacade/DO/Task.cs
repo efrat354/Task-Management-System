@@ -34,8 +34,7 @@ public record Task
     DateTime? CompleteDate = null,
     string? Product=null,
     string? Remarks = null,
-    int? EngineerId =null,
-    bool Active=true
+    int? EngineerId =null
 )
 {
     public Task() : this(0) { }

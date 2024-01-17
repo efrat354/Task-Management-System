@@ -23,15 +23,17 @@ internal class TaskImplementation : ITask
     //Delete an task by its id only if there is not task that depends on it
     public void Delete(int id)
     {
+        XmlSerializer serializer = new XmlSerializer(typeof(List<Task>));
+        List<Task> lst = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
         Task? reference = Read(id);
-        if (reference == null)
+        if (reference != null)
         {
-            throw new DalDoesNotExistException("Task does not exist, cannot be deleted");
+            lst.Remove(reference);
+            XMLTools.SaveListToXMLSerializer<Task>(lst, "tasks");
         }
         else
         {
-            Task Task = reference with { Active = false };
-            Update(Task);
+             throw new DalDoesNotExistException("Task does not exist, cannot be deleted");
         }
     }
     //Read the task's details by its id-find it in the tasks' xml file and return a reference

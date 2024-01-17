@@ -11,11 +11,8 @@ internal class TaskImplementation : ITask
     //Create a new task and add it to the tasks' list 
     public int Create(Task item)
     {
-        //EngineerImplementation e = new EngineerImplementation();
-        //Engineer? eng;
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
-        //eng = e.Read((int)item.EngineerId!);
         DataSource.Tasks.Add(copy);
         return id;
     }
@@ -26,29 +23,12 @@ internal class TaskImplementation : ITask
         Task? reference = Read(id);
         if (reference != null)
         {
-             // DataSource.Dependencies.Remove(dependency);?????
-            Task task = reference with { Active = false };
-            Update(task);
+            DataSource.Tasks.Remove(reference);
         }
         else
         {
             throw new DalDoesNotExistException("The item to delete does not exist in the system");
         }
-        //foreach (Dependency? depend in DataSource.Dependencies)
-        //{
-        //    if (depend?.DependentTask == id)
-        //    {
-        //        throw new Exception("This task cannot be deleted because other tasks depend on it");
-        //    }
-        //}
-        //foreach (Dependency? depend in DataSource.Dependencies)
-        //{
-        //    if (depend?.DependsOnTask == id)
-        //    {
-        //        DataSource.Dependencies.Remove(depend);
-        //    }
-        //}
-        //DataSource.Tasks.Remove(reference);
     }
     //Gets a pointer to a boolean function which will go through the task's list and return the first task in the list on which the function returns True.
     public Task? Read(Func<Task, bool> filter)

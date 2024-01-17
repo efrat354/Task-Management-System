@@ -1,101 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<Engineer>
-		<Id>214785693</Id>
-		<Name>Dina Klein</Name>
-		<Email>DinaKlein@gmail.com</Email>
-		<Level>Novice</Level>
-		<Cost>250.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 2 -->
-	<Engineer>
-		<Id>315862470</Id>
-		<Name>Ariela Levin</Name>
-		<Email>ArielaLevin@gmail.com</Email>
-		<Level>Novice</Level>
-		<Cost>300.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 3 -->
-	<Engineer>
-		<Id>214856475</Id>
-		<Name>Yair Cohen</Name>
-		<Email>YairCohen@gmail.com</Email>
-		<Level>Competent</Level>
-		<Cost>400.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 4 -->
-	<Engineer>
-		<Id>214856741</Id>
-		<Name>Eli Amar</Name>
-		<Email>EliAmar@gmail.com</Email>
-		<Level>Novice</Level>
-		<Cost>120.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 5 -->
-	<Engineer>
-		<Id>218563478</Id>
-		<Name>Dani Levi</Name>
-		<Email>DaniLevi@gmail.com</Email>
-		<Level>Expert</Level>
-		<Cost>520.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 6 -->
-	<Engineer>
-		<Id>215487976</Id>
-		<Name>Avraham Mandelovich</Name>
-		<Email>AvrahamMandelovich@gmail.com</Email>
-		<Level>Competent</Level>
-		<Cost>410.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 7 -->
-	<Engineer>
-		<Id>212549638</Id>
-		<Name>Shimon Moalem</Name>
-		<Email>ShimonMoalem@gmail.com</Email>
-		<Level>AdvancedBeginner</Level>
-		<Cost>320.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 8 -->
-	<Engineer>
-		<Id>211125487</Id>
-		<Name>Eliezer Klein</Name>
-		<Email>EliezerKlein@gmail.com</Email>
-		<Level>Proficient</Level>
-		<Cost>420.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 9 -->
-	<Engineer>
-		<Id>213456789</Id>
-		<Name>Mordechai Levy</Name>
-		<Email>MordechaiLevy@gmail.com</Email>
-		<Level>AdvancedBeginner</Level>
-		<Cost>310.00</Cost>
-		<Active>true</Active>
-	</Engineer>
-
-	<!-- Engineer 10 -->
-	<Engineer>
-		<Id>235614789</Id>
-		<Name>Reuven Cohen</Name>
-		<Email>ReuvenCohen@gmail.com</Email>
-		<Level>Expert</Level>
-		<Cost>540.00</Cost>
-		<Active>true</Active>
-	</Engineer>
+  <Engineer>
+    <Id>214785693</Id>
+    <Name>Dina Klein</Name>
+    <Email>DinaKlein@gmail.com</Email>
+    <Level>Novice</Level>
+    <Cost>250</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>315862470</Id>
+    <Name>Ariela Levin</Name>
+    <Email>ArielaLevin@gmail.com</Email>
+    <Level>Novice</Level>
+    <Cost>300</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>214856475</Id>
+    <Name>Yair Cohen</Name>
+    <Email>YairCohen@gmail.com</Email>
+    <Level>Competent</Level>
+    <Cost>400</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>214856741</Id>
+    <Name>Eli Amar</Name>
+    <Email>EliAmar@gmail.com</Email>
+    <Level>Novice</Level>
+    <Cost>120</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>218563478</Id>
+    <Name>Dani Levi</Name>
+    <Email>DaniLevi@gmail.com</Email>
+    <Level>Expert</Level>
+    <Cost>520</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>215487976</Id>
+    <Name>Avraham Mandelovich</Name>
+    <Email>AvrahamMandelovich@gmail.com</Email>
+    <Level>Competent</Level>
+    <Cost>410</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>212549638</Id>
+    <Name>Shimon Moalem</Name>
+    <Email>ShimonMoalem@gmail.com</Email>
+    <Level>AdvancedBeginner</Level>
+    <Cost>320</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>211125487</Id>
+    <Name>Eliezer Klein</Name>
+    <Email>EliezerKlein@gmail.com</Email>
+    <Level>Proficient</Level>
+    <Cost>420</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>213456789</Id>
+    <Name>Mordechai Levy</Name>
+    <Email>MordechaiLevy@gmail.com</Email>
+    <Level>AdvancedBeginner</Level>
+    <Cost>310</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>235614789</Id>
+    <Name>Reuven Cohen</Name>
+    <Email>ReuvenCohen@gmail.com</Email>
+    <Level>Expert</Level>
+    <Cost>540</Cost>
+    
+  </Engineer>
+  <Engineer>
+    <Id>34</Id>
+    <Name>dd</Name>
+    <Email>e@gmail.com</Email>
+    <Level>Expert</Level>
+    <Cost>34</Cost>
+    <Active>false</Active>
+  </Engineer>
 </ArrayOfEngineer>
