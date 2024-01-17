@@ -1,49 +1,55 @@
 ﻿
 namespace BlImplementation;
 using BlApi;
-using BO;
+using System.Net.Mail;
 
 internal class MilestoneImplementation : IMilestone
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    private IEnumerable<BO.TaskInList> FindDependencies(int id)
+    private BO.TaskInEngineer? FindTask(int id)
     {
-        var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
-                      where dependency.DependentTask == id
-                      let task = _dal.Task.Read(dependency.DependentTask)
-                      select new BO.TaskInList
-                      {
-                          Id = task.Id,
-                          Alias = task.Alias,
-                          Description = task.Description,
-                          Status = CreateStatus(task)
-                      };
-        return listDep;
-    }
-    private BO.Status CreateStatus(DO.Task doTask)
-    {
-        Status status = Status.Unscheduled;
-        if (doTask.ScheduledDate != null && doTask.StartDate == null)//> DateTime.Now
-            status = Status.Scheduled;
-        if (doTask.StartDate < DateTime.Now && doTask.CompleteDate == null)
-            status = Status.OnTrack;
-        if (doTask.DeadlineDate < DateTime.Now && doTask.CompleteDate == null)
-            status = Status.InJeopardy;
-        //מה עושים כשהוא גמר את המשימה
-        return status;
-    }
-    private string Validation(BO.Milestone boMilestone)
-    {
-
-        if (boMilestone.Alias != "")
+        BO.TaskInEngineer? taskInEngineer;
+        DO.Task? task = _dal.Task.ReadAll().FirstOrDefault(t => t?.EngineerId == id);
+        if (task == null)
         {
-            return "Alias is not valid";
+            taskInEngineer = null;
         }
-        if (boMilestone.Description != "")
+        else
         {
-            return "Description is not valid";
+            taskInEngineer = new BO.TaskInEngineer() { Id = task.Id, Alias = task.Alias };
         }
-
+        return taskInEngineer;
+    }
+    private bool IsValidEmail(string email)
+    {
+        try
+        {
+            MailAddress mailAddress = new MailAddress(email);
+            return true;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+    }
+    private string Validation(BO.Engineer boEngineer)
+    {
+        if (boEngineer.Id <= 0)
+        {
+            return "Id is not valid";
+        }
+        if (boEngineer.Name == "")
+        {
+            return "Name is not valid";
+        }
+        if (!IsValidEmail(boEngineer.Email))
+        {
+            return "Email is not valid";
+        }
+        if (boEngineer.Cost <= 0)
+        {
+            return "Cost is not valid";
+        }
         else
         {
             return "";
@@ -79,13 +85,20 @@ internal class MilestoneImplementation : IMilestone
         //יצרית תלויות עבור ההמישמות שלא תלויות באף אחד לאבן הראשונה 
         taskIdsWithoutDependencies.Select(taskId =>
         {
-            return _dal.Dependency.Create(new DO.Dependency((int)taskId!, idFirst));
-        });
-        // עבור כל השאר יצירת תלויות  
-        int indexMilestone = 1;
-        var newDependenciesList = groups.Select(groupDep =>
-                       {
-                           int idMilstone = _dal.Task.Create(new DO.Task(indexMilestone++, $"milestone{indexMilestone}", $"M{indexMilestone}", DateTime.Now, new TimeSpan(0), true, 0, null, null, null, null, "", "", null));
+            throw new BO.BlInvalidInput(message);
+        }
+        DO.Engineer doEngineer = new DO.Engineer
+               (boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
+        try
+        {
+            int idEng = _dal.Engineer.Create(doEngineer);
+            return idEng;
+        }
+        catch (DO.DalAlreadyExistsException ex)
+        {
+            throw new BO.BlAlreadyExistsException($"Engineer with ID={boEngineer.Id} already exists", ex);
+        }
+    }
 
                            groupDep.TaskIds.Select(taskId =>
                            {
