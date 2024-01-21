@@ -6,7 +6,6 @@
     <Email>DinaKlein@gmail.com</Email>
     <Level>Novice</Level>
     <Cost>250</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>315862470</Id>
@@ -14,7 +13,6 @@
     <Email>ArielaLevin@gmail.com</Email>
     <Level>Novice</Level>
     <Cost>300</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>214856475</Id>
@@ -22,7 +20,6 @@
     <Email>YairCohen@gmail.com</Email>
     <Level>Competent</Level>
     <Cost>400</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>214856741</Id>
@@ -30,7 +27,6 @@
     <Email>EliAmar@gmail.com</Email>
     <Level>Novice</Level>
     <Cost>120</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>218563478</Id>
@@ -38,7 +34,6 @@
     <Email>DaniLevi@gmail.com</Email>
     <Level>Expert</Level>
     <Cost>520</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>215487976</Id>
@@ -46,7 +41,6 @@
     <Email>AvrahamMandelovich@gmail.com</Email>
     <Level>Competent</Level>
     <Cost>410</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>212549638</Id>
@@ -54,7 +48,6 @@
     <Email>ShimonMoalem@gmail.com</Email>
     <Level>AdvancedBeginner</Level>
     <Cost>320</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>211125487</Id>
@@ -62,7 +55,6 @@
     <Email>EliezerKlein@gmail.com</Email>
     <Level>Proficient</Level>
     <Cost>420</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>213456789</Id>
@@ -70,7 +62,6 @@
     <Email>MordechaiLevy@gmail.com</Email>
     <Level>AdvancedBeginner</Level>
     <Cost>310</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>235614789</Id>
@@ -78,7 +69,6 @@
     <Email>ReuvenCohen@gmail.com</Email>
     <Level>Expert</Level>
     <Cost>540</Cost>
-    
   </Engineer>
   <Engineer>
     <Id>34</Id>
@@ -86,6 +76,5 @@
     <Email>e@gmail.com</Email>
     <Level>Expert</Level>
     <Cost>34</Cost>
-    <Active>false</Active>
   </Engineer>
 </ArrayOfEngineer>

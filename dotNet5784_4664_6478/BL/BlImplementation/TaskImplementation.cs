@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using DO;
 
 internal class TaskImplementation : ITask
 {
@@ -20,11 +21,7 @@ internal class TaskImplementation : ITask
     }
     private string Validation(BO.Task boTask)
     {
-        if (boTask.Id <= 0)
-        {
-            return "Id is not valid";
-        }
-        if (boTask.Alias != "")
+        if (boTask.Alias == "")
         {
             return "Alias is not valid";
         }
@@ -35,29 +32,41 @@ internal class TaskImplementation : ITask
     }
     private List<BO.TaskInList> FindDependencies(int id)
     {
-        IEnumerable<BO.TaskInList> listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
-                                             where dependency.DependentTask == id
-                                             let task = _dal.Task.Read(dependency.DependentTask)
-                                             select new BO.TaskInList
-                                             {
-                                                 Id = task.Id,
-                                                 Alias = task.Alias,
-                                                 Description = task.Description,
-                                                 Status = CreateStatus(task)
-                                             };
+        /* IEnumerable<BO.TaskInList>*/
+        var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
+                      where dependency.DependentTask == id
+                      let task = _dal.Task.Read(dependency.DependsOnTask)
+                      select new BO.TaskInList
+                      {
+                          Id = task.Id,
+                          Alias = task.Alias,
+                          Description = task.Description,
+                          Status = CreateStatus(task)
+                      };
         return listDep.ToList();
+
+
+        // _dal.Dependency.ReadAll().Select(t=> {
+        // if (t.DependentTask == id)
+        // {
+        //     return t;
+        // }
+        // else
+        //     return null;
+        //});
     }
     private BO.MilestoneInTask FindMilestone(int id)
     {
         IEnumerable<BO.MilestoneInTask> milstone = from DO.Task task in _dal.Task.ReadAll()
-                       where task.IsMilestone == true
-                       where FindDependencies(task.Id).FirstOrDefault(dep => dep.Id == id) != null
-                       let t = _dal.Task.Read(task.Id)
-                       select new BO.MilestoneInTask()
-                       {
-                           Id = t.Id,
-                           Alias = t.Alias
-                       };
+                                                   where task.IsMilestone == true
+                                                   where FindDependencies(task.Id)
+                                                   .FirstOrDefault(dep => dep.Id == id) != null
+                                                   let t = _dal.Task.Read(task.Id)
+                                                   select new BO.MilestoneInTask()
+                                                   {
+                                                       Id = t.Id,
+                                                       Alias = t.Alias
+                                                   };
         //BO.Milestone mil=new BO.Milestone() { Id= milstone.Id,Alias=milstone }
         return (BO.MilestoneInTask)milstone;
     }
@@ -70,24 +79,34 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlInvalidInput(message);
         }
+        if (_dal.Engineer.Read(boTask.Engineer!.Id) == null)
+        {
+            throw new BlDoesNotExistException("Can not create the task, engineer is not exist");
+        }
+
+        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));//לבדוק מה לשים את הtimespan שהתקבל או את החישוב
+        DO.Task doTask = new DO.Task
+             (0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
+             false, (DO.EngineerExperience)boTask.ComplexityLevel,//במקום שהיה פה isMilstone שמתי false
+             boTask.StartDate, boTask.ScheduledStartDate, boTask.DeadlineDate,
+             boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
+        int depenId = _dal.Task.Create(doTask);
+
         if (boTask.Dependencies != null)
         {
-            isMilestone = true;
+            //isMilestone = true;
             var listDep = from BO.TaskInList dependency in boTask.Dependencies!
                           select new DO.Dependency
                           {
-                              DependentTask = boTask.Id,
+                              DependentTask = depenId,
                               DependsOnTask = dependency.Id
                           };
-            listDep.Select(dep => _dal.Dependency.Create(dep));
+            foreach (var dep in listDep)
+            {
+                _dal.Dependency.Create(dep);
+            }
+            //listDep.Select(dep => _dal.Dependency.Create(dep));
         }
-        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));
-        DO.Task doTask = new DO.Task
-               (0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
-               isMilestone, (DO.EngineerExperience)boTask.ComplexityLevel,
-               boTask.StartDate, boTask.ScheduledStartDate, boTask.DeadlineDate,
-               boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
-        _dal.Task.Create(doTask);
     }
 
     public void Delete(int id)
@@ -124,7 +143,7 @@ internal class TaskImplementation : ITask
             CreatedAtDate = doTask.CreatedAtDate,
             Status = CreateStatus(doTask),
             Dependencies = FindDependencies(doTask.Id),
-            Milestone = FindMilestone(doTask.Id),
+            Milestone = null,//FindMilestone(doTask.Id),
             ScheduledStartDate = doTask.ScheduledDate,
             StartDate = doTask.StartDate,
             DeadlineDate = doTask.DeadlineDate,
@@ -148,7 +167,7 @@ internal class TaskImplementation : ITask
                    CreatedAtDate = doTask.CreatedAtDate,
                    Status = CreateStatus(doTask),
                    Dependencies = FindDependencies(doTask.Id),//אם יש MILSTONE  אז יש גם DEPENDENCIES
-                   Milestone = new BO.MilestoneInTask {Id= FindMilestone(doTask.Id).Id,Alias= FindMilestone(doTask.Id).Alias },//FindMilestone(doTask.Id), // new BO.MilestoneInTask() { Id=0,Alias="n"},//FindMilestone(doTask.Id),
+                   Milestone = null,//new BO.MilestoneInTask { Id = FindMilestone(doTask.Id).Id, Alias = FindMilestone(doTask.Id).Alias },//FindMilestone(doTask.Id), // new BO.MilestoneInTask() { Id=0,Alias="n"},//FindMilestone(doTask.Id),
                    ScheduledStartDate = doTask.ScheduledDate,
                    StartDate = doTask.StartDate,
                    DeadlineDate = doTask.DeadlineDate,

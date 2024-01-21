@@ -18,7 +18,7 @@ internal class TaskImplementation : ITask
         Task copy = item with { Id = newTaskId };
         lst.Add(copy);
         XMLTools.SaveListToXMLSerializer<Task>(lst, "tasks");
-        return item.Id;
+        return copy.Id;
     }
     //Delete an task by its id only if there is not task that depends on it
     public void Delete(int id)
