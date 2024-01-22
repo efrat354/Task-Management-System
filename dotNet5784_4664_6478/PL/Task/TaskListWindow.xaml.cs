@@ -46,8 +46,8 @@ namespace PL.Task
 
         private void UpdateTask_DoubleClick(object sender, RoutedEventArgs e)
         {
-            BO.Task? TaskInList = (sender as ListView)?.SelectedItem as BO.Task;
-            new TaskWindow().ShowDialog();
+            BO.Task? taskInList = (sender as ListView)?.SelectedItem as BO.Task;
+            new TaskWindow(taskInList!.Id).ShowDialog();
         }
 
         private void RefreshTaskList_Activated(object sender, System.EventArgs e)

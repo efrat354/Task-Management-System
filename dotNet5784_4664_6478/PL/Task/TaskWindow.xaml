@@ -30,12 +30,12 @@
         <TextBox  Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,157,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <TextBox  Text="{Binding Product, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Margin="189,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
         <TextBox  Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="225,387,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox  Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox  Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
         <DatePicker SelectedDate="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="243,200,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="120"/>
         <DatePicker SelectedDate="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="189,376,0,0" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
         <DatePicker SelectedDate="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="225,345,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="120"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource StatusKey}}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,251,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" Grid.Column="3" HorizontalAlignment="Left" Margin="340,357,0,0" VerticalAlignment="Top" Height="48" Width="91"/>
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" Grid.Column="3" HorizontalAlignment="Left" Margin="340,357,0,0" VerticalAlignment="Top" Height="48" Width="91" Click="btnAddUpdate_Click" />
 
     </Grid>
 </Window>

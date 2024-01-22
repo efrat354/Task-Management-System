@@ -79,7 +79,17 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlInvalidInput(message);
         }
-        if (_dal.Engineer.Read(boTask.Engineer!.Id) == null)
+        if(boTask.Engineer==null)
+        {
+            throw new BlDoesNotExistException("Can not create the task, engineer is not exist");
+
+        }
+        try
+        {
+            _dal.Engineer.Read(boTask.Engineer.Id);
+
+        }
+        catch(Exception ex)
         {
             throw new BlDoesNotExistException("Can not create the task, engineer is not exist");
         }

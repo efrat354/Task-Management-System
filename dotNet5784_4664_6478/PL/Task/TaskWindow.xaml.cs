@@ -24,7 +24,7 @@ public partial class TaskWindow : Window
         else
         {
             state = 0;
-            CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() { Id = 0, Name = "", Email = "", Level = 0, Cost = 0 } };
+            CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() { Id = 0, Alias = "", Description = "",CreatedAtDate=DateTime.Today} };
         }
     }
 
