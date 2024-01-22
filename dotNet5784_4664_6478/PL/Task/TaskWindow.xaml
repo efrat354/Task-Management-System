@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
+         DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
         Title="TaskWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="307*"/>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="455*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Task" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" Width="83"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="116,99,0,0" VerticalAlignment="Top"/>
+        <Label Content="Alias" HorizontalAlignment="Left" Margin="116,149,0,0" VerticalAlignment="Top"/>
+        <Label Content="Id" HorizontalAlignment="Left" Margin="116,48,0,0" VerticalAlignment="Top"/>
+        <Label Content="CreatedAtDate" HorizontalAlignment="Left" Margin="116,200,0,0" VerticalAlignment="Top"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="116,247,0,0" VerticalAlignment="Top"/>
+        <Label Content="RequiredEffortTime" HorizontalAlignment="Left" Margin="116,297,0,0" VerticalAlignment="Top"/>
+        <Label Content="DeadlineDate" HorizontalAlignment="Left" Margin="116,345,0,0" VerticalAlignment="Top"/>
+        <Label Content="CompleteDate" HorizontalAlignment="Left" Margin="77,379,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+        <Label Content="Product" HorizontalAlignment="Left" Margin="94,332,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+        <Label Content="Remarks" HorizontalAlignment="Left" Margin="124,387,0,0" VerticalAlignment="Top"/>
+        <TextBox  Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox  Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox  Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,157,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox  Text="{Binding Product, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Margin="189,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+        <TextBox  Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="225,387,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox  Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <DatePicker SelectedDate="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="243,200,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="120"/>
+        <DatePicker SelectedDate="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="189,376,0,0" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+        <DatePicker SelectedDate="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="225,345,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="120"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource StatusKey}}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,251,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" Grid.Column="3" HorizontalAlignment="Left" Margin="340,357,0,0" VerticalAlignment="Top" Height="48" Width="91"/>
+
     </Grid>
 </Window>
