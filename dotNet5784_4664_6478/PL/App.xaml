@@ -4,8 +4,9 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:Enums x:Key="EnumsKey" />
-        <local:ConvertIdToContent x:Key="ConvertIdToContentKey"/>
+        <local:Experience x:Key="ExperienceKey" />
+        <local:Status x:Key="StatusKey" />
+       <local:ConvertIdToContent x:Key="ConvertIdToContentKey"/>
         <local:ConvertIdToIsEnabled x:Key="ConvertIdToIsEnabledKey"/>
         <local:ConvertIdToIsVisible x:Key="ConvertIdToIsVisibleKey"/>
     </Application.Resources>
