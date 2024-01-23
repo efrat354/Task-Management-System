@@ -10,6 +10,6 @@ public class Engineer
     public required EngineerExperience Level { get; set; }//לשאול את המורה האם לעשות required
     public required double Cost { get; set; }
     public TaskInEngineer? Task { get; set; }
-    public override string ToString() => this.genericToString();
+    public override string ToString() => this.GenericToString();
 }
 

@@ -17,6 +17,7 @@ internal class TaskImplementation : ITask
             status = Status.InJeopardy;
         else if (doTask.CompleteDate != null && doTask.CompleteDate < DateTime.Now)
             status = Status.InJeopardy;
+        else status = Status.Done;
         return status;
     }
     private string Validation(BO.Task boTask)
@@ -32,7 +33,6 @@ internal class TaskImplementation : ITask
     }
     private List<BO.TaskInList> FindDependencies(int id)
     {
-        /* IEnumerable<BO.TaskInList>*/
         var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
                       where dependency.DependentTask == id
                       let task = _dal.Task.Read(dependency.DependsOnTask)
@@ -44,16 +44,6 @@ internal class TaskImplementation : ITask
                           Status = CreateStatus(task)
                       };
         return listDep.ToList();
-
-
-        // _dal.Dependency.ReadAll().Select(t=> {
-        // if (t.DependentTask == id)
-        // {
-        //     return t;
-        // }
-        // else
-        //     return null;
-        //});
     }
     private BO.MilestoneInTask FindMilestone(int id)
     {
@@ -79,7 +69,7 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlInvalidInput(message);
         }
-        if(boTask.Engineer==null)
+        if (boTask.Engineer == null)
         {
             throw new BlDoesNotExistException("Can not create the task, engineer is not exist");
 
@@ -89,22 +79,25 @@ internal class TaskImplementation : ITask
             _dal.Engineer.Read(boTask.Engineer.Id);
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new BlDoesNotExistException("Can not create the task, engineer is not exist");
+        }
+        if (boTask.Dependencies != null)
+        {
+            isMilestone = true;
         }
 
         TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));//לבדוק מה לשים את הtimespan שהתקבל או את החישוב
         DO.Task doTask = new DO.Task
              (0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
-             false, (DO.EngineerExperience)boTask.ComplexityLevel,//במקום שהיה פה isMilstone שמתי false
+             isMilestone, (DO.EngineerExperience)boTask.ComplexityLevel,//במקום שהיה פה isMilstone שמתי false
              boTask.StartDate, boTask.ScheduledStartDate, boTask.DeadlineDate,
              boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
         int depenId = _dal.Task.Create(doTask);
 
         if (boTask.Dependencies != null)
         {
-            //isMilestone = true;
             var listDep = from BO.TaskInList dependency in boTask.Dependencies!
                           select new DO.Dependency
                           {
@@ -145,6 +138,7 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
         }
+        List<BO.TaskInList> dependencies = FindDependencies(doTask.Id);
         return new BO.Task()
         {
             Id = doTask.Id,
@@ -152,8 +146,8 @@ internal class TaskImplementation : ITask
             Description = doTask.Description,
             CreatedAtDate = doTask.CreatedAtDate,
             Status = CreateStatus(doTask),
-            Dependencies = FindDependencies(doTask.Id),
-            Milestone = null,//FindMilestone(doTask.Id),
+            Dependencies = dependencies,
+            Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null : FindMilestone(doTask.Id),
             ScheduledStartDate = doTask.ScheduledDate,
             StartDate = doTask.StartDate,
             DeadlineDate = doTask.DeadlineDate,
@@ -169,6 +163,7 @@ internal class TaskImplementation : ITask
     public IEnumerable<BO.Task> ReadAll(Func<DO.Task?, bool>? filter = null)//תאריכים לא מסונכרנים,MILSTONE,האם צריך ? בכותרת
     {
         return from DO.Task doTask in _dal.Task.ReadAll(filter)
+               let dependencies = FindDependencies(doTask.Id)
                select new BO.Task()
                {
                    Id = doTask.Id,
@@ -176,8 +171,8 @@ internal class TaskImplementation : ITask
                    Description = doTask.Description,
                    CreatedAtDate = doTask.CreatedAtDate,
                    Status = CreateStatus(doTask),
-                   Dependencies = FindDependencies(doTask.Id),//אם יש MILSTONE  אז יש גם DEPENDENCIES
-                   Milestone = null,//new BO.MilestoneInTask { Id = FindMilestone(doTask.Id).Id, Alias = FindMilestone(doTask.Id).Alias },//FindMilestone(doTask.Id), // new BO.MilestoneInTask() { Id=0,Alias="n"},//FindMilestone(doTask.Id),
+                   Dependencies = dependencies,
+                   Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null : FindMilestone(doTask.Id),
                    ScheduledStartDate = doTask.ScheduledDate,
                    StartDate = doTask.StartDate,
                    DeadlineDate = doTask.DeadlineDate,
@@ -190,7 +185,7 @@ internal class TaskImplementation : ITask
                };
     }
 
-    public void Update(BO.Task boTask)//האם ניתן לשנות את הDEPENDENCIES ע"י עדכון משימה
+    public void Update(BO.Task boTask)
     {
         string message = Validation(boTask);
         if (message != "")
@@ -205,7 +200,13 @@ internal class TaskImplementation : ITask
                boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
         try
         {
-            _dal.Task.Update(doTask);
+            _dal.Task.Update(doTask);  
+
+            foreach (DO.Dependency? dep in _dal.Dependency.ReadAll(dep => dep!.DependentTask == boTask.Id))
+                _dal.Dependency.Delete(dep!.Id);
+
+            boTask.Dependencies!.Select(task => _dal.Dependency.Create
+            (new DO.Dependency { DependentTask = boTask.Id ,DependsOnTask = task.Id}));
         }
         catch (DO.DalDoesNotExistException ex)
         {

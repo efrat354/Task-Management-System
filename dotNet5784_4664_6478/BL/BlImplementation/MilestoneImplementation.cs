@@ -2,11 +2,12 @@
 namespace BlImplementation;
 using BlApi;
 using BO;
+using System;
 
 internal class MilestoneImplementation : IMilestone
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    private IEnumerable<BO.TaskInList> FindDependencies(int id)
+    private List<BO.TaskInList> FindDependencies(int id)
     {
         var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
                       where dependency.DependentTask == id
@@ -18,7 +19,7 @@ internal class MilestoneImplementation : IMilestone
                           Description = task.Description,
                           Status = CreateStatus(task)
                       };
-        return listDep;
+        return listDep.ToList();
     }
     private BO.Status CreateStatus(DO.Task doTask)
     {
@@ -29,7 +30,9 @@ internal class MilestoneImplementation : IMilestone
             status = Status.OnTrack;
         if (doTask.DeadlineDate < DateTime.Now && doTask.CompleteDate == null)
             status = Status.InJeopardy;
-        //מה עושים כשהוא גמר את המשימה
+        else if (doTask.CompleteDate != null && doTask.CompleteDate < DateTime.Now)
+            status = Status.InJeopardy;
+        else status = Status.Done;
         return status;
     }
     private string Validation(BO.Milestone boMilestone)
@@ -43,7 +46,6 @@ internal class MilestoneImplementation : IMilestone
         {
             return "Description is not valid";
         }
-
         else
         {
             return "";
@@ -52,99 +54,95 @@ internal class MilestoneImplementation : IMilestone
 
     public void CreateSchedule()
     {
-        //כל הת.ז של המשימות שלא תלויים בהם
-        var notDependOnTask = _dal.Task.ReadAll().Select(task => task?.Id).Except(_dal.Dependency.ReadAll().Select(dep => dep?.DependsOnTask));
-        notDependOnTask.Select(task => { _dal.Task.Update(_dal.Task.Read((int)task!)! with { DeadlineDate = _dal.endDateProject }); return task; });
+        int milestoneId;
+        List<DO.Dependency> newDependencies = new List<DO.Dependency>();
 
-
-        //פה צריך לעשות רקורסיה שעבור כל משימה נחשב את זמן הסיום האחרון של המשימה הקודמת פחות זמן ביצוע המשימה הנוכחית
-        //נתחיל מאלה שלא תלויים בהם, בנוסף נשאל האם זה ריק אז נשנה ואחכ האם התאריך קטן יותר מהתאריך שכבר נמצא
-
-        //קיבוץ ע"פ המשימה התלויה
+        //קיבוץ ע"פ המשימה התלויה//לבדוק קהאם הorderby הזה נכון או הקודם
         var groupsByDependentTask = _dal.Dependency.ReadAll()
-    .OrderBy(dep => dep?.DependsOnTask)
-    .GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask,
-    (id, dependency) => new { TaskId = id, Dependencies = dependency });
-        //מציאת כל הת.ז של המשימות שלא תלויות באף אחד
+            .GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask,
+            (id, dependency) => new
+            {
+                TaskId = id,
+                Dependencies = dependency.OrderBy(dep => dep)
+            });
+
+        //מציאת כל הת.ז של המשימות שלא תלויות באף אחד ואלו יהיו תלויות באבן הראשונה
         var allTaskIds = groupsByDependentTask.Select(group => group.TaskId).ToList();
         var taskIdsWithoutDependencies = _dal.Task.ReadAll().Select(task => task?.Id).Except(allTaskIds);
-        //יצירת קבוצות ע"פ הDEPENDENCIES 
-        var groups = groupsByDependentTask
-    .GroupBy(dep => dep?.Dependencies, dep => dep?.TaskId,
-    (dependencies, taskId) => new { Dependencies = dependencies, TaskIds = taskId });
 
-        _dal.Dependency.Reset();
-        //יצירת האבן דרך הראשונה 
-        int idFirst = _dal.Task.Create(new DO.Task(0, "milestone0", "M0", DateTime.Now, new TimeSpan(0), true, 0, null, null, null, null, "", "", null));
-        //יצרית תלויות עבור ההמישמות שלא תלויות באף אחד לאבן הראשונה 
-        taskIdsWithoutDependencies.Select(taskId =>
+        //הוספת אבן דרך לתחילת הפרוייקט
+        milestoneId = _dal.Task.Create(new DO.Task()
         {
-            return _dal.Dependency.Create(new DO.Dependency((int)taskId!, idFirst));
+            Description = $"milestone0",
+            Alias = "Start",
+            IsMilestone = true,
+            CreatedAtDate = DateTime.Now
         });
-        // עבור כל השאר יצירת תלויות  
+
+        //הוספת התלויות בין האבן הראשונה למשימות שלא תלויות לרשימה החדשה 
+        newDependencies.AddRange(taskIdsWithoutDependencies
+            .Select(task => new DO.Dependency(0, (int)task!, milestoneId)));
+
+        //יצירת קבוצות ע"פ הDEPENDENCIES בשביל להוריד כפילויות,עבור אותם קבוצות יהיה בקבוצה את כל אלה שתלויים באותה קבוצת תלויות
+        var groups = groupsByDependentTask
+            .GroupBy(dep => dep?.Dependencies, dep => dep?.TaskId,
+            (dependencies, taskId) => new
+            {
+                Dependencies = dependencies,
+                TaskIds = taskId
+            });
+
+        // עבור כל השאר ,יצירת תלויות  
         int indexMilestone = 1;
         var newDependenciesList = groups.Select(groupDep =>
         {
-            int idMilstone = _dal.Task.Create(new DO.Task(indexMilestone++, $"milestone{indexMilestone}", $"M{indexMilestone}", DateTime.Now, new TimeSpan(0), true, 0, null, null, null, null, "", "", null));
+            int idMilstone = _dal.Task.Create(new DO.Task
+                (indexMilestone++,
+                $"milestone{indexMilestone}",
+                $"M{indexMilestone}",
+                DateTime.Now
+                ));
 
-            groupDep.TaskIds.Select(taskId =>
-            {
-                return _dal.Dependency.Create(new DO.Dependency((int)taskId!, idMilstone));
-            });
+            //הוספת תלויות של כל המשימות שתלויות באבן הדרך החדשה
+            newDependencies.AddRange(groupDep.TaskIds.Select(taskId => new DO.Dependency((int)taskId!, idMilstone)));
 
-            return groupDep.Dependencies?.Select(dep =>
-            {
-                return _dal.Dependency.Create(new DO.Dependency(idMilstone, dep!.Value));//יצירת תלויות בין משימות קודמות לאבן דרך
-            });
+            //הוספת תלויות של אבן הדרך בכל המשימות הקודמות לה
+            newDependencies.AddRange(groupDep.Dependencies!.Select(dep => new DO.Dependency(idMilstone, dep!.Value)));
+            return idMilstone;
         });
+
+        //הוספת אבן דרך לסיום הפרוייקט
+        milestoneId = _dal.Task.Create(new DO.Task()
+        {
+            Description = $"milestone{indexMilestone}",
+            Alias = "End",
+            IsMilestone = true,
+            CreatedAtDate = DateTime.Now
+        });
+
+        //כל הת.ז של המשימות שלא תלויים בהם
+        var notDependOnTask = _dal.Task.ReadAll().Select(task => task?.Id).Except(_dal.Dependency.ReadAll().Select(dep => dep?.DependsOnTask));
+        notDependOnTask.Select(task => { _dal.Task.Update(_dal.Task.Read((int)task!)! with { DeadlineDate = _dal.endDateProject }); return task; });
+        //הוספת התלויות בין האבן האחרונה לקבוצה שלא תלויים בה
+        newDependencies.AddRange(notDependOnTask.Select(task => new DO.Dependency(0, milestoneId, (int)task!)));
+
+        //הוספת כל התלויות לDO
+        _dal.Dependency.Reset();
+        foreach (DO.Dependency dependency in newDependencies)
+        {
+            _dal.Dependency.Create(dependency);
+        }
+
+        //פה צריך לעשות רקורסיה שעבור כל משימה נחשב את זמן הסיום האחרון של המשימה הקודמת פחות זמן ביצוע המשימה הנוכחית
+        //נתחיל מאלה שלא תלויים בהם, בנוסף נשאל האם זה ריק אז נשנה ואחכ האם התאריך קטן יותר מהתאריך שכבר נמצא
     }
-
-
-    //  private void ScheduleTasks()
-    //  {
-    //      var groupsByDependentTask = _dal.Dependency.ReadAll()
-    //.OrderBy(dep => dep?.DependsOnTask)
-    //.GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask,
-    //(id, dependency) => new { TaskId = id, Dependencies = dependency }).ToList();
-    //      foreach (var task in groupsByDependentTask)
-    //      {
-    //          SetEstimatedCompletionDate((int)task.TaskId!,task.Dependencies.ToList());
-    //      }
-    //  }
-
-    //  private DateTime SetEstimatedCompletionDate(int id,List<int?> dependencies)
-    //  {
-    //      if (dependencies.Count == 0)
-    //      {
-    //          _dal.Task.Update(_dal.Task.Read(id)! with { DeadlineDate = _dal.endDateProject });
-    //          //task.EstimatedCompletionDate = projectCompletionDate.AddMinutes(-task.Duration);
-    //      }
-    //      else
-    //      {
-    //          DateTime maxDependencyCompletionDate = DateTime.MinValue;
-    //          foreach (var dependency in task.Dependencies)
-    //          {
-    //              DateTime dependencyCompletionDate = SetEstimatedCompletionDate(dependency, projectCompletionDate);
-    //              if (dependencyCompletionDate > maxDependencyCompletionDate)
-    //              {
-    //                  maxDependencyCompletionDate = dependencyCompletionDate;
-    //              }
-    //          }
-
-    //          task.EstimatedCompletionDate = maxDependencyCompletionDate.AddMinutes(-task.Duration);
-    //      }
-
-    //      return task.EstimatedCompletionDate;
-    //  }
-
-
-
-    public Milestone Read(int id)//CompletionPercentage ליצור 
+    public Milestone Read(int id)
     {
         BO.Milestone? milestone = null;
         DO.Task? doMilestone = _dal.Task.Read(id);//טעינת אבן דרך משכבת הנתונים
         if (doMilestone != null)
         {
+            List<BO.TaskInList>? dependencies = FindDependencies(id);
             milestone = new Milestone()
             {
                 Id = doMilestone.Id,
@@ -156,11 +154,9 @@ internal class MilestoneImplementation : IMilestone
                 StartDate = doMilestone.StartDate,
                 DeadlineDate = doMilestone.DeadlineDate,
                 CompleteDate = doMilestone.CompleteDate,
-                //ניצור פונקציה שבודקת כמה משימות שברשימת התלויות הסתימו
-                // CompletionPercentage=doMilestone.
+                CompletionPercentage = dependencies != null ? (dependencies.Count(dep => dep.Status == Status.Done) / dependencies.Count()) : 0,
                 Remarks = doMilestone.Remarks,
-                Dependencies = (List<BO.TaskInList>)FindDependencies(id),
-
+                Dependencies = dependencies,
             };
         }
         else
@@ -170,27 +166,28 @@ internal class MilestoneImplementation : IMilestone
         return milestone;
     }
 
-    public Milestone Update(BO.Milestone boMilestone)//האם העתקת ה milestone נכונה
+    public Milestone Update(BO.Milestone boMilestone)
     {
         string message = Validation(boMilestone);
         if (message != "")
         {
             throw new BO.BlInvalidInput(message);
         }
-        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boMilestone.DeadlineDate - boMilestone.StartDate));
 
-        DO.Task doMilestone = _dal.Task.Read(boMilestone.Id)! with { Alias = boMilestone.Alias, Description = boMilestone.Description, Remarks = boMilestone.Remarks };
-        //(boMilestone.Id, boMilestone.Alias, boMilestone.Description,
-        //boMilestone.CreatedAtDate, requiredEffortTime, true, 0,
-        //boMilestone.StartDate, boMilestone.ForecastDate, boMilestone.DeadlineDate,
-        //boMilestone.CompleteDate, "", boMilestone.Remarks, null);
+        DO.Task doMilestone = _dal.Task.Read(boMilestone.Id)! with
+        {
+            Alias = boMilestone.Alias,
+            Description = boMilestone.Description,
+            Remarks = boMilestone.Remarks
+        };
+
         try
         {
             _dal.Task.Update(doMilestone);
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"Task with ID={doMilestone.Id} does not exists", ex);
+            throw new BO.BlDoesNotExistException($"Milstone with ID={doMilestone.Id} does not exists", ex);
         }
         return boMilestone;
     }
@@ -205,13 +202,60 @@ internal class MilestoneImplementation : IMilestone
 
 
 
+////קיבוץ ע"פ המשימה התלויה
+//var groupsByDependentTask = _dal.Dependency.ReadAll()
+//    .OrderBy(dep => dep?.DependsOnTask)
+//    .GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask,
+//    (id, dependency) => new
+//    {
+//        TaskId = id,
+//        Dependencies = dependency
+//    });
 
+//יצירת האבן דרך הראשונה 
+//int idFirst = _dal.Task.Create(new DO.Task(0, "milestone0", "M0", DateTime.Now, new TimeSpan(0), true, 0, null, null, null, null, "", "", null));
+//יצרית תלויות עבור ההמישמות שלא תלויות באף אחד לאבן הראשונה 
+//taskIdsWithoutDependencies.Select(taskId =>
+//{
+//    return _dal.Dependency.Create(new DO.Dependency((int)taskId!, idFirst));
+//});
 
+//  private void ScheduleTasks()
+//  {
+//      var groupsByDependentTask = _dal.Dependency.ReadAll()
+//.OrderBy(dep => dep?.DependsOnTask)
+//.GroupBy(dep => dep?.DependentTask, dep => dep?.DependsOnTask,
+//(id, dependency) => new { TaskId = id, Dependencies = dependency }).ToList();
+//      foreach (var task in groupsByDependentTask)
+//      {
+//          SetEstimatedCompletionDate((int)task.TaskId!,task.Dependencies.ToList());
+//      }
+//  }
 
+//  private DateTime SetEstimatedCompletionDate(int id,List<int?> dependencies)
+//  {
+//      if (dependencies.Count == 0)
+//      {
+//          _dal.Task.Update(_dal.Task.Read(id)! with { DeadlineDate = _dal.endDateProject });
+//          //task.EstimatedCompletionDate = projectCompletionDate.AddMinutes(-task.Duration);
+//      }
+//      else
+//      {
+//          DateTime maxDependencyCompletionDate = DateTime.MinValue;
+//          foreach (var dependency in task.Dependencies)
+//          {
+//              DateTime dependencyCompletionDate = SetEstimatedCompletionDate(dependency, projectCompletionDate);
+//              if (dependencyCompletionDate > maxDependencyCompletionDate)
+//              {
+//                  maxDependencyCompletionDate = dependencyCompletionDate;
+//              }
+//          }
 
+//          task.EstimatedCompletionDate = maxDependencyCompletionDate.AddMinutes(-task.Duration);
+//      }
 
-
-
+//      return task.EstimatedCompletionDate;
+//  }
 
 
 //יצרנו קבוצה של משימה תלויות וערכים של משימות שבהן היא תלויה ואז עבור כל קבוצה יצרנו אבן דרך שהתלויות שלה זה DEPENDENCIES

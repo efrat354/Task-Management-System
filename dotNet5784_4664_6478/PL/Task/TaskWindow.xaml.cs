@@ -68,7 +68,5 @@ public partial class TaskWindow : Window
                 MessageBox.Show(ex.Message);
             }
         }
-
-      
     }
 }
