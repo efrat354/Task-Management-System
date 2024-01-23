@@ -24,7 +24,7 @@ public partial class TaskWindow : Window
         else
         {
             state = 0;
-            CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() { Id = 0, Alias = "", Description = "",CreatedAtDate=DateTime.Today} };
+            CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() { Id = 0, Alias = "", Description = "",CreatedAtDate=DateTime.Today, Engineer = new BO.EngineerInTask() {Id=0,Name=" " } } };
         }
     }
 
@@ -33,19 +33,20 @@ public partial class TaskWindow : Window
         get { return (ObservableCollection<BO.Task>)GetValue(CurrentTaskProperty); }
         set { SetValue(CurrentTaskProperty, value); }
     }
-
+  
     public static readonly DependencyProperty CurrentTaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(ObservableCollection<BO.Task>), typeof(TaskWindow), new PropertyMetadata(null));
-
+   
     public BO.Status Status { get; set; } = BO.Status.None;
 
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
-        BO.Task Task = CurrentTask[0];
+        BO.Task Task = CurrentTask[0];    
         if (state == 0)
         {
             try
             {
+
                 s_bl.Task.Create(Task);
                 MessageBox.Show("Task successfully created");
                 this.Close();

@@ -2,6 +2,7 @@
 using BlApi;
 using BO;
 using DO;
+using System.Xml.Linq;
 
 internal class TaskImplementation : ITask
 {
@@ -165,7 +166,11 @@ internal class TaskImplementation : ITask
             ComplexityLevel = (BO.EngineerExperience)doTask.Complexity
         };
     }
-
+    private string String (int id)
+    {
+       string name = _dal.Engineer.Read(id).Name;
+        return name;
+    }
     public IEnumerable<BO.Task> ReadAll(Func<DO.Task?, bool>? filter = null)//תאריכים לא מסונכרנים,MILSTONE,האם צריך ? בכותרת
     {
         return from DO.Task doTask in _dal.Task.ReadAll(filter)
@@ -185,7 +190,7 @@ internal class TaskImplementation : ITask
                    Product = doTask.Product,
                    Remarks = doTask.Remarks,
                    Engineer = doTask.EngineerId == null ? null : new EngineerInTask()
-                   { Id = (int)doTask.EngineerId, Name = _dal.Engineer.Read((int)doTask.EngineerId)!.Name },
+                   { Id = (int)doTask.EngineerId, Name = String((int)doTask.EngineerId) },
                    ComplexityLevel = (BO.EngineerExperience)doTask.Complexity
                };
     }

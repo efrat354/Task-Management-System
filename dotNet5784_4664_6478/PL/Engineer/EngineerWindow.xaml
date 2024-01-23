@@ -31,7 +31,7 @@
         HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Height="32" Width="111" Click="btnAddUpdate_Click" Grid.Column="3"/>
         <Viewbox Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToIsVisibleKey}}" Grid.Column="3" HorizontalAlignment="Left" Height="114" Margin="91,73,0,0" VerticalAlignment="Top" Width="321">
 
-            <Label Content="Task" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
+            <Label Content="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
             
         </Viewbox>
 

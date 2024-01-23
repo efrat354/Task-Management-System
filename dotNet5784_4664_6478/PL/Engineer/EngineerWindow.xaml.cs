@@ -23,7 +23,7 @@ public partial class EngineerWindow : Window
         else
         {
             state = 0;
-            CurrentEngineer = new ObservableCollection<BO.Engineer> { new BO.Engineer() { Id = 0, Name = "", Email = "", Level = 0, Cost = 0 } };
+            CurrentEngineer = new ObservableCollection<BO.Engineer> { new BO.Engineer() { Id = 0, Name = "", Email = "", Task = new BO.TaskInEngineer() { Id = 0, Alias = "default" },Level = 0, Cost = 0} };
         }
     }
 

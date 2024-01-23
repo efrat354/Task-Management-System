@@ -23,7 +23,8 @@
             </Grid.ColumnDefinitions>
             <Label Content="Tasks details" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Center"/>
             <!--choose filter-->
-            <ComboBox  ItemsSource="{Binding Source={StaticResource StatusKey}}" SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="StatusSelected" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <ComboBox  ItemsSource="{Binding Source={StaticResource StatusKey}}" SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="StatusSelected" Grid.Column="1" Margin="136,0,0,0" HorizontalAlignment="Left" Width="254"/>
+            <ComboBox  ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Experience, Mode=TwoWay}" SelectionChanged="ExperienceSelected" Margin="241,0,0,0" HorizontalAlignment="Left" Width="254" Grid.ColumnSpan="2"/>
         </Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding TaskList}"
                    MouseDoubleClick="UpdateTask_DoubleClick">

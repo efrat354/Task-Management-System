@@ -38,6 +38,16 @@ namespace PL.Task
             TaskList = temp == null ? new() : new(temp!);
 
         }
+        public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.None;
+
+        private void ExperienceSelected(object sender, SelectionChangedEventArgs e)
+        {
+            var temp = Experience == BO.EngineerExperience.None ?
+            s_bl?.Task.ReadAll() :
+            s_bl?.Task.ReadAll(item => (BO.EngineerExperience)item!.Complexity == Experience); 
+            TaskList = temp == null ? new() : new(temp!);
+
+        }
 
         private void AddTask_Click(object sender, RoutedEventArgs e)
         {
