@@ -69,4 +69,11 @@ public partial class EngineerWindow : Window
             }
         }
     }
+
+    private void close_Click(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
+    }
+
+
 }

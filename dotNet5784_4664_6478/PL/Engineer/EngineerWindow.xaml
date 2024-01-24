@@ -6,34 +6,72 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
+       Background="Transparent"
+      AllowsTransparency="True"
         Title="EngineerWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="307*"/>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="11*"/>
-            <ColumnDefinition Width="455*"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="63,144,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
-        <TextBox Text= "{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsEnabled= "{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToIsEnabledKey}}" 
- HorizontalAlignment="Left" Margin="216,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.183,-0.443" Height="22" Grid.ColumnSpan="3" />
-        <Label Content="Email" HorizontalAlignment="Left" Margin="63,0,0,0" VerticalAlignment="Center" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
-        <Label Content="Experience" HorizontalAlignment="Left" Margin="63,262,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
-        <Label Content="Cost" HorizontalAlignment="Left" Margin="63,320,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
-        <Label Content="Id" HorizontalAlignment="Left" Margin="63,86,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
-        <TextBox Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="216,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.183,-0.443" Height="22" Grid.ColumnSpan="3"/>
-        <TextBox Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="216,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.183,-0.443" Height="22" Grid.ColumnSpan="3"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
-        ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="216,275,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"/>
-        <TextBox Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="216,333,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" Grid.ColumnSpan="3"/>
-        <Button  
-            Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" 
-        HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Height="32" Width="111" Click="btnAddUpdate_Click" Grid.Column="3"/>
-        <Viewbox Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToIsVisibleKey}}" Grid.Column="3" HorizontalAlignment="Left" Height="114" Margin="91,73,0,0" VerticalAlignment="Top" Width="321">
 
-            <Label Content="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
-            
-        </Viewbox>
+    <Border >
+        <Border.Background>
+            <ImageBrush ImageSource="/Image/BackgroundImge.webp"/>
+        </Border.Background>
+        <Border       
+            CornerRadius="20"
+            BorderThickness="5"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="HotPink" Offset="0"/>
+                    <GradientStop Color="Pink" Offset="0.75"/>
+                    <GradientStop Color="LightPink" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="HotPink" Offset="0"/>
+                    <GradientStop Color="Pink" Offset="0.75"/>
+                    <GradientStop Color="LightPink" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="307*"/>
+                    <ColumnDefinition Width="27*"/>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="455*"/>
+                </Grid.ColumnDefinitions>
+ 
+                <Label Content="Name" HorizontalAlignment="Left" Margin="63,144,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat"  Text= "{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsEnabled= "{Binding Id, Converter={StaticResource ConvertIdToIsEnabledKey}, Mode=OneTime}" 
+                    HorizontalAlignment="Left"  Margin="216,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.183,-0.443" Height="22" Grid.ColumnSpan="3" />
+                <Label Content="Email" HorizontalAlignment="Left" Margin="63,0,0,0" VerticalAlignment="Center" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
+                <Label Content="Experience" HorizontalAlignment="Left" Margin="63,262,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
+                <Label Content="Cost" HorizontalAlignment="Left" Margin="63,320,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
+                <Label Content="Id" HorizontalAlignment="Left" Margin="63,86,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="216,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.183,-0.443" Height="22" Grid.ColumnSpan="3"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="216,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.183,-0.443" Height="22" Grid.ColumnSpan="3"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="216,275,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="DarkGray" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="216,333,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" Grid.ColumnSpan="3"/>
+               
+                <Button        
+                    Content="{Binding Id, Converter={StaticResource ConvertIdToContentKey}, Mode=OneTime}" 
+                     Background="DeepPink"
+                    FontSize="16"
+                    FontFamily="Mountserrat"
+                    Cursor="Hand" 
+                    HorizontalAlignment="Left" Margin="91,358,0,0" VerticalAlignment="Top" Height="32" Width="111" Click="btnAddUpdate_Click" Grid.Column="3"/>
+          
+                <TextBlock Visibility="{Binding Id, Converter={StaticResource ConvertIdToIsVisibleKey}, Mode=OneTime}" Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat"  Grid.Column="3" HorizontalAlignment="Left" Height="114" Margin="91,73,0,0" VerticalAlignment="Top" Width="321">
+                    <Label Content="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" RenderTransformOrigin="-0.149,0.464" Height="26"/>
+                </TextBlock>
+                <Button 
+                    Background="DeepPink" 
+                    Content="x"
+                    FontSize="16"
+                    FontFamily="Mountserrat"
+                    Cursor="Hand"
+                    Click="close_Click" Margin="410,0,0,396" Grid.Column="3"/>
 
-    </Grid>
+            </Grid>
+        </Border>
+    </Border>
 </Window>

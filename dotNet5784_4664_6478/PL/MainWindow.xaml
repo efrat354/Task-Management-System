@@ -5,12 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+         Background="Transparent"
+      AllowsTransparency="True"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <!--go to all the engineers-->
-        <Button Content="Handle Engineers" HorizontalAlignment="Left" Height="80" Width="200" Click="HandleEngineers_Click" Margin="113,137,0,217" />
-        <!--Intialization Data-->
-        <Button Content="Intialization Data" HorizontalAlignment="Left" Height="80" Width="200" Click="IntializationData_Click" Margin="489,154,0,200" />
-        <Button Content="Handle Tasks" HorizontalAlignment="Left" Height="80" Width="200" Click="HandleTasks_Click" Margin="113,271,0,83" />
-    </Grid>
+    <Border >
+        <Border.Background>
+            <ImageBrush ImageSource="/Image/BackgroundImge.webp"/>
+        </Border.Background>
+        <Border       
+                      BorderThickness="5"
+                  Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="HotPink" Offset="0"/>
+                    <GradientStop Color="Pink" Offset="0.75"/>
+                    <GradientStop Color="LightPink" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="HotPink" Offset="0"/>
+                    <GradientStop Color="Pink" Offset="0.75"/>
+                    <GradientStop Color="LightPink" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <!--go to all the engineers-->
+                <Button Content="Handle Engineers"
+                     Background="WhiteSmoke"    
+                    Foreground="Black"
+                    FontSize="16"
+                    FontFamily="Mountserrat"
+                    Cursor="Hand"   
+                        
+                     HorizontalAlignment="Left" Height="80" Width="200" Click="HandleEngineers_Click" Margin="113,137,0,217" />
+                <!--Intialization Data-->
+                <Button Content="Intialization Data" HorizontalAlignment="Left" Height="80" Width="200" Click="IntializationData_Click" Margin="489,154,0,200" />
+                <Button Content="Handle Tasks" HorizontalAlignment="Left" Height="80" Width="200" Click="HandleTasks_Click" Margin="113,271,0,83" />
+            </Grid>
+        </Border>
+    </Border>
 </Window>
