@@ -11,8 +11,8 @@ public static class Tools//punlic??
     /// Function that print all types of objects 
     /// </summary>
     /// <param name="ob">The object for print</param>
-    /// <returns>The retunr is the object as a string</returns>
-    public static string genericToString(this object ob)
+    /// <returns>The return is the object as a string</returns>
+    public static string GenericToString(this object ob)
     {
         string str = "";
         if (ob == null) { return str; }
@@ -31,6 +31,4 @@ public static class Tools//punlic??
         }
         return str;
     }
-
-    
 }

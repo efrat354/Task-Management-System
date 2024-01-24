@@ -6,5 +6,5 @@ public class TaskInList
     public required string Alias { get; set; }
     public required string Description { get; set; }
     public Status? Status { get; set; }
-    public override string ToString() => this.genericToString();
+    public override string ToString() => this.GenericToString();
 }
