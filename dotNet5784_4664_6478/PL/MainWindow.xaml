@@ -4,29 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-         Background="Transparent"
-      AllowsTransparency="True"
+        mc:Ignorable="d"  
         Title="MainWindow" Height="450" Width="800">
     <Border >
-        <Border.Background>
-            <ImageBrush ImageSource="/Image/BackgroundImge.webp"/>
-        </Border.Background>
+        <!--<Border.Background>
+            <ImageBrush ImageSource="/Image/BackgroundImge.jpg"/>
+        </Border.Background>-->
         <Border       
                       BorderThickness="5"
                   Opacity="0.95">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color="HotPink" Offset="0"/>
-                    <GradientStop Color="Pink" Offset="0.75"/>
-                    <GradientStop Color="LightPink" Offset="1"/>
+                    <GradientStop Color="LightSeaGreen" Offset="0"/>
+                    <GradientStop Color="LightGreen" Offset="0.75"/>
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color="HotPink" Offset="0"/>
-                    <GradientStop Color="Pink" Offset="0.75"/>
-                    <GradientStop Color="LightPink" Offset="1"/>
+                    <GradientStop Color="LightSeaGreen" Offset="0"/>
+                    <GradientStop Color="LightGreen" Offset="0.75"/>
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
 
@@ -34,15 +32,37 @@
                 <!--go to all the engineers-->
                 <Button Content="Handle Engineers"
                      Background="WhiteSmoke"    
-                    Foreground="Black"
+                        BorderThickness="3,3,3,3"
+                        BorderBrush="LightGreen" 
+                   Foreground="Black"
                     FontSize="16"
                     FontFamily="Mountserrat"
                     Cursor="Hand"   
                         
-                     HorizontalAlignment="Left" Height="80" Width="200" Click="HandleEngineers_Click" Margin="113,137,0,217" />
+                     HorizontalAlignment="Center" Height="80" Width="200" Click="HandleEngineers_Click" Margin="0,256,0,88" />
                 <!--Intialization Data-->
-                <Button Content="Intialization Data" HorizontalAlignment="Left" Height="80" Width="200" Click="IntializationData_Click" Margin="489,154,0,200" />
-                <Button Content="Handle Tasks" HorizontalAlignment="Left" Height="80" Width="200" Click="HandleTasks_Click" Margin="113,271,0,83" />
+                <Button 
+                    Background="WhiteSmoke"    
+                    BorderThickness="3,3,3,3"
+                    BorderBrush="LightGreen"   
+                    FontSize="16"
+                    FontFamily="Mountserrat"
+                    Cursor="Hand"   
+                    Content="Intialization Data" HorizontalAlignment="Left" Height="80" Width="200" Click="IntializationData_Click" Margin="542,256,0,88" />
+                <Button
+                    Background="WhiteSmoke"    
+                    BorderThickness="3,3,3,3"
+                    BorderBrush="LightGreen"   
+                    FontSize="16"
+                    FontFamily="Mountserrat"
+                    Cursor="Hand" 
+                    Content="Handle Tasks" HorizontalAlignment="Left" Height="80" Width="200" Click="HandleTasks_Click" Margin="49,256,0,88" />
+                <Label
+                     FontSize="50"
+                    FontFamily="Arial"
+                    Cursor="Hand" 
+             
+                    Content="Welcome" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" Height="62" Width="230"/>
             </Grid>
         </Border>
     </Border>
