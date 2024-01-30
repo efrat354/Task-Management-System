@@ -9,31 +9,56 @@
         Title="TaskListWindow" Height="640" Width="800"
         Activated="RefreshTaskList_Activated">
     <!--Extrnal Grid-->
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Tasks details" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Center"/>
-            <!--choose filter-->
-            <ComboBox  ItemsSource="{Binding Source={StaticResource StatusKey}}" SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="StatusSelected" Grid.Column="1" Margin="136,0,0,0" HorizontalAlignment="Left" Width="254"/>
-            <ComboBox  ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Experience, Mode=TwoWay}" SelectionChanged="ExperienceSelected" Margin="241,0,0,0" HorizontalAlignment="Left" Width="254" Grid.ColumnSpan="2"/>
-        </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding TaskList}"
+    <Border >
+        <!--<Border.Background>
+            <ImageBrush ImageSource="/Image/BackgroundImge.jpg"/>
+        </Border.Background>-->
+        <Border       
+            CornerRadius="20"
+            BorderThickness="5"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="LightSeaGreen" Offset="0.75"/>
+                    <GradientStop Color="LightGreen" Offset="0"/>
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="LightSeaGreen" Offset="0.75"/>
+                    <GradientStop Color="LightGreen" Offset="0"/>
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="500*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!--Internal, Upper Grid-->
+                <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Tasks details" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Center"/>
+                    <!--choose filter-->
+                    <ComboBox  ItemsSource="{Binding Source={StaticResource StatusKey}}" SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="StatusSelected" Grid.Column="1" Margin="136,0,0,0" HorizontalAlignment="Left" Width="254"/>
+                    <ComboBox  ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Experience, Mode=TwoWay}" SelectionChanged="ExperienceSelected" Margin="241,0,0,0" HorizontalAlignment="Left" Width="254" Grid.ColumnSpan="2"/>
+                </Grid>
+                <Border></Border>
+                <ListView Grid.Row="1" ItemsSource="{Binding TaskList}"
                    MouseDoubleClick="UpdateTask_DoubleClick">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddTask_Click"/>
-    </Grid>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddTask_Click"/>
+            </Grid>
+        </Border>
+    </Border>
 </Window>
