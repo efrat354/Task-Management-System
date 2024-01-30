@@ -20,8 +20,4 @@
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DalTest\DalTest.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Image\" />
-  </ItemGroup>
 </Project>

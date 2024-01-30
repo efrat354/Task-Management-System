@@ -9,6 +9,28 @@
         Title="EngineerListWindow" Height="640" Width="800"
         Activated="RefreshEngineerList_Activated">
     <!--Extrnal Grid-->
+    <Border >
+        <!--<Border.Background>
+            <ImageBrush ImageSource="/Image/BackgroundImge.jpg"/>
+        </Border.Background>-->
+        <Border       
+            CornerRadius="20"
+            BorderThickness="5"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="LightSeaGreen" Offset="0.75"/>
+                    <GradientStop Color="LightGreen" Offset="0"/>
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="LightSeaGreen" Offset="0.75"/>
+                    <GradientStop Color="LightGreen" Offset="0"/>
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -16,23 +38,35 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Engineers details" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Center"/>
-            <!--choose filter-->
-            <ComboBox  ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Experience, Mode=TwoWay}" SelectionChanged="ExperienceSelected" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}"
-                  MouseDoubleClick="UpdateEngineer_DoubleClick">
+                <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Engineers details" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Center"/>
+                    <!--choose filter-->
+                    <ComboBox Background="Black" Foreground="White" Opacity="0.7"  BorderBrush="Black" BorderThickness="3"  ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Experience, Mode=TwoWay}" SelectionChanged="ExperienceSelected" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+                <Border>   
+        <ListView Grid.Row="1" ItemsSource="{Binding Resources}"
+                  MouseDoubleClick="UpdateEngineer_DoubleClick" Height="522" VerticalAlignment="Bottom">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddEngineer_Click"/>
+                </Border>
+    
+                <Button 
+                    Content="Add"
+                    Background="Black"
+                    Opacity="0.7"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Mountserrat"
+                    Cursor="Hand" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddEngineer_Click"/>
     </Grid>
+        </Border>
+    </Border>
 </Window>
