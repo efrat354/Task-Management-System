@@ -45,18 +45,18 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Engineers details" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Center"/>
                     <!--choose filter-->
-                    <ComboBox Background="Black" Foreground="White" Opacity="0.7"  BorderBrush="Black" BorderThickness="3"  ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Experience, Mode=TwoWay}" SelectionChanged="ExperienceSelected" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <ComboBox Background="Black" BorderBrush="LightGreen" Opacity="0.7" BorderThickness="3"  ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding Experience, Mode=TwoWay}" SelectionChanged="ExperienceSelected" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Grid>
-                <Border>   
-        <ListView Grid.Row="1" ItemsSource="{Binding Resources}"
+                <Border>   </Border>
+        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}"
                   MouseDoubleClick="UpdateEngineer_DoubleClick" Height="522" VerticalAlignment="Bottom">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
-        </ListView>
-                </Border>
+        </ListView> 
+               
     
                 <Button 
                     Content="Add"
