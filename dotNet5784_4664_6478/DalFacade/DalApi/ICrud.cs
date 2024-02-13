@@ -1,6 +1,8 @@
 ﻿using DO;
 namespace DalApi;
-// global interface for the different entities
+/// <summary>
+/// global interface for the different entities
+/// </summary>
 public interface ICrud<T> where T : class
 {
     int Create(T item); //Creates a new entity object

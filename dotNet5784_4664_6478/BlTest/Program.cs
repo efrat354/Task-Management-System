@@ -242,7 +242,7 @@ internal class Program
                             },
                             ComplexityLevel = (BO.EngineerExperience)_complexityLevel,
                         };
-                        s_bl.Task?.Create(task);
+                        s_bl.Task.Create(task);
                         Console.WriteLine("Created successfully");
                         break;
 
@@ -273,10 +273,6 @@ internal class Program
 
                         Console.WriteLine("Enter task's alias:");
                         _alias = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an alias"));
-
-                        //יכול לעדכן תאריך יצירה?
-                        //Console.WriteLine("Enter task's create date:");
-                        //_createdAtDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter scheduled start date"));
 
                         Console.WriteLine("Enter task's scheduled start date:");
                         _scheduledStartDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter create date"));

@@ -50,13 +50,6 @@
     <Cost>320</Cost>
   </Engineer>
   <Engineer>
-    <Id>211125487</Id>
-    <Name>Eliezer Klein</Name>
-    <Email>EliezerKlein@gmail.com</Email>
-    <Level>Proficient</Level>
-    <Cost>420</Cost>
-  </Engineer>
-  <Engineer>
     <Id>213456789</Id>
     <Name>Mordechai Levy</Name>
     <Email>MordechaiLevy@gmail.com</Email>
@@ -580,5 +573,61 @@
     <Email>ShiraIsraelof@gmail.com</Email>
     <Level>Novice</Level>
     <Cost>1960</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>391368649</Id>
+    <Name>Dani Levi</Name>
+    <Email>ShiraIsraelof@gmail.com</Email>
+    <Level>Competent</Level>
+    <Cost>481</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>363713502</Id>
+    <Name>Eli Amar</Name>
+    <Email>ShiraIsraelof@gmail.com</Email>
+    <Level>AdvancedBeginner</Level>
+    <Cost>1147</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>226373980</Id>
+    <Name>Yair Cohen</Name>
+    <Email>ShiraIsraelof@gmail.com</Email>
+    <Level>Competent</Level>
+    <Cost>7023</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>278675733</Id>
+    <Name>Ariela Levin</Name>
+    <Email>ShiraIsraelof@gmail.com</Email>
+    <Level>Novice</Level>
+    <Cost>9843</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>373110673</Id>
+    <Name>Dina Klein</Name>
+    <Email>ShiraIsraelof@gmail.com</Email>
+    <Level>Competent</Level>
+    <Cost>7107</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>222988566</Id>
+    <Name>Shira Israelof</Name>
+    <Email>ShiraIsraelof@gmail.com</Email>
+    <Level>AdvancedBeginner</Level>
+    <Cost>1440</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>211125487</Id>
+    <Name>Eliezer Klein</Name>
+    <Email>EliezerKlein@gmail.com</Email>
+    <Level>Proficient</Level>
+    <Cost>420</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>214856478</Id>
+    <Name>yael</Name>
+    <Email>y@gmail.com</Email>
+    <Level>Expert</Level>
+    <Cost>80</Cost>
   </Engineer>
 </ArrayOfEngineer>

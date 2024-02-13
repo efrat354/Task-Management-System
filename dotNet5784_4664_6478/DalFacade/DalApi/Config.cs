@@ -4,7 +4,7 @@ using System.Xml.Linq;
 static class Config
 {
     /// <summary>
-    /// internal PDS class
+    /// A helper class called Config that knows how to read the data from the configuration file dal-config.xml during runtime.
     /// </summary>
     internal record DalImplementation
     (string Package,   // package/dll name

@@ -450,4 +450,24 @@
     <DependentTask>4</DependentTask>
     <DependsOnTask>5</DependsOnTask>
   </Dependency>
+  <Dependency>
+    <Id>1982</Id>
+    <DependentTask>1</DependentTask>
+    <DependsOnTask>2</DependsOnTask>
+  </Dependency>
+  <Dependency>
+    <Id>1983</Id>
+    <DependentTask>2</DependentTask>
+    <DependsOnTask>3</DependsOnTask>
+  </Dependency>
+  <Dependency>
+    <Id>1984</Id>
+    <DependentTask>3</DependentTask>
+    <DependsOnTask>4</DependsOnTask>
+  </Dependency>
+  <Dependency>
+    <Id>1985</Id>
+    <DependentTask>4</DependentTask>
+    <DependsOnTask>5</DependsOnTask>
+  </Dependency>
 </ArrayOfDependency>

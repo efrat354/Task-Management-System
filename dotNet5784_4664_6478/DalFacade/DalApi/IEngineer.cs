@@ -1,6 +1,8 @@
 ﻿namespace DalApi;
 using DO;
-//Engineer interface
+/// <summary>
+/// Engineer interface
+/// </summary>
 public interface IEngineer : ICrud<Engineer>
 {
 }
