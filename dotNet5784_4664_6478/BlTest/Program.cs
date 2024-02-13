@@ -211,7 +211,7 @@ internal class Program
                                 Alias = task!.Alias,
                                 Description = task.Description
                             };
-                            if (Dependencies==null)
+                            if (Dependencies == null)
                             {
                                 Dependencies = new List<TaskInList>();
                             }
