@@ -13,8 +13,7 @@
         <!--<Border.Background>
             <ImageBrush ImageSource="/Image/BackgroundImge.jpg"/>
         </Border.Background>-->
-        <Border       
-            CornerRadius="20"
+        <Border        
             BorderThickness="5"
             Opacity="0.95">
             <Border.BorderBrush>

@@ -14,7 +14,6 @@
             <ImageBrush ImageSource="/Image/BackgroundImge.jpg"/>
         </Border.Background>-->
         <Border       
-            CornerRadius="20"
             BorderThickness="5"
             Opacity="0.95">
             <Border.BorderBrush>
@@ -64,9 +63,9 @@
                     Cursor="Hand" 
                     HorizontalAlignment="Left" Margin="91,358,0,0" VerticalAlignment="Top" Height="32" Width="111" Click="btnAddUpdate_Click" Grid.Column="3"/>
 
-                <TextBlock Visibility="{Binding Id, Converter={StaticResource ConvertIdToIsVisibleKey}, Mode=OneTime}" Background="Black" Foreground="White" Opacity="0.7" FontSize="25" FontWeight="Medium" FontFamily="Montserrat"  Grid.Column="3" HorizontalAlignment="Left" Height="114" Margin="91,102,0,0" VerticalAlignment="Top" Width="321" Grid.ColumnSpan="4">
-                    <Label Content= "Task:"  Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="65" RenderTransformOrigin="-0.149,0.464" Height="46"/>
-                    <Label Content= "{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="251" RenderTransformOrigin="-0.149,0.464" Height="93">
+                <TextBlock Visibility="{Binding Id, Converter={StaticResource ConvertIdToIsVisibleKey}, Mode=OneTime}" Background="Black" Foreground="White" Opacity="0.7" FontSize="25" FontWeight="Medium" FontFamily="Montserrat"  Grid.Column="3" HorizontalAlignment="Left" Height="114" Margin="28,102,0,0" VerticalAlignment="Top" Width="421" Grid.ColumnSpan="4">
+                    <Label Content= "Task:"  Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="65"  RenderTransformOrigin="-0.149,0.464" Height="46" FontSize="20"/>
+                    <Label Content= "{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="345" RenderTransformOrigin="-0.149,0.464" Height="60">
                         <Label.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>

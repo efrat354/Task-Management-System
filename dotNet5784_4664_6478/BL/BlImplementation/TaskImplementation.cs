@@ -48,7 +48,7 @@ internal class TaskImplementation : ITask
     }
     private BO.MilestoneInTask FindMilestone(int id)
     {
-        IEnumerable<BO.MilestoneInTask> milstone = from DO.Task task in _dal.Task.ReadAll()
+        IEnumerable<BO.MilestoneInTask> milestone = from DO.Task task in _dal.Task.ReadAll()
                                                    where task.IsMilestone == true
                                                    where FindDependencies(task.Id)
                                                    .FirstOrDefault(dep => dep.Id == id) != null
@@ -58,8 +58,8 @@ internal class TaskImplementation : ITask
                                                        Id = t.Id,
                                                        Alias = t.Alias
                                                    };
-        //BO.Milestone mil=new BO.Milestone() { Id= milstone.Id,Alias=milstone }
-        return (BO.MilestoneInTask)milstone;
+      //  BO.Milestone mil=new BO.Milestone() { Id= milestone.Id,Alias=milestone.a }
+        return (BO.MilestoneInTask)milestone;
     }
 
     public void Create(BO.Task boTask)
