@@ -1,5 +1,7 @@
 ﻿namespace BlApi;
-
+/// <summary>
+///IBl interface
+/// </summary>
 public interface IBl
 {
     public IEngineer Engineer { get; }

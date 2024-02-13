@@ -6,48 +6,80 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
          DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-        Title="TaskWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="307*"/>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="11*"/>
-            <ColumnDefinition Width="128*"/>
-            <ColumnDefinition Width="327*"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Task" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" Width="83"/>
-        <Label Content="Description" HorizontalAlignment="Left" Margin="116,99,0,0" VerticalAlignment="Top"/>
-        <Label Content="Alias" HorizontalAlignment="Left" Margin="116,149,0,0" VerticalAlignment="Top"/>
-        <Label Content="Id" HorizontalAlignment="Left" Margin="116,48,0,0" VerticalAlignment="Top"/>
-        <Label Content="CreatedAtDate" HorizontalAlignment="Left" Margin="116,200,0,0" VerticalAlignment="Top"/>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="116,247,0,0" VerticalAlignment="Top"/>
-        <Label Content="RequiredEffortTime" HorizontalAlignment="Left" Margin="116,297,0,0" VerticalAlignment="Top"/>
-        <Label Content="DeadlineDate" HorizontalAlignment="Left" Margin="116,345,0,0" VerticalAlignment="Top"/>
-        <Label Content="CompleteDate" HorizontalAlignment="Left" Margin="77,379,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
-        <Label Content="Product" HorizontalAlignment="Left" Margin="94,339,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
-        <Label Content="Remarks" HorizontalAlignment="Left" Margin="124,387,0,0" VerticalAlignment="Top"/>
-        <Label Content="Milestone" HorizontalAlignment="Left" Margin="94,52,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
-        <TextBox  Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox  Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox  Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,157,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <TextBox  Text="{Binding Product, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Margin="61,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="4"/>
-        <TextBox  Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="225,387,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox  Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <DatePicker SelectedDate="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="243,200,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="120"/>
-        <DatePicker SelectedDate="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="61,376,0,0" VerticalAlignment="Top" Width="120" Grid.Column="4"/>
-        <DatePicker SelectedDate="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="225,345,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="120"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource StatusKey}}" SelectedValue="{Binding Status, Mode=TwoWay}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,251,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" Grid.Column="4" HorizontalAlignment="Left" Margin="212,357,0,0" VerticalAlignment="Top" Height="48" Width="91" Click="btnAddUpdate_Click" />
-        <Label Content="Id" HorizontalAlignment="Left" Margin="68,55,0,0" VerticalAlignment="Top" Grid.Column="4"/>
-        <TextBox  Text="{Binding Milstone.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,60,0,0" Grid.Column="4"/>
-        <Label Content="Alias" HorizontalAlignment="Left" Margin="61,86,0,0" VerticalAlignment="Top" Grid.Column="4"/>
-        <TextBox   Text="{Binding Milstone.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,94,0,0" Grid.Column="4"/>
-        <Label Content="Engineer" HorizontalAlignment="Left" Margin="100,149,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
-        <Label Content="Id" HorizontalAlignment="Left" Margin="69,153,0,0" VerticalAlignment="Top" Grid.Column="4"/>
-        <TextBox   Text="{Binding Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,157,0,0" Grid.Column="4"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="61,195,0,0" VerticalAlignment="Top" Grid.Column="4"/>
-        <TextBox  Text="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,203,0,0" Grid.Column="4"/>
-        <Label Content="ComplexityLevel" HorizontalAlignment="Left" Margin="77,255,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding ComplexityLevel, Mode=TwoWay}" HorizontalAlignment="Left" Margin="69,259,0,0" VerticalAlignment="Top" Width="120" Grid.Column="4"/>
-    </Grid>
+        Title="TaskWindow" Height="650" Width="800">
+    <Border >
+        <Border       
+            BorderThickness="5"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="LightSeaGreen" Offset="0.75"/>
+                    <GradientStop Color="LightGreen" Offset="0"/>
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="LightSeaGreen" Offset="0.75"/>
+                    <GradientStop Color="LightGreen" Offset="0"/>
+                    <GradientStop Color="WhiteSmoke" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="307*"/>
+                    <ColumnDefinition Width="27*"/>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="128*"/>
+                    <ColumnDefinition Width="327*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Task" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" Width="83"/>
+                <Label Content="Description" HorizontalAlignment="Left" Margin="116,99,0,0" VerticalAlignment="Top"/>
+                <Label Content="Alias" HorizontalAlignment="Left" Margin="116,149,0,0" VerticalAlignment="Top"/>
+                <Label Content="Id" HorizontalAlignment="Left" Margin="116,48,0,0" VerticalAlignment="Top"/>
+                <Label Content="CreatedAtDate" HorizontalAlignment="Left" Margin="116,200,0,0" VerticalAlignment="Top"/>
+                <Label Content="Status" HorizontalAlignment="Left" Margin="116,247,0,0" VerticalAlignment="Top"/>
+                <Label Content="RequiredEffortTime" HorizontalAlignment="Left" Margin="116,297,0,0" VerticalAlignment="Top"/>
+                <Label Content="DeadlineDate" HorizontalAlignment="Left" Margin="116,345,0,0" VerticalAlignment="Top"/>
+                <Label Content="CompleteDate" HorizontalAlignment="Left" Margin="77,379,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <Label Content="Product" HorizontalAlignment="Left" Margin="94,339,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <Label Content="Remarks" HorizontalAlignment="Left" Margin="124,387,0,0" VerticalAlignment="Top"/>
+                <Label Content="Milestone" HorizontalAlignment="Left" Margin="94,52,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,157,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Product, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Margin="61,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="4"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="225,387,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+                <DatePicker SelectedDate="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="243,200,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="120"/>
+                <DatePicker SelectedDate="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="61,376,0,0" VerticalAlignment="Top" Width="120" Grid.Column="4"/>
+                <DatePicker SelectedDate="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="225,345,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="120"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource StatusKey}}" SelectedValue="{Binding Status, Mode=TwoWay}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,251,0,0" VerticalAlignment="Top" Width="120"/>
+                <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"
+                        Background="Black"
+                        Opacity="0.7"
+                        Foreground="White"
+                        FontSize="16"
+                        FontFamily="Mountserrat"
+                        Cursor="Hand" 
+                        Grid.Column="4"
+                        HorizontalAlignment="Left"
+                        Margin="212,357,0,0" 
+                        VerticalAlignment="Top" 
+                        Height="48" Width="91"
+                        Click="btnAddUpdate_Click" />
+                <Label Content="Id" HorizontalAlignment="Left" Margin="68,55,0,0" VerticalAlignment="Top" Grid.Column="4"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Milstone.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,60,0,0" Grid.Column="4"/>
+                <Label Content="Alias" HorizontalAlignment="Left" Margin="61,86,0,0" VerticalAlignment="Top" Grid.Column="4"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"   Text="{Binding Milstone.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,94,0,0" Grid.Column="4"/>
+                <Label Content="Engineer" HorizontalAlignment="Left" Margin="100,149,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <Label Content="Id" HorizontalAlignment="Left" Margin="69,153,0,0" VerticalAlignment="Top" Grid.Column="4"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"   Text="{Binding Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,157,0,0" Grid.Column="4"/>
+                <Label Content="Name" HorizontalAlignment="Left" Margin="61,195,0,0" VerticalAlignment="Top" Grid.Column="4"/>
+                <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,203,0,0" Grid.Column="4"/>
+                <Label Content="ComplexityLevel" HorizontalAlignment="Left" Margin="77,255,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding ComplexityLevel, Mode=TwoWay}" HorizontalAlignment="Left" Margin="69,259,0,0" VerticalAlignment="Top" Width="120" Grid.Column="4"/>
+            </Grid>
+        </Border>
+    </Border>
 </Window>

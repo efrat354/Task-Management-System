@@ -1,6 +1,8 @@
 ﻿namespace DalApi;
 using DO;
-//Task interface
+/// <summary>
+/// Task interface
+/// </summary>
 public interface ITask : ICrud<Task>
 {
 }

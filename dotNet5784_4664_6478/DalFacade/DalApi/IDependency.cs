@@ -1,6 +1,8 @@
 ﻿namespace DalApi;
 using DO;
-//Dependency interface
+/// <summary>
+/// Dependency interface
+/// </summary>
 public interface IDependency:ICrud<Dependency>
 {
 }

@@ -1,4 +1,14 @@
 ﻿namespace BO;
+/// <summary>
+/// An entity that describe Milestone In List
+/// </summary>
+/// <param name="Id">Milestone ID number</param>
+/// <param name="Alias">A alias for the milestone</param>
+/// <param name="Description">A milestone's description</param>
+/// <param name="CreatedAtDate">milestone's creation date</param>
+/// <param name="Status"> Current status of a milestone </param>
+/// <param name="CompletionPercentage">Percentage of completion of the tasks in the milestone</param>
+/// <param name="ToString">Print the entity as a string</param>
 
 public class MilestoneInList
 {

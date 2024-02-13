@@ -1,5 +1,7 @@
 ﻿namespace BlApi;
-
+/// <summary>
+/// Engineer interface
+/// </summary>
 public interface IEngineer
 {
     public IEnumerable<BO.Engineer?> ReadAll(Func<DO.Engineer?, bool>? filter = null);

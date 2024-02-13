@@ -50,13 +50,6 @@
     <Cost>320</Cost>
   </Engineer>
   <Engineer>
-    <Id>211125487</Id>
-    <Name>Eliezer Klein</Name>
-    <Email>EliezerKlein@gmail.com</Email>
-    <Level>Proficient</Level>
-    <Cost>420</Cost>
-  </Engineer>
-  <Engineer>
     <Id>213456789</Id>
     <Name>Mordechai Levy</Name>
     <Email>MordechaiLevy@gmail.com</Email>

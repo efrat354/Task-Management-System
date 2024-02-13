@@ -261,7 +261,7 @@ internal class Program
                             },
                             ComplexityLevel = (BO.EngineerExperience)_complexityLevel,
                         };
-                        s_bl.Task?.Create(task);
+                        s_bl.Task.Create(task);
                         Console.WriteLine("Created successfully");
                         break;
 

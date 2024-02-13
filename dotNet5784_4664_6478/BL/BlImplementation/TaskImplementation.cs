@@ -4,7 +4,15 @@ using BO;
 
 internal class TaskImplementation : ITask
 {
+    /// <summary>
+    ///  A class that implements task
+    /// </summary>
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    /// <summary>
+    /// The function Calculates the appropriate status for the task
+    /// </summary>
+    /// <param name="doTask">The task we want to calculate a status from her task</param>
+    /// <returns>Matching status</returns>
     private BO.Status CreateStatus(DO.Task doTask)
     {
         Status status = Status.Unscheduled;
@@ -19,6 +27,11 @@ internal class TaskImplementation : ITask
         else status = Status.Done;
         return status;
     }
+    /// <summary>
+    /// A function that checks whether the Alias is correct
+    /// </summary>
+    /// <param name="boTask">The task its alias should be checked</param>
+    /// <returns>if correct true otherwise false</returns>
     private string Validation(BO.Task boTask)
     {
         if (boTask.Alias == "")
@@ -30,6 +43,11 @@ internal class TaskImplementation : ITask
             return "";
         }
     }
+    /// <summary>
+    /// A function that finds which tasks depend on a particular task
+    /// </summary>
+    /// <param name="id">ID number of the task for which dependencies are searched</param>
+    /// <returns>the list of Dependency tasks </returns>
     private List<BO.TaskInList> FindDependencies(int id)
     {
         var listDep = from DO.Dependency dependency in _dal.Dependency.ReadAll()
@@ -44,6 +62,11 @@ internal class TaskImplementation : ITask
                       };
         return listDep.ToList();
     }
+    /// <summary>
+    /// A function that finds the milestone of the sent message
+    /// </summary>
+    /// <param name="id">id of the task for which we are looking for a milestone</param>
+    /// <returns>The appropriate Milestone</returns>
     private BO.MilestoneInTask FindMilestone(int id)
     {
         int idMil = (from DO.Task task in _dal.Task.ReadAll()
@@ -56,7 +79,13 @@ internal class TaskImplementation : ITask
         BO.MilestoneInTask? milestone = tk != null?new BO.MilestoneInTask() { Id = tk.Id, Alias = tk.Alias }:null;
         return milestone!;
     }
-
+    /// <summary>
+    /// The function adds an task to the data
+    /// </summary>
+    /// <param name="boTask">The new task</param>
+    /// <returns>The new task id</returns>
+    /// <exception cref="BO.BlInvalidInput">Throw away if the details are incorrect</exception>
+    /// <exception cref="BO.BlAlreadyExistsException">Throw if the task already exists</exception>
     public void Create(BO.Task boTask)
     {
         bool isMilestone = false;
@@ -83,10 +112,10 @@ internal class TaskImplementation : ITask
             isMilestone = true;
         }
 
-        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));//לבדוק מה לשים את הtimespan שהתקבל או את החישוב
+        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));
         DO.Task doTask = new DO.Task
              (0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
-             isMilestone, (DO.EngineerExperience)boTask.ComplexityLevel,//במקום שהיה פה isMilstone שמתי false
+             isMilestone, (DO.EngineerExperience)boTask.ComplexityLevel,
              boTask.StartDate, boTask.ScheduledStartDate, boTask.DeadlineDate,
              boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
         int depenId = _dal.Task.Create(doTask);
@@ -105,7 +134,12 @@ internal class TaskImplementation : ITask
             }
         }
     }
-
+    /// <summary>
+    /// An action that deletes an task from the data
+    /// </summary>
+    /// <param name="id">The engineer you want to remove</param>
+    /// <exception cref="BO.BlDoesNotExistException">Throw if the object you want to remove does not exist</exception>
+    /// <exception cref="BO.BlDeletionImpossible">Throw if the task cannot be deleted</exception>
     public void Delete(int id)
     {
         BO.Task task = Read(id);
@@ -124,7 +158,12 @@ internal class TaskImplementation : ITask
             throw new BO.BlDoesNotExistException($"Task with id={id} does not exist");
         }
     }
-
+    /// <summary>
+    /// A function that calls a certain object from the data
+    /// </summary>
+    /// <param name="id">The task's id you want to call</param>
+    /// <returns>the desired task</returns>
+    /// <exception cref="BO.BlDoesNotExistException">Throw if the task does not exist in the data</exception>
     public BO.Task Read(int id)
     {
         DO.Task? doTask = _dal.Task.Read(id);
@@ -141,7 +180,7 @@ internal class TaskImplementation : ITask
             CreatedAtDate = doTask.CreatedAtDate,
             Status = CreateStatus(doTask),
             Dependencies = dependencies,
-            Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null : FindMilestone(doTask.Id),
+            Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null :null,// FindMilestone(doTask.Id),
             ScheduledStartDate = doTask.ScheduledDate,
             StartDate = doTask.StartDate,
             DeadlineDate = doTask.DeadlineDate,
@@ -158,7 +197,12 @@ internal class TaskImplementation : ITask
         string name = _dal.Engineer.Read(id)!.Name;
         return name;
     }
-    public IEnumerable<BO.Task> ReadAll(Func<DO.Task?, bool>? filter = null)//תאריכים לא מסונכרנים,MILSTONE,האם צריך ? בכותרת
+    /// <summary>
+    /// A function that reads all existing tasks either with or without conditions
+    /// </summary>
+    /// <param name="filter">A parameter by which you can filter which tasks you want</param>
+    /// <returns>the desired list of tasks</returns>
+    public IEnumerable<BO.Task> ReadAll(Func<DO.Task?, bool>? filter = null)
     {
         return from DO.Task doTask in _dal.Task.ReadAll(filter)
                let dependencies = FindDependencies(doTask.Id)
@@ -170,7 +214,7 @@ internal class TaskImplementation : ITask
                    CreatedAtDate = doTask.CreatedAtDate,
                    Status = CreateStatus(doTask),
                    Dependencies = dependencies,
-                   Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null : FindMilestone(doTask.Id),
+                   Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null : null,//FindMilestone(doTask.Id),
                    ScheduledStartDate = doTask.ScheduledDate,
                    StartDate = doTask.StartDate,
                    DeadlineDate = doTask.DeadlineDate,
@@ -182,7 +226,12 @@ internal class TaskImplementation : ITask
                    ComplexityLevel = (BO.EngineerExperience)doTask.Complexity
                };
     }
-
+    /// <summary>
+    /// A function that updates a particular object with details
+    /// </summary>
+    /// <param name="boEngineer">Receives an engineer's object with updated details</param>
+    /// <exception cref="BO.BlInvalidInput">Throw away if the details are incorrect</exception>
+    /// <exception cref="BO.BlDoesNotExistException">Throw if the task does not exist in the data</exception>
     public void Update(BO.Task boTask)
     {
         string message = Validation(boTask);
