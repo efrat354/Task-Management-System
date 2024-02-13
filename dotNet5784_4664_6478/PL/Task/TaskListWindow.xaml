@@ -10,9 +10,7 @@
         Activated="RefreshTaskList_Activated">
     <!--Extrnal Grid-->
     <Border >
-        <!--<Border.Background>
-            <ImageBrush ImageSource="/Image/BackgroundImge.jpg"/>
-        </Border.Background>-->
+        
         <Border        
             BorderThickness="5"
             Opacity="0.95">
@@ -56,7 +54,19 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddTask_Click"/>
+                <Button
+                     Background="Black"
+                    Opacity="0.7"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Mountserrat"
+                    Cursor="Hand" 
+                    Content="Add"
+                    Grid.Row="2" 
+                    HorizontalAlignment="Center" 
+                    Height="50"
+                    Width="100" 
+                    Click="AddTask_Click"/>
             </Grid>
         </Border>
     </Border>
