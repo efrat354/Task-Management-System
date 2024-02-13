@@ -59,10 +59,3 @@ public class BlInvalidInput : Exception
 {
     public BlInvalidInput(string? message) : base(message) { }
 }
-
-//לבדוק האם צריך עוד חריגות
-
-
-
-
-

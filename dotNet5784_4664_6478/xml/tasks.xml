@@ -1,18 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>279</Id>
-    <Alias>End</Alias>
-    <Description>milestone16</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.5313862+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>true</IsMilestone>
-    <Complexity>Novice</Complexity>
+    <Id>1</Id>
+    <Alias>feasibilityStudy</Alias>
+    <Description>Conducting a feasibility study to assess the feasibility of the project.</Description>
+    <CreatedAtDate>2022-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P30D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Expert</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
+    <EngineerId>235614789</EngineerId>
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Alias>necessaryPermits</Alias>
+    <Description>Acquiring the necessary permits and approvals from the local authorities.</Description>
+    <CreatedAtDate>2022-02-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P30D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Proficient</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>213456789</EngineerId>
+  </Task>
+  <Task>
+    <Id>3</Id>
+    <Alias>projectPlan</Alias>
+    <Description>Development of a detailed project plan, including budgeting and timing.</Description>
+    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P30D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Proficient</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>211125487</EngineerId>
+  </Task>
+  <Task>
+    <Id>4</Id>
+    <Alias>InvitingArchitect</Alias>
+    <Description>Inviting an architect to design the building according to your requirements.</Description>
+    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>215487976</EngineerId>
   </Task>
   <Task>
     <Id>5</Id>
@@ -23,164 +65,80 @@
     <IsMilestone>false</IsMilestone>
     <Complexity>Novice</Complexity>
     <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-12-25T00:00:00</ScheduledDate>
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
+    <EngineerId>218563478</EngineerId>
   </Task>
   <Task>
-    <Id>14</Id>
-    <Alias>ImplementationSafety</Alias>
-    <Description>Implementation of fire safety measures, including smoke detectors, fire extinguishers and sprinkler systems.</Description>
+    <Id>6</Id>
+    <Alias>siteAnalysis</Alias>
+    <Description>Performing a thorough site analysis and preparing the land for construction.</Description>
+    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Novice</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>214856741</EngineerId>
+  </Task>
+  <Task>
+    <Id>7</Id>
+    <Alias>SecureFunding</Alias>
+    <Description>Secure funding for the project through investors or financial institutions.</Description>
+    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P20D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Proficient</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>211125487</EngineerId>
+  </Task>
+  <Task>
+    <Id>8</Id>
+    <Alias>HiringConstruction</Alias>
+    <Description>Hiring a construction manager to oversee the entire construction process.</Description>
+    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P7D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Proficient</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>212549638</EngineerId>
+  </Task>
+  <Task>
+    <Id>9</Id>
+    <Alias>BuildingFloors</Alias>
+    <Description>Building the floors and walls of the floors, making sure to comply with the building laws and regulations.</Description>
     <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
     <RequiredEffortTime>P30D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-12-02T00:00:00</ScheduledDate>
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>15</Id>
-    <Alias>InstallationElevators</Alias>
-    <Description>Installation of elevators and other vertical transportation systems.</Description>
-    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P10D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Expert</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-12-22T00:00:00</ScheduledDate>
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>16</Id>
-    <Alias>ApplyInsulation</Alias>
-    <Description>Apply insulation and weatherproofing to the building to improve energy efficiency.</Description>
-    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P20D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Expert</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-12-12T00:00:00</ScheduledDate>
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>17</Id>
-    <Alias>InstallationWindows</Alias>
-    <Description>Installation of windows, doors and other exterior features.</Description>
-    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P20D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>AdvancedBeginner</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-12-12T00:00:00</ScheduledDate>
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>18</Id>
-    <Alias>CoordinationProviders</Alias>
-    <Description>Coordination with service providers to install necessary infrastructure (electricity, water, etc.).</Description>
-    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P15D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>AdvancedBeginner</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-12-17T00:00:00</ScheduledDate>
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>19</Id>
-    <Alias>CompleteFinishes</Alias>
-    <Description>Complete the interior finishes, such as flooring, painting, and accessories.</Description>
-    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P30D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>AdvancedBeginner</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-12-02T00:00:00</ScheduledDate>
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>20</Id>
-    <Alias>QualityChecks</Alias>
-    <Description>Carrying out thorough quality checks at every stage of construction.</Description>
-    <CreatedAtDate>2022-12-20T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P20D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-12-12T00:00:00</ScheduledDate>
-    <DeadlineDate>2030-01-01T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>268</Id>
-    <Alias>milestone5</Alias>
-    <Description>M5</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4609106+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
+    <Complexity>Competent</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-12-25T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
+    <EngineerId>213456789</EngineerId>
   </Task>
   <Task>
-    <Id>277</Id>
-    <Alias>milestone14</Alias>
-    <Description>M14</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.5195267+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-12-02T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>13</Id>
-    <Alias>Installation</Alias>
-    <Description>Installation of plumbing, electrical and ventilation systems.</Description>
+    <Id>10</Id>
+    <Alias>SelectionContractors</Alias>
+    <Description>Selection of qualified contractors for various aspects of construction, such as excavation systems, foundations and construction.</Description>
     <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P40D</RequiredEffortTime>
+    <RequiredEffortTime>P25D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-10-23T00:00:00</ScheduledDate>
-    <DeadlineDate>2029-12-02T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>276</Id>
-    <Alias>milestone13</Alias>
-    <Description>M13</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.5140949+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
+    <Complexity>Competent</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-10-23T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
+    <EngineerId>214856741</EngineerId>
   </Task>
   <Task>
     <Id>11</Id>
@@ -191,8 +149,8 @@
     <IsMilestone>false</IsMilestone>
     <Complexity>Competent</Complexity>
     <StartDate xsi:nil="true" />
-    <ScheduledDate>2028-10-23T00:00:00</ScheduledDate>
-    <DeadlineDate>2029-10-23T00:00:00</DeadlineDate>
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
     <EngineerId xsi:nil="true" />
   </Task>
@@ -205,303 +163,121 @@
     <IsMilestone>false</IsMilestone>
     <Complexity>Novice</Complexity>
     <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-10-18T00:00:00</ScheduledDate>
-    <DeadlineDate>2029-10-23T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>274</Id>
-    <Alias>milestone11</Alias>
-    <Description>M11</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.5027672+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2028-10-23T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
     <EngineerId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>2</Id>
-    <Alias>necessaryPermits</Alias>
-    <Description>Acquiring the necessary permits and approvals from the local authorities.</Description>
-    <CreatedAtDate>2022-02-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P30D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Proficient</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2028-09-23T00:00:00</ScheduledDate>
-    <DeadlineDate>2028-10-23T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>7</Id>
-    <Alias>SecureFunding</Alias>
-    <Description>Secure funding for the project through investors or financial institutions.</Description>
+    <Id>13</Id>
+    <Alias>Installation</Alias>
+    <Description>Installation of plumbing, electrical and ventilation systems.</Description>
     <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P20D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Proficient</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2028-10-03T00:00:00</ScheduledDate>
-    <DeadlineDate>2028-10-23T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>265</Id>
-    <Alias>milestone2</Alias>
-    <Description>M2</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.441461+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <RequiredEffortTime>P40D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Novice</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2028-09-23T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
     <EngineerId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>270</Id>
-    <Alias>milestone7</Alias>
-    <Description>M7</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4779632+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2028-10-03T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>3</Id>
-    <Alias>projectPlan</Alias>
-    <Description>Development of a detailed project plan, including budgeting and timing.</Description>
+    <Id>14</Id>
+    <Alias>ImplementationSafety</Alias>
+    <Description>Implementation of fire safety measures, including smoke detectors, fire extinguishers and sprinkler systems.</Description>
     <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
     <RequiredEffortTime>P30D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
-    <Complexity>Proficient</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2028-09-03T00:00:00</ScheduledDate>
-    <DeadlineDate>2028-10-03T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>266</Id>
-    <Alias>milestone3</Alias>
-    <Description>M3</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4512198+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
     <Complexity>Novice</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2028-09-03T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
     <EngineerId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>1</Id>
-    <Alias>feasibilityStudy</Alias>
-    <Description>Conducting a feasibility study to assess the feasibility of the project.</Description>
-    <CreatedAtDate>2022-01-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P30D</RequiredEffortTime>
+    <Id>15</Id>
+    <Alias>InstallationElevators</Alias>
+    <Description>Installation of elevators and other vertical transportation systems.</Description>
+    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P10D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
     <StartDate xsi:nil="true" />
-    <ScheduledDate>2028-08-04T00:00:00</ScheduledDate>
-    <DeadlineDate>2028-09-03T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>264</Id>
-    <Alias>Start</Alias>
-    <Description>milestone0</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4181392+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>true</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2028-08-04T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
+    <EngineerId>214856475</EngineerId>
   </Task>
   <Task>
-    <Id>275</Id>
-    <Alias>milestone12</Alias>
-    <Description>M12</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.5085701+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-10-18T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>10</Id>
-    <Alias>SelectionContractors</Alias>
-    <Description>Selection of qualified contractors for various aspects of construction, such as excavation systems, foundations and construction.</Description>
+    <Id>16</Id>
+    <Alias>ApplyInsulation</Alias>
+    <Description>Apply insulation and weatherproofing to the building to improve energy efficiency.</Description>
     <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P25D</RequiredEffortTime>
+    <RequiredEffortTime>P20D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
-    <Complexity>Competent</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-09-23T00:00:00</ScheduledDate>
-    <DeadlineDate>2029-10-18T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>273</Id>
-    <Alias>milestone10</Alias>
-    <Description>M10</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4967758+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
+    <Complexity>Expert</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-09-23T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
+    <EngineerId>214856475</EngineerId>
   </Task>
   <Task>
-    <Id>8</Id>
-    <Alias>HiringConstruction</Alias>
-    <Description>Hiring a construction manager to oversee the entire construction process.</Description>
+    <Id>17</Id>
+    <Alias>InstallationWindows</Alias>
+    <Description>Installation of windows, doors and other exterior features.</Description>
     <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P7D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Proficient</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-09-16T00:00:00</ScheduledDate>
-    <DeadlineDate>2029-09-23T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>9</Id>
-    <Alias>BuildingFloors</Alias>
-    <Description>Building the floors and walls of the floors, making sure to comply with the building laws and regulations.</Description>
-    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P30D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Competent</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-08-24T00:00:00</ScheduledDate>
-    <DeadlineDate>2029-09-23T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>271</Id>
-    <Alias>milestone8</Alias>
-    <Description>M8</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4846176+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-09-16T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>6</Id>
-    <Alias>siteAnalysis</Alias>
-    <Description>Performing a thorough site analysis and preparing the land for construction.</Description>
-    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P2D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-09-14T00:00:00</ScheduledDate>
-    <DeadlineDate>2029-09-16T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>269</Id>
-    <Alias>milestone6</Alias>
-    <Description>M6</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4727067+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-09-14T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>272</Id>
-    <Alias>milestone9</Alias>
-    <Description>M9</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4909436+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-08-24T00:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>4</Id>
-    <Alias>InvitingArchitect</Alias>
-    <Description>Inviting an architect to design the building according to your requirements.</Description>
-    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <RequiredEffortTime>P20D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>AdvancedBeginner</Complexity>
     <StartDate xsi:nil="true" />
-    <ScheduledDate>2029-08-21T00:00:00</ScheduledDate>
-    <DeadlineDate>2029-08-24T00:00:00</DeadlineDate>
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>215487976</EngineerId>
+  </Task>
+  <Task>
+    <Id>18</Id>
+    <Alias>CoordinationProviders</Alias>
+    <Description>Coordination with service providers to install necessary infrastructure (electricity, water, etc.).</Description>
+    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P15D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
     <EngineerId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>267</Id>
-    <Alias>milestone4</Alias>
-    <Description>M4</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.4560153+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <Id>19</Id>
+    <Alias>CompleteFinishes</Alias>
+    <Description>Complete the interior finishes, such as flooring, painting, and accessories.</Description>
+    <CreatedAtDate>2022-03-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P30D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
-    <Complexity>Novice</Complexity>
+    <Complexity>AdvancedBeginner</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-08-21T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
     <EngineerId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>278</Id>
-    <Alias>milestone15</Alias>
-    <Description>M15</Description>
-    <CreatedAtDate>2024-01-30T23:23:05.5253323+02:00</CreatedAtDate>
-    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <Id>20</Id>
+    <Alias>QualityChecks</Alias>
+    <Description>Carrying out thorough quality checks at every stage of construction.</Description>
+    <CreatedAtDate>2022-12-20T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P20D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Novice</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
-    <DeadlineDate>2029-12-22T00:00:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
+    <EngineerId>218563478</EngineerId>
   </Task>
 </ArrayOfTask>

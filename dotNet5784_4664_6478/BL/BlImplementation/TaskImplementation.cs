@@ -1,8 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
-using DO;
-using System.Xml.Linq;
 
 internal class TaskImplementation : ITask
 {
@@ -48,18 +46,15 @@ internal class TaskImplementation : ITask
     }
     private BO.MilestoneInTask FindMilestone(int id)
     {
-        IEnumerable<BO.MilestoneInTask> milstone = from DO.Task task in _dal.Task.ReadAll()
-                                                   where task.IsMilestone == true
-                                                   where FindDependencies(task.Id)
-                                                   .FirstOrDefault(dep => dep.Id == id) != null
-                                                   let t = _dal.Task.Read(task.Id)
-                                                   select new BO.MilestoneInTask()
-                                                   {
-                                                       Id = t.Id,
-                                                       Alias = t.Alias
-                                                   };
-        //BO.Milestone mil=new BO.Milestone() { Id= milstone.Id,Alias=milstone }
-        return (BO.MilestoneInTask)milstone;
+        int idMil = (from DO.Task task in _dal.Task.ReadAll()
+                   where task.IsMilestone == true
+                   where FindDependencies(task.Id)
+                   .FirstOrDefault(dep => dep.Id == id) != null
+                   select task.Id).FirstOrDefault();
+
+        DO.Task tk = _dal.Task.Read(idMil)!;
+        BO.MilestoneInTask? milestone = tk != null?new BO.MilestoneInTask() { Id = tk.Id, Alias = tk.Alias }:null;
+        return milestone!;
     }
 
     public void Create(BO.Task boTask)
@@ -78,11 +73,10 @@ internal class TaskImplementation : ITask
         try
         {
             _dal.Engineer.Read(boTask.Engineer.Id);
-
         }
         catch (Exception ex)
         {
-            throw new BlDoesNotExistException("Can not create the task, engineer is not exist");
+            throw new BlDoesNotExistException("Can not create the task, engineer is not exist",ex);
         }
         if (boTask.Dependencies != null)
         {
@@ -109,7 +103,6 @@ internal class TaskImplementation : ITask
             {
                 _dal.Dependency.Create(dep);
             }
-            //listDep.Select(dep => _dal.Dependency.Create(dep));
         }
     }
 
@@ -160,9 +153,9 @@ internal class TaskImplementation : ITask
             ComplexityLevel = (BO.EngineerExperience)doTask.Complexity
         };
     }
-    private string String (int id)
+    private string String(int id)
     {
-       string name = _dal.Engineer.Read(id).Name;
+        string name = _dal.Engineer.Read(id)!.Name;
         return name;
     }
     public IEnumerable<BO.Task> ReadAll(Func<DO.Task?, bool>? filter = null)//תאריכים לא מסונכרנים,MILSTONE,האם צריך ? בכותרת
@@ -205,13 +198,13 @@ internal class TaskImplementation : ITask
                boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
         try
         {
-            _dal.Task.Update(doTask);  
+            _dal.Task.Update(doTask);
 
             foreach (DO.Dependency? dep in _dal.Dependency.ReadAll(dep => dep!.DependentTask == boTask.Id))
                 _dal.Dependency.Delete(dep!.Id);
 
             boTask.Dependencies!.Select(task => _dal.Dependency.Create
-            (new DO.Dependency { DependentTask = boTask.Id ,DependsOnTask = task.Id}));
+            (new DO.Dependency { DependentTask = boTask.Id, DependsOnTask = task.Id }));
         }
         catch (DO.DalDoesNotExistException ex)
         {

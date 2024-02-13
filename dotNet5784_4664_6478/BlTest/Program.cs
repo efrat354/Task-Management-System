@@ -1,18 +1,13 @@
 ﻿using BO;
 using DalApi;
-
+/// <summary>
+/// 
+/// </summary>
 internal class Program
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-    /// <summary>
-    /// Function that resposible to activate the engineer's functions such as read and so on.
-    /// </summary>
-    /// <exception cref="BlNullPropertyException"></exception>
-    /// <exception cref="BlInvalidInput"></exception>
     private static void engineer()
     {
-        //Declaration of variables
         int choice = 0;
         int _id, _level;
         string _name, _email;
@@ -25,35 +20,46 @@ internal class Program
             " 4 to update engineer's details and " +
             "5 to delete or 0 to exit");
 
-        choice = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a choice"));
-
-        //Engineer submenu
-        while (choice != 0)
+        while (true)
         {
+            if (!int.TryParse(Console.ReadLine(), out choice))
+            {
+                throw new BlNullPropertyException("Invalid input. Please enter a valid choice.");
+            }
+
+            if (choice == 0)
+                break;
+
             try
             {
                 switch (choice)
                 {
-                    case 0://exit
-                        break;
-
-                    case 1://create
+                    case 1:
                         Console.WriteLine("Enter engineer's details:");
 
                         Console.WriteLine("Enter engineer's ID:");
-                        _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                        if (!int.TryParse(Console.ReadLine(), out _id))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid ID.");
+                        }
 
                         Console.WriteLine("Enter engineer's name:");
-                        _name = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a name"));
+                        _name = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid name.");
 
                         Console.WriteLine("Enter engineer's email:");
-                        _email = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an email"));
+                        _email = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid email.");
 
                         Console.WriteLine("Enter engineer's level { 0-Novice, 1-AdvancedBeginner, 2-Competent, 3-Proficient, 4-Expert }:");
-                        _level = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a level"));
+                        if (!int.TryParse(Console.ReadLine(), out _level))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid level.");
+                        }
 
                         Console.WriteLine("Enter engineer's cost:");
-                        _cost = double.Parse(Console.ReadLine()!);
+                        if (!double.TryParse(Console.ReadLine(), out _cost))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid cost.");
+                        }
 
                         engineer = new BO.Engineer()
                         {
@@ -67,14 +73,17 @@ internal class Program
                         Console.WriteLine("Created successfully");
                         break;
 
-                    case 2://read
+                    case 2:
                         Console.WriteLine("Enter an Id");
-                        _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                        if (!int.TryParse(Console.ReadLine(), out _id))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid ID.");
+                        }
                         engineer = s_bl.Engineer?.Read(_id);
                         Console.WriteLine(engineer);
                         break;
 
-                    case 3://read all
+                    case 3:
                         var engineersList = s_bl.Engineer?.ReadAll();
                         Console.WriteLine("Engineers details");
                         foreach (BO.Engineer? eng in engineersList!)
@@ -83,23 +92,32 @@ internal class Program
                         }
                         break;
 
-                    case 4://update
+                    case 4:
                         Console.WriteLine("Enter engineer's details:");
 
                         Console.WriteLine("Enter engineer's ID:");
-                        _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                        if (!int.TryParse(Console.ReadLine(), out _id))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid ID.");
+                        }
 
                         Console.WriteLine("Enter engineer's name:");
-                        _name = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a name"));
+                        _name = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid name.");
 
                         Console.WriteLine("Enter engineer's email:");
-                        _email = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an email"));
+                        _email = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid email.");
 
                         Console.WriteLine("Enter engineer's level { 0-Novice, 1-AdvancedBeginner, 2-Competent, 3-Proficient, 4-Expert }:");
-                        _level = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a level"));
+                        if (!int.TryParse(Console.ReadLine(), out _level))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid level.");
+                        }
 
                         Console.WriteLine("Enter engineer's cost:");
-                        _cost = double.Parse(Console.ReadLine()!);
+                        if (!double.TryParse(Console.ReadLine(), out _cost))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid cost.");
+                        }
 
                         engineer = new BO.Engineer()
                         {
@@ -110,12 +128,15 @@ internal class Program
                             Cost = _cost
                         };
                         s_bl.Engineer?.Update(engineer);
-                        Console.WriteLine("successfully updated");
+                        Console.WriteLine("Successfully updated");
                         break;
 
-                    case 5://delete
+                    case 5:
                         Console.WriteLine("Enter an Id");
-                        _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                        if (!int.TryParse(Console.ReadLine(), out _id))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid ID.");
+                        }
                         s_bl.Engineer?.Delete(_id);
                         Console.WriteLine("Deleted successfully");
                         break;
@@ -133,23 +154,14 @@ internal class Program
                                 ", 3 to display all the engineers in the company," +
                                 " 4 to update engineer's details and " +
                                 "5 to delete or 0 to exit");
-            choice = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a choice"));
         }
     }
 
-    /// <summary>
-    /// Function that resposible to activate the task's functions such as read and so on.
-    /// </summary>
-    /// <exception cref="BlNullPropertyException"></exception>
-    /// <exception cref="BlInvalidInput"></exception>
     private static void task()
     {
-        //public List<TaskInList>? Dependencies { get; set; }
-
-        //Declaration of variables
         int choice = 0, _engineerId, _complexityLevel, _id, _status, depOnId = -1, _taskId;
         string _description, _alias, _product, _remarks;
-        DateTime _createdAtDate, _scheduledStartDate, _completeDate, _deadlineDate, _startDate;
+        DateTime _scheduledStartDate, _completeDate, _deadlineDate, _startDate;
         TimeSpan _requiredEffortTime;
         BO.Task? task;
         List<TaskInList>? Dependencies;
@@ -165,39 +177,46 @@ internal class Program
         {
             try
             {
-                //Task submenu
                 switch (choice)
                 {
-                    case 0://exit
-                        break;
-
-                    case 1://create
-
+                    case 1:
                         Console.WriteLine("Enter task's details:");
 
                         Console.WriteLine("Enter task's description:");
-                        _description = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a description"));
+                        _description = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid description.");
 
                         Console.WriteLine("Enter task's alias:");
-                        _alias = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an alias"));
+                        _alias = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid alias.");
 
                         Console.WriteLine("Enter task's scheduled start date:");
-                        _scheduledStartDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter create date"));
+                        if (!DateTime.TryParse(Console.ReadLine(), out _scheduledStartDate))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid scheduled start date.");
+                        }
 
                         Console.WriteLine("Enter the amount of time required to perform the task");
-                        _requiredEffortTime = new TimeSpan(int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter required effort time")));
+                        if (!TimeSpan.TryParse(Console.ReadLine(), out _requiredEffortTime))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid required effort time.");
+                        }
 
                         Console.WriteLine("Enter task's product:");
-                        _product = Console.ReadLine()!;
+                        _product = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid product.");
 
                         Console.WriteLine("Enter task's remarks:");
-                        _remarks = Console.ReadLine()!;
+                        _remarks = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter valid remarks.");
 
                         Console.WriteLine("Enter engineer id:");
-                        _engineerId = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an engineer id"));
+                        if (!int.TryParse(Console.ReadLine(), out _engineerId))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid engineer id.");
+                        }
 
                         Console.WriteLine("Enter task's complexity level:");
-                        _complexityLevel = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a complexity level"));
+                        if (!int.TryParse(Console.ReadLine(), out _complexityLevel))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid complexity level.");
+                        }
 
                         Console.WriteLine("Enter task's dependencies ids ,to finish enter 0:");
                         Dependencies = null;
@@ -246,14 +265,17 @@ internal class Program
                         Console.WriteLine("Created successfully");
                         break;
 
-                    case 2://read
+                    case 2:
                         Console.WriteLine("Enter an Id");
-                        _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                        if (!int.TryParse(Console.ReadLine(), out _id))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid ID.");
+                        }
                         task = s_bl.Task?.Read(_id);
                         Console.WriteLine(task);
                         break;
 
-                    case 3://read all
+                    case 3:
                         var taskList = s_bl.Task?.ReadAll();
                         Console.WriteLine("Tasks' details:");
                         foreach (var tk in taskList!)
@@ -262,51 +284,74 @@ internal class Program
                         }
                         break;
 
-                    case 4://update
+                    case 4:
                         Console.WriteLine("Enter task's details:");
 
                         Console.WriteLine("Enter task's id:");
-                        _taskId = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a description"));
+                        if (!int.TryParse(Console.ReadLine(), out _taskId))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid ID.");
+                        }
 
                         Console.WriteLine("Enter task's description:");
-                        _description = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a description"));
+                        _description = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid description.");
 
                         Console.WriteLine("Enter task's alias:");
-                        _alias = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an alias"));
-
-                        //יכול לעדכן תאריך יצירה?
-                        //Console.WriteLine("Enter task's create date:");
-                        //_createdAtDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter scheduled start date"));
+                        _alias = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid alias.");
 
                         Console.WriteLine("Enter task's scheduled start date:");
-                        _scheduledStartDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter create date"));
+                        if (!DateTime.TryParse(Console.ReadLine(), out _scheduledStartDate))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid scheduled start date.");
+                        }
 
                         Console.WriteLine("Enter the amount of time required to perform the task");
-                        _requiredEffortTime = new TimeSpan(int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter required effort time")));
+                        if (!TimeSpan.TryParse(Console.ReadLine(), out _requiredEffortTime))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid required effort time.");
+                        }
 
                         Console.WriteLine("Enter task's start date:");
-                        _startDate = Convert.ToDateTime(Console.ReadLine());
+                        if (!DateTime.TryParse(Console.ReadLine(), out _startDate))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid start date.");
+                        }
 
                         Console.WriteLine("Enter task's deadline date:");
-                        _deadlineDate = Convert.ToDateTime(Console.ReadLine());
+                        if (!DateTime.TryParse(Console.ReadLine(), out _deadlineDate))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid deadline date.");
+                        }
 
                         Console.WriteLine("Enter task's complete date:");
-                        _completeDate = Convert.ToDateTime(Console.ReadLine());
+                        if (!DateTime.TryParse(Console.ReadLine(), out _completeDate))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid complete date.");
+                        }
 
                         Console.WriteLine("Enter task's execution level: 0-Unscheduled, 1-Scheduled, 2-OnTrack, 3-InJeopardy, 4-Done");
-                        _status = int.Parse(Console.ReadLine()!);
+                        if (!int.TryParse(Console.ReadLine(), out _status))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid execution level.");
+                        }
 
                         Console.WriteLine("Enter task's product:");
-                        _product = Console.ReadLine()!;
+                        _product = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter a valid product.");
 
                         Console.WriteLine("Enter task's remarks:");
-                        _remarks = Console.ReadLine()!;
+                        _remarks = Console.ReadLine() ?? throw new BlNullPropertyException("Invalid input. Please enter valid remarks.");
 
                         Console.WriteLine("Enter engineer id:");
-                        _engineerId = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an engineer id"));
+                        if (!int.TryParse(Console.ReadLine(), out _engineerId))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid engineer id.");
+                        }
 
                         Console.WriteLine("Enter task's complexity level:");
-                        _complexityLevel = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a complexity level"));
+                        if (!int.TryParse(Console.ReadLine(), out _complexityLevel))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid complexity level.");
+                        }
 
                         Console.WriteLine("Enter task's dependencies ids ,to finish enter 0:");
                         Dependencies = null;
@@ -328,7 +373,7 @@ internal class Program
                             Id = _taskId,
                             Alias = _alias,
                             Description = _description,
-                            CreatedAtDate = DateTime.Now,//לשנות לתאריך האמיתי שלו
+                            CreatedAtDate = DateTime.Now,
                             Status = (Status)_status,
                             Dependencies = Dependencies,
                             Milestone = null,
@@ -351,9 +396,12 @@ internal class Program
                         Console.WriteLine("successfully updated");
                         break;
 
-                    case 5://delete
+                    case 5:
                         Console.WriteLine("Enter task's id");
-                        _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                        if (!int.TryParse(Console.ReadLine(), out _id))
+                        {
+                            throw new BlNullPropertyException("Invalid input. Please enter a valid ID.");
+                        }
                         s_bl.Task?.Delete(_id);
                         Console.WriteLine("Deleted successfully");
                         break;
@@ -371,18 +419,18 @@ internal class Program
                                 " 3 to display all the tasks ," +
                                 " 4 to update task's details , " +
                                 "5 to delete or 0 to exit");
-            choice = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a choice"));
+            if (!int.TryParse(Console.ReadLine(), out choice))
+            {
+                throw new BlNullPropertyException("Invalid input. Please enter a valid choice.");
+            }
         }
     }
 
-    /// <summary>
-    /// Function that resposible to activate the milstone's functions in order to create the project's schedule.
-    /// </summary>
-    private static void milstone()
+    private static void milestone()
     {
         s_bl.Milestone.CreateSchedule();
+        Console.WriteLine("The schedule created successfully");
     }
-
 
     static void Main(string[] args)
     {
@@ -403,18 +451,20 @@ internal class Program
                 "3 to create schedule " +
                 "or 0 to exit");
 
-            choice = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a choice"));
+            if (!int.TryParse(Console.ReadLine(), out choice))
+            {
+                throw new BlNullPropertyException("Invalid input. Please enter a valid choice.");
+            }
 
-            //The main menu
             while (choice != 0)
             {
                 switch (choice)
                 {
-                    case 1://engineer
+                    case 1:
                         engineer();
                         break;
 
-                    case 2://task
+                    case 2:
                         try
                         {
                             task();
@@ -425,10 +475,10 @@ internal class Program
                         }
                         break;
 
-                    case 3://milstone
+                    case 3:
                         try
                         {
-                            milstone();
+                            milestone();
                         }
                         catch (Exception e)
                         {
@@ -444,7 +494,10 @@ internal class Program
                     "3 to create schedule " +
                     "or 0 to exit");
 
-                choice = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a choice"));
+                if (!int.TryParse(Console.ReadLine(), out choice))
+                {
+                    throw new BlNullPropertyException("Invalid input. Please enter a valid choice.");
+                }
             }
         }
         catch (Exception e)
@@ -453,7 +506,3 @@ internal class Program
         }
     }
 }
-
-
-
-
