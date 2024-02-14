@@ -17,11 +17,12 @@ public partial class TaskWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     int state = 0;
-    
-    
-
     public ViewModel ViewModelInstance { get; set; }
         List<BO.TaskInList>dependencies= new List<BO.TaskInList>();
+    /// <summary>
+    /// Initializes a new instance of the TaskWindow class.
+    /// </summary>
+    /// <param name="id">The ID of the task to be displayed- get only when it is update state.</param>
     public TaskWindow(int id = 0)
     {
    
@@ -48,10 +49,15 @@ public partial class TaskWindow : Window
         }
 
     }
-   
 
+    /// <summary>
+    /// Gets or sets the status of the task.
+    /// </summary>
     public BO.Status Status { get; set; } = BO.Status.None;
 
+    /// <summary>
+    /// Event handler for the click event of the "Add/Update" button.
+    /// </summary>
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
         BO.Task Task = ViewModelInstance.CurrentTask;    
@@ -59,8 +65,9 @@ public partial class TaskWindow : Window
         {
             try
             {
-
-                s_bl.Task.Create(Task);
+                BO.Task task = Task;
+                task.Dependencies = dependencies;
+                s_bl.Task.Create(task);
                 MessageBox.Show("Task successfully created");
                 this.Close();
             }
@@ -85,8 +92,9 @@ public partial class TaskWindow : Window
             }
         }
     }
-
-
+    /// <summary>
+    /// Event handler for the double-click event on a dependency in the list-choosing dependencies.
+    /// </summary>
     private void MouseDoubleClick_dependency(object sender, RoutedEventArgs e)
     {
         BO.Task? dep= (sender as ListView)?.SelectedItem as BO.Task;

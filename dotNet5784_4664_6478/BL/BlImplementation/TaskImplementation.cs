@@ -247,12 +247,8 @@ internal class TaskImplementation : ITask
         try
         {
             _dal.Task.Update(doTask);
-
             foreach (DO.Dependency? dep in _dal.Dependency.ReadAll(dep => dep!.DependentTask == boTask.Id))
-                if (dep.Id!=null)
-                {
-                    _dal.Dependency.Delete(dep!.Id);
-                }
+                _dal.Dependency.Delete(dep!.Id);
 
             if (boTask.Dependencies != null)
             {
