@@ -55,6 +55,7 @@
                 <DatePicker SelectedDate="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="61,376,0,0" VerticalAlignment="Top" Width="120" Grid.Column="4"/>
                 <DatePicker SelectedDate="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="225,345,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="120"/>
                 <ComboBox ItemsSource="{Binding Source={StaticResource StatusKey}}" SelectedValue="{Binding Status, Mode=TwoWay}" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="243,251,0,0" VerticalAlignment="Top" Width="120"/>
+                <ListView  Visibility="{Binding Dependencies, Converter={StaticResource ConvertIdToIsVisibleKey}, Mode=OneTime}" ItemsSource="{Binding Dependencies}" BorderBrush="Black" Background="Transparent" Margin="225,443,276,109" Grid.ColumnSpan="5"/>
                 <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"
                         Background="Black"
                         Opacity="0.7"
@@ -64,7 +65,7 @@
                         Cursor="Hand" 
                         Grid.Column="4"
                         HorizontalAlignment="Left"
-                        Margin="212,357,0,0" 
+                        Margin="200,561,0,0" 
                         VerticalAlignment="Top" 
                         Height="48" Width="91"
                         Click="btnAddUpdate_Click" />
@@ -79,6 +80,9 @@
                 <TextBox CaretBrush="LightGray" BorderBrush="Black" BorderThickness="0,0,0,3" Background="Transparent"  Foreground="White" FontSize="18" FontWeight="Medium" FontFamily="Montserrat"  Text="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,203,0,0" Grid.Column="4"/>
                 <Label Content="ComplexityLevel" HorizontalAlignment="Left" Margin="77,255,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="2"/>
                 <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceKey}}" SelectedValue="{Binding ComplexityLevel, Mode=TwoWay}" HorizontalAlignment="Left" Margin="69,259,0,0" VerticalAlignment="Top" Width="120" Grid.Column="4"/>
+                <Label Visibility="{Binding Dependencies, Converter={StaticResource ConvertIdToIsVisibleKey}, Mode=OneTime}" Content="my dependencies:" HorizontalAlignment="Right" Margin="0,466,99,0" VerticalAlignment="Top"/>
+                <Label Content="add new dependencies:" HorizontalAlignment="Left" Margin="92,559,0,0" VerticalAlignment="Top" Width="117"/>
+                <ListView  ItemsSource="{Binding TaskList}" BorderBrush="Black" Background="Transparent" Margin="225,536,276,16" Grid.ColumnSpan="5"/>
             </Grid>
         </Border>
     </Border>
