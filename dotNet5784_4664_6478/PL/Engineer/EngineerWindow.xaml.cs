@@ -6,7 +6,7 @@ using System.Windows;
 namespace PL.Engineer;
 
 /// <summary>
-/// Interaction logic for EngineerWindow.xaml
+/// Interaction logic for EngineerWindow.xaml 
 /// </summary>
 public partial class EngineerWindow : Window
 {
