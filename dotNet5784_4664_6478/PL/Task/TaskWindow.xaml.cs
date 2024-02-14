@@ -27,8 +27,18 @@ public partial class TaskWindow : Window
             CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() { Id = 0, Alias = "", Description = "",CreatedAtDate=DateTime.Today, Engineer = new BO.EngineerInTask() {Id=0,Name=" " } } };
         }
     }
+//    var temp = s_bl?.Task.ReadAll();
+//   TaskList = temp == null ? new () : new (temp!);
+//        }
+//public ObservableCollection<BO.Task> TaskList
+//{
+//    get { return (ObservableCollection<BO.Task>)GetValue(TaskListProperty); }
+//    set { SetValue(TaskListProperty, value); }
+//}
 
-    public ObservableCollection<BO.Task> CurrentTask
+//public static readonly DependencyProperty TaskListProperty =
+//    DependencyProperty.Register("TaskList", typeof(ObservableCollection<BO.Task>), typeof(TaskListWindow), new PropertyMetadata(null));
+public ObservableCollection<BO.Task> CurrentTask
     {
         get { return (ObservableCollection<BO.Task>)GetValue(CurrentTaskProperty); }
         set { SetValue(CurrentTaskProperty, value); }

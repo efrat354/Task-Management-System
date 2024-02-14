@@ -47,7 +47,8 @@
                 </Grid>
                 <Border></Border>
                 <ListView Grid.Row="1" ItemsSource="{Binding TaskList}"
-                   MouseDoubleClick="UpdateTask_DoubleClick">
+                   MouseDoubleClick="UpdateTask_DoubleClick"
+                          >
                     <ListView.View>
                         <GridView>
                             <GridViewColumn/>

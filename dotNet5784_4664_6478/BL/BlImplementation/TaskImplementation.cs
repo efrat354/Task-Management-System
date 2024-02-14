@@ -94,10 +94,9 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlInvalidInput(message);
         }
-        if (boTask.Engineer == null)
+        if (boTask.Engineer?.Id==0||boTask.Engineer?.Name == " ")
         {
             throw new BlDoesNotExistException("Can not create the task, engineer is not exist");
-
         }
         try
         {
@@ -105,16 +104,15 @@ internal class TaskImplementation : ITask
         }
         catch (Exception ex)
         {
-            throw new BlDoesNotExistException("Can not create the task, engineer is not exist",ex);
+            throw new BlDoesNotExistException("Can not create the task, engineer is not exist", ex);
         }
         if (boTask.Dependencies != null)
         {
             isMilestone = true;
         }
 
-        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));
         DO.Task doTask = new DO.Task
-             (0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
+             (0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
              isMilestone, (DO.EngineerExperience)boTask.ComplexityLevel,
              boTask.StartDate, boTask.ScheduledStartDate, boTask.DeadlineDate,
              boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
@@ -192,9 +190,10 @@ internal class TaskImplementation : ITask
             ComplexityLevel = (BO.EngineerExperience)doTask.Complexity
         };
     }
-    private string String(int id)
+    private string FindName(int id)
     {
-        string? name = _dal.Engineer.Read(id)?.Name;
+         DO.Engineer? eng= _dal.Engineer.Read(id);
+        string name = eng != null ? eng.Name : "";
         return name;
     }
     /// <summary>
@@ -214,7 +213,7 @@ internal class TaskImplementation : ITask
                    CreatedAtDate = doTask.CreatedAtDate,
                    Status = CreateStatus(doTask),
                    Dependencies = dependencies,
-                   Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null : null,//FindMilestone(doTask.Id),
+                   Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null : FindMilestone(doTask.Id),
                    ScheduledStartDate = doTask.ScheduledDate,
                    StartDate = doTask.StartDate,
                    DeadlineDate = doTask.DeadlineDate,
@@ -222,7 +221,7 @@ internal class TaskImplementation : ITask
                    Product = doTask.Product,
                    Remarks = doTask.Remarks,
                    Engineer = doTask.EngineerId == null ? null : new EngineerInTask()
-                   { Id = (int)doTask.EngineerId, Name = String((int)doTask.EngineerId) },
+                   { Id = (int)doTask.EngineerId, Name = FindName((int)doTask.EngineerId) },
                    ComplexityLevel = (BO.EngineerExperience)doTask.Complexity
                };
     }
@@ -239,9 +238,9 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlInvalidInput(message);
         }
-        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(boTask.DeadlineDate - boTask.StartDate));
+
         DO.Task doTask = new DO.Task
-               (boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, requiredEffortTime,
+               (boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
               boTask.Dependencies == null ? false : true, (DO.EngineerExperience)boTask.ComplexityLevel,
                boTask.StartDate, boTask.ScheduledStartDate, boTask.DeadlineDate,
                boTask.CompleteDate, boTask.Product, boTask.Remarks, boTask.Engineer?.Id);
@@ -252,8 +251,19 @@ internal class TaskImplementation : ITask
             foreach (DO.Dependency? dep in _dal.Dependency.ReadAll(dep => dep!.DependentTask == boTask.Id))
                 _dal.Dependency.Delete(dep!.Id);
 
-            boTask.Dependencies!.Select(task => _dal.Dependency.Create
-            (new DO.Dependency { DependentTask = boTask.Id, DependsOnTask = task.Id }));
+            if (boTask.Dependencies != null)
+            {
+                var listDep = from BO.TaskInList dependency in boTask.Dependencies!
+                              select new DO.Dependency
+                              {
+                                  DependentTask = boTask.Id,
+                                  DependsOnTask = dependency.Id
+                              };
+                foreach (var dep in listDep)
+                {
+                    _dal.Dependency.Create(dep);
+                }
+            }
         }
         catch (DO.DalDoesNotExistException ex)
         {
