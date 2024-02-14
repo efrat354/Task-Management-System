@@ -63,7 +63,7 @@ namespace PL.Task
         {
             var temp = s_bl?.Task.ReadAll();
             TaskList = temp == null ? new() : new(temp!);
-            Status = BO.Status.None;   //למה זה לא משנה את התצוגה של הקומבומוקס? 
+            Status = BO.Status.None;    
         }
     }
 }

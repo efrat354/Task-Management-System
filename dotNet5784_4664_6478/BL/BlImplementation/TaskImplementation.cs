@@ -100,7 +100,7 @@ internal class TaskImplementation : ITask
         }
         try
         {
-            _dal.Engineer.Read(boTask.Engineer.Id);
+           _dal.Engineer.Read(boTask.Engineer.Id);
         }
         catch (Exception ex)
         {

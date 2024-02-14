@@ -18,16 +18,7 @@ public partial class TaskWindow : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     int state = 0;
     
-    //public BO.Task CurrentTask
-    //{
-    //    get { return (BO.Task)GetValue(CurrentTaskProperty); }
-    //    set { SetValue(CurrentTaskProperty, value); }
-    //}
-
-    //public static readonly DependencyProperty CurrentTaskProperty =
-    //    DependencyProperty.Register("CurrentTask", typeof(BO.Task),
-    //        typeof(ViewModel), new PropertyMetadata(null));
-
+    
 
     public ViewModel ViewModelInstance { get; set; }
         List<BO.TaskInList>dependencies= new List<BO.TaskInList>();
@@ -53,7 +44,7 @@ public partial class TaskWindow : Window
              ViewModelInstance.CurrentTask = new BO.Task()
              { Id = 0, Alias = "", Description = "", CreatedAtDate = DateTime.Today, Engineer = new BO.EngineerInTask() { Id = 0, Name = " " } } ;
 
-            // ViewModelInstance.CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() { Id = 0, Alias = "", Description = "", CreatedAtDate = DateTime.Today, Engineer = new BO.EngineerInTask() { Id = 0, Name = " " } } };
+            
         }
 
     }
