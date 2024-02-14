@@ -45,7 +45,7 @@ public partial class TaskWindow : Window
              ViewModelInstance.CurrentTask = new BO.Task()
              { Id = 0, Alias = "", Description = "", CreatedAtDate = DateTime.Today, Engineer = new BO.EngineerInTask() { Id = 0, Name = " " } } ;
 
-            // ViewModelInstance.CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() { Id = 0, Alias = "", Description = "", CreatedAtDate = DateTime.Today, Engineer = new BO.EngineerInTask() { Id = 0, Name = " " } } };
+            
         }
 
     }
