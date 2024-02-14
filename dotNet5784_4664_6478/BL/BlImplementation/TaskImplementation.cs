@@ -180,7 +180,7 @@ internal class TaskImplementation : ITask
             CreatedAtDate = doTask.CreatedAtDate,
             Status = CreateStatus(doTask),
             Dependencies = dependencies,
-            Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null :null,// FindMilestone(doTask.Id),
+            Milestone = doTask.IsMilestone || dependencies.Count() == 0 ? null :FindMilestone(doTask.Id),
             ScheduledStartDate = doTask.ScheduledDate,
             StartDate = doTask.StartDate,
             DeadlineDate = doTask.DeadlineDate,
@@ -194,7 +194,7 @@ internal class TaskImplementation : ITask
     }
     private string String(int id)
     {
-        string name = _dal.Engineer.Read(id)!.Name;
+        string? name = _dal.Engineer.Read(id)?.Name;
         return name;
     }
     /// <summary>
