@@ -78,7 +78,7 @@ public partial class EngineerWindow : Window
         }
     }
     /// <summary>
-    /// Event handler for the Close button click-close the window
+    /// Event handler for the Close button click-close the current window
     /// </summary>
     private void close_Click(object sender, RoutedEventArgs e)
     {
