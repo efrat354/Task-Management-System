@@ -5,7 +5,7 @@ using System.Collections;
 namespace PL;
 
 /// <summary>
-/// Represents the enum of engineer experiences
+/// Represents the Enum of engineer experiences
 /// </summary>
 internal class Experience : IEnumerable
 {
