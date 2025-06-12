@@ -1,17 +1,31 @@
-# dotNet5784_4664_6478
-לבודק היקר שלום רב!</br>
-הבונוסים שלנו:</br>
-1.שימוש ב-TryParse בתוכניות בדיקה BlTest/DalTest  
-2.תמיכה באטריבוטים באלמנטים של dal-config.xml על מנת לקבל גמישות בשמות עבור מרחב שמות, מחלקת מימוש IDal, שם התכונה הסטטית של הסינגלטון, כאשר שם החבילה נשאר עבור שם האסמבלי לטעינה</br>
-3.אלגוריתם לבניית לוז אוטומטי כפי המתואר במסמך תיאור כללי,האם אפשר כמו שיש בדרישה הבסיסית:</br>
-אפשרות 1 - רק על בסיס הנתונים הקיימים </br>
-אפשרות 2 - עם מיילסטון כולל ישויות לוגיות מתאימות</br>
-4.תוספת תמיכה בתאריך יעד של הפרויקט וב-DeadLine של משימות</br>
-5.שימוש משמעותי בטרנספורמציות (transformation)</br>
-6.בנייה ושימוש במתודות הרחבה גנריות עם רפלקשן</br>
-7.פונקציה ראשית ב- BlTest-(Program)
-<br/>
-8.ולידציה (validation) </br>
-9.שימוש בטריגרים-טריגר אירועים </br>
-שים לב בבקשה שעבור כל משימה ניתן לבחור תלויות חדשות בלחיצה פעמיים על המשימה מתוך הרשימה. ניתן לעשות זאת גם שמשימה חדשה וגם בעדכון משימה.</br>
-עבדנו שעות רבות מאד! על כל נושא הmilestone נשמח מאד אם ההשקעה הרבה תבוטא בציון.
+# Task Management System
+
+A desktop application for managing tasks within a single project. Designed for project teams consisting of a project manager and multiple engineers, the system enables efficient task organization, assignment, and progress tracking.
+
+## Features
+
+- **Task Management**  
+  - Create, update, delete, and assign tasks.
+  - Organize tasks by execution order.
+  - Define project milestones.
+  - Track task dependencies.
+
+- **User Roles**
+  - **Project Manager**: Manages the project, assigns tasks, and monitors progress.
+  - **Engineer**: Updates personal details, views assigned tasks, and reports task status.
+
+- **Architecture**
+  - Layered architecture with clear separation of concerns.
+  - Data access layer (DAL) with full CRUD operations.
+  - Business logic layer using core OOP principles.
+  - Generic interfaces for reusable and scalable code.
+
+- **Technologies Used**
+  - **C#**
+  - **LINQ** for data queries and manipulation.
+  - **XML** file storage and data persistence.
+  - **WPF & XAML** for building the user interface.
+  - **Design Patterns**: Singleton and Simple Factory.
+
+- **Data Binding**
+  - Dynamic UI updates through XAML data binding.
